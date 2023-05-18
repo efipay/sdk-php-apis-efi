@@ -2,79 +2,71 @@
 
 namespace Efi;
 
+use Exception;
+
 class Config
 {
     /**
-     * @var string Arquivo de configuração dos endpoints
+     * @var string Configuration file path for endpoints
      */
-    private static $endpointsConfigfile = __DIR__ . '/config.json';
+    private static $endpointsConfigFile = __DIR__ . '/config.json';
 
     /**
-     * Altera arquivo de configuração
-     * @param string $file Caminho do arquivo
+     * Set the endpoints configuration file.
+     *
+     * @param string $file The file path.
      */
-    public static function setEndpointsConfigFile($file)
+    public static function setEndpointsConfigFile(string $file): void
     {
-        self::$endpointsConfigfile = $file;
+        self::$endpointsConfigFile = $file;
     }
 
     /**
-     * Carrega as configurações do arquivo de endpoints
-     * @param string $property Chave do parâmetro
-     * @return mixed
+     * Load the endpoint configurations from the file.
+     *
+     * @param string $property The parameter key.
+     * @return mixed The value of the property.
+     * @throws \Exception If there is an error loading the endpoint file.
      */
-    public static function get($property)
+    public static function get(string $property)
     {
-        $file = file_get_contents(self::$endpointsConfigfile);
+        $file = file_get_contents(self::$endpointsConfigFile);
         $config = json_decode($file, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \Exception('Error loading endpoint file');
+            throw new Exception('Error loading endpoint file');
         }
 
-        if (isset($config[$property])) {
-            return $config[$property];
-        } else {
-            return $config['APIs'][$property];
-        }
-
-        return;
+        return $config[$property] ?? $config['APIs'][$property];
     }
 
-    public static function options($options)
+    /**
+     * Generate the configuration options.
+     *
+     * @param array $options The options array.
+     * @return array The generated configuration.
+     */
+    public static function options(array $options): array
     {
-        $conf = [];
-        $conf['sandbox'] = isset($options['sandbox']) ? $options['sandbox'] : false;
-        $conf['debug'] = isset($options['debug']) ? $options['debug'] : false;
-
-        if (isset($options['client_id'])) {
-            $conf['clientId'] = $options['client_id'];
-        }
-
-        if (isset($options['client_secret'])) {
-            $conf['clientSecret'] = $options['client_secret'];
-        }
-
-        if (isset($options['timeout'])) {
-            $conf['timeout'] = $options['timeout'];
-        }
-
-        if (isset($options['headers'])) {
-            $conf['headers'] = $options['headers'];
-        }
-
-        if (isset($options['url'])) {
-            $conf['baseUri'] = $options['url'];
-        }
-
-        if ($options['api'] !== 'CHARGES') {
-            $conf['certificate'] = (isset($options['certificate']) ? $options['certificate'] : $options['pix_cert']);
-        }
+        $conf = [
+            'sandbox' => $options['sandbox'] ?? false,
+            'debug' => $options['debug'] ?? false,
+        ];
 
         if ($conf['debug']) {
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
+            ini_set('display_errors', '1');
+            ini_set('display_startup_errors', '1');
             error_reporting(E_ALL);
+        }
+
+        $conf['clientId'] = $options['client_id'] ?? null;
+        $conf['clientSecret'] = $options['client_secret'] ?? null;
+        $conf['timeout'] = $options['timeout'] ?? null;
+        $conf['headers'] = $options['headers'] ?? null;
+        $conf['baseUri'] = $options['url'] ?? null;
+
+        if ($options['api'] !== 'CHARGES') {
+            $conf['certificate'] = $options['certificate'] ?? $options['pix_cert'];
         }
 
         return $conf;

@@ -1,17 +1,19 @@
 <?php
 
-if (file_exists($autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php"))) {
-	require_once $autoload;
-} else {
-	print_r("Autoload not found or on path <code>$autoload</code>");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
+if (!file_exists($autoload)) {
+    die("Autoload file not found or on path <code>$autoload</code>.");
 }
+require_once $autoload;
 
 use Efi\Exception\EfiPayException;
 use Efi\EfiPay;
 
-if (file_exists($options = realpath(__DIR__ . "/../../../credentials/options.php"))) {
-	require_once $options;
+$options = __DIR__ . "/../../../credentials/options.php";
+if (!file_exists($options)) {
+	die("Options file not found or on path <code>$options</code>.");
 }
+require $options;
 
 $body = [
 	"descricao" => "Payment split - Plan 1",
@@ -29,16 +31,16 @@ $body = [
 				"tipo" => "porcentagem",
 				"valor" => "12.00",
 				"favorecido" => [
-					"cpf" => "10567056635",
-					"conta" => "2289441"
+					"cpf" => "11111111111",
+					"conta" => "1234567"
 				]
 			],
 			[
 				"tipo" => "porcentagem",
 				"valor" => "8.00",
 				"favorecido" => [
-					"cpf" => "02273576633",
-					"conta" => "2843552"
+					"cpf" => "22222222222",
+					"conta" => "7654321"
 				]
 			]
 		]
@@ -51,9 +53,9 @@ try {
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
 } catch (EfiPayException $e) {
-	print_r($e->code);
-	print_r($e->error);
-	print_r($e->errorDescription);
+	print_r($e->code . "<br>");
+	print_r($e->error . "<br>");
+	print_r($e->errorDescription) . "<br>";
 } catch (Exception $e) {
 	print_r($e->getMessage());
 }

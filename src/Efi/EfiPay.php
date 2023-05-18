@@ -74,7 +74,7 @@
  * @method array pixCreateEvp()
  * @method array pixListEvp()
  * @method array pixDeleteEvp(array $params)
- * @method array getAccountBalance()
+ * @method array getAccountBalance(array $params)
  * @method array updateAccountConfig(array $params = [], array $body)
  * @method array listAccountConfig()
  * @method array pixCreateDueCharge(array $params, array $body)
@@ -121,7 +121,14 @@ namespace Efi;
 
 class EfiPay extends Endpoints
 {
-    public function __construct($options, $requester = null, $endpointsConfigFile = null)
+    /**
+     * Constructor of the EfiPay.
+     *
+     * @param array $options               Array with configuration options and credentials.
+     * @param object|null $requester       Object with request settings.
+     * @param string|null $endpointsConfigFile   Endpoint list file name.
+     */
+    public function __construct($options, ?object $requester = null, ?string $endpointsConfigFile = null)
     {
         if ($endpointsConfigFile) {
             Config::setEndpointsConfigFile($endpointsConfigFile);

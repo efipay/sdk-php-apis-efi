@@ -3,7 +3,7 @@
 namespace Efi\Exception;
 
 use Exception;
-
+use GuzzleHttp\Psr7\Stream;
 
 class EfiPayException extends Exception
 {
@@ -14,41 +14,47 @@ class EfiPayException extends Exception
     {
         $error = $exception;
 
-        if ($exception instanceof \GuzzleHttp\Psr7\Stream) {
+        if ($exception instanceof Stream) {
             $error = $this->parseStream($exception);
         }
 
-        $this->apiReturns($error, $code);   
+        $this->apiReturns($error, $code);
     }
 
-    private function apiReturns($error, $code){
+    private function apiReturns($error, $code)
+    {
         if (isset($error['message'])) {
-            $message = $error['message'];
-
+            $this->message = $error['message'];
             $this->code = $code;
             $this->errorDescription = $error['message'];
-        } else if (isset($error['error'])) { // error API Cobranças
+        } elseif (isset($error['error'])) {  // error API Cobranças
             $message = isset($error['error_description']['message']) ? $error['error_description']['message'] : $error['error_description'];
 
             $this->code = $error['code'];
             $this->error = $error['error'];
             $this->errorDescription = $error['error_description'];
-        } else if (isset($error['type'])) { // error API cobv e reports
+        } elseif (isset($error['type'])) { // error API cobv e reports
             $this->code = $error['status'];
-            $this->error = $error['title'] . ". " . $error['detail'];
-            $this->errorDescription = $error['violacoes'];
+            $this->error = $error['title'];
+            $this->errorDescription = $error['violacoes'] ?? $error['detail'];
         } else { // error API Pix
-            $message = (isset($error['erros']['mensagem']) ?  $error['mensagem'] . ": " . $error['caminho'] . " " . $error['erros']['mensagem'] : $error['mensagem'] . ": " . $error['mensagem']);
+            $message = isset($error['erros']['mensagem']) ?  $error['mensagem'] . ": " . $error['caminho'] . " " . $error['erros']['mensagem'] : $error['mensagem'] . ": " . $error['mensagem'];
 
             $this->code = $code;
-            $this->error = (isset($error['erros']) ?  $error['mensagem'] : $error['nome']);
-            $this->errorDescription = (isset($error['erros']) ?  $error['erros'] : $error['mensagem']);
+            $this->error = isset($error['erros']) ?  $error['mensagem'] : $error['nome'];
+            $this->errorDescription = isset($error['erros']) ?  $error['erros'] : $error['mensagem'];
         }
 
         parent::__construct($message, $this->code);
     }
 
-    private function parseStream($stream)
+    /**
+     * Parses the error stream and returns the error as an array.
+     *
+     * @param Stream $stream The error stream.
+     * @return array The parsed error array.
+     */
+    private function parseStream(Stream $stream)
     {
         $error = '';
         while (!$stream->eof()) {
@@ -58,15 +64,28 @@ class EfiPayException extends Exception
         return json_decode($error, true);
     }
 
+    /**
+     * Returns a string representation of the exception.
+     *
+     * @return string The string representation of the exception.
+     */
     public function __toString()
     {
         return 'Error ' . $this->code . ': ' . $this->message . "\n";
     }
 
+    /**
+     * Magic getter method to access the properties of the exception.
+     *
+     * @param string $property The property name.
+     * @return mixed|null The value of the property or null if it doesn't exist.
+     */
     public function __get($property)
     {
         if (property_exists($this, $property)) {
             return $this->$property;
         }
+
+        return null;
     }
 }

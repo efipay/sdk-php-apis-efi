@@ -1,15 +1,17 @@
 {
 	"name": "efipay/sdk-php-apis-efi",
 	"description": "SDK PHP para APIs Efi Pay",
-	"homepage": "https://github.com/efipay/sdk-php-apis-efi",
-	"version": "1.0.1",
+	"homepage": "https://github.com/efipay/sdk-php-apis-efi/",
+	"version": "1.1.0",
+	"type": "library",
 	"require": {
+		"php": "^8.1",
 		"guzzlehttp/guzzle": "^7.0",
-		"php": "^7.2 || ^8.0"
+		"symfony/cache": "^5.0"
 	},
 	"support": {
-		"docs": "https://sejaefi.com.br/api",
-		"discord": "https://efipay.github.io/comunidade-discord-efi/"
+		"docs": "https://sejaefi.com.br/api/",
+		"discord": "https://comunidade.sejaefi.com.br/"
 	},
 	"license": "MIT",
 	"authors": [
@@ -36,5 +38,10 @@
 		"psr-4": {
 			"Efi\\": "src/Efi"
 		}
+	},
+	"config": {
+		"sort-packages": true,
+		"optimize-autoloader": true,
+		"minimum-stability": "stable"
 	}
 }

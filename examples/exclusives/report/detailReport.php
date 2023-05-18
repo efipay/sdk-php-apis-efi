@@ -1,20 +1,22 @@
 <?php
 
-if (file_exists($autoload = realpath(__DIR__ . "/../../../vendor/autoload.php"))) {
-	require_once $autoload;
-} else {
-	print_r("Autoload not found or on path <code>$autoload</code>");
+$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+if (!file_exists($autoload)) {
+    die("Autoload file not found or on path <code>$autoload</code>.");
 }
+require_once $autoload;
 
 use Efi\Exception\EfiPayException;
 use Efi\EfiPay;
 
-if (file_exists($options = realpath(__DIR__ . "/../../credentials/options.php"))) {
-	require_once $options;
+$options = __DIR__ . "/../../credentials/options.php";
+if (!file_exists($options)) {
+	die("Options file not found or on path <code>$options</code>.");
 }
+require $options;
 
 $params = [
-	"id" => "00000000-0000-0000-0000-000000000000"
+	"id" => "e1e9721e-c386-4e9e-9391-e50fbd0d1117"
 ];
 
 try {
@@ -32,9 +34,9 @@ try {
 		header('Content-Disposition: attachment; filename=report_' . $params['id'] . '.csv');
 	}
 } catch (EfiPayException $e) {
-	print_r($e->code);
-	print_r($e->error);
-	print_r($e->errorDescription);
+	print_r($e->code . "<br>");
+	print_r($e->error . "<br>");
+	print_r($e->errorDescription . "<br>");
 } catch (Exception $e) {
 	print_r($e->getMessage());
 }
