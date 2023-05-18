@@ -18,27 +18,31 @@ SDK in PHP for integration with Efí APIs for emission Pix, bank slips, carnet, 
 For more informations about [parameters](http://dev.sejaefi.com.br) and [values](http://sejaefi.com.br/tarifas) see our website.
 
 Jump To:
-* [Requirements](#requirements)
-* [Teted with](#tested-with)
-* [Installation](#installation)
-* [Getting started](#getting-started)
-  * [How to get Client_Id and Client_Secret credentials](#how-to-get-client-id-and-client-secret-credentials)
-  * [How to generate Pix certificate](#how-to-generate-a-pix-certificate)
-  * [How to register Pix keys](#how-to-register-pix-keys)
-* [Running examples](#running-examples)
-* [Version Guidance](#version-guidance)
-* [Additional Documentation](#additional-documentation)
-* [License](#license)
+- [**Requirements**](#requirements)
+- [**Tested with**](#tested-with)
+- [**Installation**](#installation)
+- [**Getting started**](#getting-started)
+	- [**For homologation environment**](#for-homologation-environment)
+	- [**For production environment**](#for-production-environment)
+- [**How to get Client-Id and Client-Secret credentials**](#how-to-get-client-id-and-client-secret-credentials)
+- [**How to generate a Pix certificate**](#how-to-generate-a-pix-certificate)
+- [**How to register Pix keys**](#how-to-register-pix-keys)
+	- [**Register Pix key via web digital account:**](#register-pix-key-via-web-digital-account)
+	- [**Register Pix key via API:**](#register-pix-key-via-api)
+- [**Running examples**](#running-examples)
+- [**Version Guidance**](#version-guidance)
+- [**Additional Documentation**](#additional-documentation)
+- [**License**](#license)
 
 ---
 
 ## **Requirements**
-* PHP >= 7.2
+* PHP >= 8.1
 * Guzzle >= 7.0
 
 ## **Tested with**
 ```
-PHP 7.2, 7.3, 7.4, 8.0 and 8.1
+PHP 8.0 and 8.1
 ```
 
 ## **Installation**

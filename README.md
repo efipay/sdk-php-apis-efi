@@ -18,27 +18,32 @@ SDK em PHP para integração com as APIs Efí para emissão de Pix, boletos, car
 Para mais informações sobre [parâmetros](http://sejaefi.com.br/api) e [valores/tarifas](http://sejaefi.com.br/tarifas) consulte nosso site.
 
 Ir para:
-* [Requisitos](#requisitos)
-* [Testado com](#testado-com)
-* [Instalação](#instalação)
-* [Começando](#começando)
-  * [Como obter as credenciais Client_Id e Client_Secret](#como-obter-as-credenciais-client-id-e-client-secret)
-  * [Como gerar certificado Pix](#como-gerar-um-certificado-pix)
-  * [Como cadastrar chave Pix](#como-cadastrar-as-chaves-pix)
-* [Executar exemplos](#executar-exemplos)
-* [Guia de versão](#guia-de-versão)
-* [Documentação Adicional](#documentação-adicional)
-* [Licença](#licença)
+- [**Requisitos**](#requisitos)
+- [**Testado com**](#testado-com)
+- [**Instalação**](#instalação)
+- [**Começando**](#começando)
+	- [**Para ambiente de homologação**](#para-ambiente-de-homologação)
+	- [**Para ambiente de produção**](#para-ambiente-de-produção)
+- [**Como obter as credenciais Client-Id e Client-Secret**](#como-obter-as-credenciais-client-id-e-client-secret)
+	- [**Crie uma nova aplicação para usar as APIs Efí Pay:**](#crie-uma-nova-aplicação-para-usar-as-apis-efí-pay)
+- [**Como gerar um certificado Pix**](#como-gerar-um-certificado-pix)
+- [**Como cadastrar as chaves Pix**](#como-cadastrar-as-chaves-pix)
+	- [**Cadastrar chave Pix pela conta digital web:**](#cadastrar-chave-pix-pela-conta-digital-web)
+	- [**Cadastrar chave Pix através da API:**](#cadastrar-chave-pix-através-da-api)
+- [**Executar exemplos**](#executar-exemplos)
+- [**Guia de versão**](#guia-de-versão)
+- [**Documentação Adicional**](#documentação-adicional)
+- [**Licença**](#licença)
 
 ---
 
 ## **Requisitos**
-* PHP >= 7.2
+* PHP >= 8.1
 * Guzzle >= 7.0
 
 ## **Testado com**
 ```
-PHP 7.2, 7.3, 7.4, 8.0 e 8.1
+PHP 8.1 e 8.2
 ```
 
 ## **Instalação**
