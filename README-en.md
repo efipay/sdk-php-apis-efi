@@ -170,11 +170,7 @@ You can run it using any web server like apache or nginx and open any example in
 
 | Version | Status | Packagist | Repo | Version PHP |
 | --- | --- | --- | --- | --- |
-| 1.x | Discontinued | [/efipay/sdk-php-apis-efi#1.0.17](https://packagist.org/packages/efipay/sdk-php-apis-efi#1.0.17) | [v1](https://github.com/efipay/sdk-php-apis-efi/tree/1.x) | \>= 5.4 |
-| 2.x | Discontinued | [/efipay/sdk-php-apis-efi#2.4.1](https://packagist.org/packages/efipay/sdk-php-apis-efi#2.4.1) | [v2](https://github.com/efipay/sdk-php-apis-efi/tree/2.x) | \>= 5.5 |
-| 3.x | Discontinued | [/efipay/sdk-php-apis-efi#3.2.0](https://packagist.org/packages/efipay/sdk-php-apis-efi#3.2.0) | [v3](https://github.com/efipay/sdk-php-apis-efi/tree/3.x) | \>= 5.6 |
-| 4.x | Maintained | [/efipay/sdk-php-apis-efi#4.1.1](https://packagist.org/packages/efipay/sdk-php-apis-efi#4.1.1) | [v4](https://github.com/efipay/sdk-php-apis-efi/tree/4.x) | \>= 7.2 |
-| 5.x | Maintained | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v5](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2 |
+| 1.x | Maintained | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 8.1 |
 
 ## **Additional Documentation**
 

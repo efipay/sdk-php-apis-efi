@@ -172,7 +172,7 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx e abrir q
 
 | Versão | Status | Packagist | Repo | Versão PHP |
 | --- | --- | --- | --- | --- |
-| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2 |
+| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 8.1 |
 
 ## **Documentação Adicional**
 
