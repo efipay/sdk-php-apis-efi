@@ -2,8 +2,8 @@
     "APIs": {
         "CHARGES": {
             "URL": {
-                "production": "https://api.gerencianet.com.br",
-                "sandbox": "https://sandbox.gerencianet.com.br"
+                "production": "https://cobrancas.api.efipay.com.br",
+                "sandbox": "https://cobrancas-h.api.efipay.com.br"
             },
             "ENDPOINTS": {
                 "authorize": {
@@ -186,8 +186,8 @@
         },
         "PIX": {
             "URL": {
-                "production": "https://api-pix.gerencianet.com.br",
-                "sandbox": "https://api-pix-h.gerencianet.com.br"
+                "production": "https://pix.api.efipay.com.br",
+                "sandbox": "https://pix-h.api.efipay.com.br"
             },
             "ENDPOINTS": {
                 "authorize": {
@@ -366,104 +366,104 @@
         },
         "OPEN-FINANCE": {
             "URL": {
-                "production": "https://apis.gerencianet.com.br",
-                "sandbox": "https://apis-h.gerencianet.com.br"
+                "production": "https://openfinance.api.efipay.com.br",
+                "sandbox": "https://openfinance-h.api.efipay.com.br"
             },
             "ENDPOINTS": {
                 "authorize": {
-                    "route": "/open-finance/oauth/token",
+                    "route": "/v1/oauth/token",
                     "method": "post"
                 },
                 "ofConfigUpdate": {
-                    "route": "/open-finance/config",
+                    "route": "/v1/config",
                     "method": "put"
                 },
                 "ofConfigDetail": {
-                    "route": "/open-finance/config",
+                    "route": "/v1/config",
                     "method": "get"
                 },
                 "ofListParticipants": {
-                    "route": "/open-finance/participantes",
+                    "route": "/v1/participantes",
                     "method": "get"
                 },
                 "ofStartPixPayment": {
-                    "route": "/open-finance/pagamentos/pix",
+                    "route": "/v1/pagamentos/pix",
                     "method": "post"
                 },
                 "ofDevolutionPix": {
-                    "route": "/open-finance/pagamentos/pix/:identificadorPagamento/devolver",
+                    "route": "/v1/pagamentos/pix/:identificadorPagamento/devolver",
                     "method": "post"
                 },
                 "ofListPixPayment": {
-                    "route": "/open-finance/pagamentos/pix",
+                    "route": "/v1/pagamentos/pix",
                     "method": "get"
                 }
             }
         },
         "PAYMENTS": {
             "URL": {
-                "production": "https://apis.gerencianet.com.br",
+                "production": "https://pagarcontas.api.efipay.com.br",
                 "sandbox": null
             },
             "ENDPOINTS": {
                 "authorize": {
-                    "route": "/pagamento/oauth/token",
+                    "route": "/v1/oauth/token",
                     "method": "post"
                 },
                 "payDetailBarCode": {
-                    "route": "/pagamento/codBarras/:codBarras",
+                    "route": "/v1/codBarras/:codBarras",
                     "method": "get"
                 },
                 "payRequestBarCode": {
-                    "route": "/pagamento/codBarras/:codBarras",
+                    "route": "/v1/codBarras/:codBarras",
                     "method": "post"
                 },
                 "payDetailPayment": {
-                    "route": "/pagamento/:idPagamento",
+                    "route": "/v1/:idPagamento",
                     "method": "get"
                 },
                 "payListPayments": {
-                    "route": "/pagamento/resumo",
+                    "route": "/v1/resumo",
                     "method": "get"
                 }
             }
         },
         "OPENING-ACCOUNTS": {
             "URL": {
-                "production": "https://apis.gerencianet.com.br",
+                "production": "https://abrircontas.api.efipay.com.br",
                 "sandbox": null
             },
             "ENDPOINTS": {
                 "authorize": {
-                    "route": "/oauth/token",
+                    "route": "/v1/oauth/token",
                     "method": "post"
                 },
                 "createAccount": {
-                    "route": "/cadastro/conta-simplificada",
+                    "route": "/v1/conta-simplificada",
                     "method": "post"
                 },
                 "getAccountCredentials": {
-                    "route": "/cadastro/conta-simplificada/:idContaSimplificada/credenciais",
+                    "route": "/v1/conta-simplificada/:idContaSimplificada/credenciais",
                     "method": "get"
                 },
                 "getAccountCertificate": {
-                    "route": "/cadastro/conta-simplificada/:idContaSimplificada/certificado",
+                    "route": "/v1/conta-simplificada/:idContaSimplificada/certificado",
                     "method": "get"
                 },
                 "accountConfigWebhook": {
-                    "route": "/cadastro/webhook",
+                    "route": "/v1/webhook",
                     "method": "post"
                 },
                 "accountListWebhook": {
-                    "route": "/cadastro/webhooks",
+                    "route": "/v1/webhooks",
                     "method": "get"
                 },
                 "accountDetailWebhook": {
-                    "route": "/cadastro/webhook/:identificadorWebhook",
+                    "route": "/v1/webhook/:identificadorWebhook",
                     "method": "get"
                 },
                 "accountDeleteWebhook": {
-                    "route": "/cadastro/webhook/:identificadorWebhook",
+                    "route": "/v1/webhook/:identificadorWebhook",
                     "method": "delete"
                 }
             }
