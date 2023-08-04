@@ -37,12 +37,12 @@ Jump To:
 ---
 
 ## **Requirements**
-* PHP >= 8.1
+* PHP >= 7.2
 * Guzzle >= 7.0
 
 ## **Tested with**
 ```
-PHP 8.0 and 8.1
+PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
 ```
 
 ## **Installation**
@@ -101,14 +101,14 @@ Require the module and namespaces:
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 ```
 Although the web services responses are in json format, the SDK will convert any server response to array. The code must be within a try-catch and exceptions can be handled as follow:
 ```php
 try {
   /* call the desired function */
-} catch(EfiPayException $e) {
+} catch(EfiException $e) {
   /* API errors will come here */
 } catch(Exception $e) {
   /* Other errors will come here */

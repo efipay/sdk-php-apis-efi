@@ -38,12 +38,12 @@ Ir para:
 ---
 
 ## **Requisitos**
-* PHP >= 8.1
+* PHP >= 7.2
 * Guzzle >= 7.0
 
 ## **Testado com**
 ```
-PHP 8.1 e 8.2
+PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
 ```
 
 ## **Instalação**
@@ -102,7 +102,7 @@ Para iniciar a SDK, requer o módulo e os namespaces:
 ```php
 require __DIR__ . '/vendor/autoload.php';
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 ```
 
@@ -111,7 +111,7 @@ Embora as respostas dos serviços da web estejam no formato json, a SDK converte
 ```php
 try {
   /* chamada da função desejada */
-} catch(EfiPayException $e) {
+} catch(EfiException $e) {
   /* Os erros da API virão aqui */
 } catch(Exception $e) {
   /* Outros erros virão aqui */
