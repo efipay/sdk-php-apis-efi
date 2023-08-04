@@ -170,7 +170,7 @@ You can run it using any web server like apache or nginx and open any example in
 
 | Version | Status | Packagist | Repo | Version PHP |
 | --- | --- | --- | --- | --- |
-| 1.x | Maintained | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 8.1 |
+| 1.x | Maintained | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2 |
 
 ## **Additional Documentation**
 
