@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIPagamentoContas/Pagamentos#consultar-solicita%C3%A7%C3%A3o-de-pagamento
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -16,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 $params = [
-	"dataInicio" => "2022-01-01",
+	"dataInicio" => "2023-01-01",
 	"dataFim" => "2024-12-31"
 ];
 
@@ -25,7 +30,7 @@ try {
 	$response = $api->payListPayments($params);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";

@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIOpenFinance/Pagamentos#solicitar-inicia%C3%A7%C3%A3o-de-pix-via-open-finance
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -16,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 $options["headers"] = [
-	"x-idempotency-key" => "dt9BHlyzrb5jrFNAdfEDVpHgiOmDbVqVxd"
+	"x-idempotency-key" => "00000000000000000000000000000000" // Random identifier
 ];
 
 $body = [
@@ -36,7 +41,7 @@ $body = [
 	],
 	"valor" => "0.01",
 	"infoPagador" => "Order 00001",
-	"idProprio" => "Order_00001"
+	"idProprio" => "Client00001Order00001"
 ];
 
 try {
@@ -44,7 +49,7 @@ try {
 	$response = $api->ofStartPixPayment($params = [], $body);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";

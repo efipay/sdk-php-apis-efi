@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIPix/CobrancasComVencimento#criar-cobran%C3%A7a-com-vencimento
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
 	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -48,15 +53,15 @@ $body = [
 			"modalidade" => 1,
 			"descontoDataFixa" => [
 				[
-					"data" => "2022-10-15",
+					"data" => "2024-10-15",
 					"valorPerc" => "30.00"
 				],
 				[
-					"data" => "2022-11-15",
+					"data" => "2024-11-15",
 					"valorPerc" => "15.00"
 				],
 				[
-					"data" => "2022-10-15",
+					"data" => "2024-12-15",
 					"valorPerc" => "5.00"
 				]
 			]
@@ -96,7 +101,7 @@ try {
 
 			echo "<b>Imagem:</b><br/>";
 			echo "<img src='" . $qrcode["imagemQrcode"] . "' />";
-		} catch (EfiPayException $e) {
+		} catch (EfiException $e) {
 			print_r($e->code . "<br>");
 			print_r($e->error . "<br>");
 			print_r($e->errorDescription) . "<br>";
@@ -106,7 +111,7 @@ try {
 	} else {
 		echo "<pre>" . json_encode($pix, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 	}
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";

@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIPix/SplitDePagamentoPix#configura%C3%A7%C3%A3o-de-um-split-de-pagamento-com-id
+ */
+
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../../credentials/options.php";
@@ -56,7 +61,7 @@ try {
 	$response = $api->pixSplitConfigId($params, $body);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";

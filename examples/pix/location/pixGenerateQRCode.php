@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIPix/PayloadLocations#gerar-qrcode-de-um-location
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -16,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 $params = [
-	"id" => 293
+	"id" => 0
 ];
 
 try {
@@ -28,7 +33,7 @@ try {
 
 	echo "Imagem:<br />";
 	echo "<img src='" . $response["imagemQrcode"] . "' />";
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	echo $e->code . "<br>";
 	echo $e->error . "<br>";
 	echo $e->errorDescription . "<br>";

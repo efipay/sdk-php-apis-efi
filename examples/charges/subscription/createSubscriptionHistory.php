@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#acrescentar-descri%C3%A7%C3%A3o-ao-hist%C3%B3rico-de-uma-assinatura
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -16,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 $params = [
-	"id" => 69016
+	"id" => 0
 ];
 
 $body = [
@@ -28,7 +33,7 @@ try {
 	$response = $api->createSubscriptionHistory($params, $body);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";

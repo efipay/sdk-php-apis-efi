@@ -1,12 +1,17 @@
 <?php
 
+/**
+ * Detailed endpoint documentation
+ * https://dev.efipay.com.br/docs/APIPix/Pix#requisitar-envio-de-pix
+ */
+
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
-use Efi\Exception\EfiPayException;
+use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 $options = __DIR__ . "/../../credentials/options.php";
@@ -26,10 +31,10 @@ $body = [
 	"valor" => "0.01",
 	"pagador" => [
 		"chave" => "00000000-0000-0000-0000-000000000000", // Pix key registered in the authenticated Efí account
-		"infoPagador" => "order payment"
+		"infoPagador" => "Order payment"
 	],
 	"favorecido" => [
-		"chave" => ""
+		"chave" => "Receiver_Pix_key" // Type key: random, email, phone, cpf or cnpj
 	]
 ];
 
@@ -38,7 +43,7 @@ try {
 	$response = $api->pixSend($params, $body);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-} catch (EfiPayException $e) {
+} catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";
