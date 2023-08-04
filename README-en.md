@@ -174,7 +174,7 @@ You can run it using any web server like apache or nginx and open any example in
 
 ## **Additional Documentation**
 
-Complete documentation with all endpoints and API details is available at https://dev.sejaefi.com.br/.
+Complete documentation with all endpoints and API details is available at https://dev.efipay.com.br/.
 
 If you don't have a Efí Bank digital account yet, [open yours now](https://sistema.sejaefi.com.br/)!
 

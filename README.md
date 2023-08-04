@@ -176,7 +176,7 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx e abrir q
 
 ## **Documentação Adicional**
 
-A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.sejaefi.com.br/.
+A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.efipay.com.br/.
 
 Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://app.sejaefi.com.br)!
 
