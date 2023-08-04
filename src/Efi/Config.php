@@ -34,7 +34,7 @@ class Config
         $config = json_decode($file, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Error loading endpoint file');
+            throw new Exception('Erro ao carregar o arquivo de endpoints');
         }
 
         return $config[$property] ?? $config['APIs'][$property];
@@ -50,7 +50,7 @@ class Config
     {
         $conf = [
             'sandbox' => $options['sandbox'] ?? false,
-            'debug' => $options['debug'] ?? false,
+            'debug' => $options['debug'] ?? false
         ];
 
         if ($conf['debug']) {
@@ -62,10 +62,12 @@ class Config
         $conf['clientId'] = $options['client_id'] ?? null;
         $conf['clientSecret'] = $options['client_secret'] ?? null;
         $conf['timeout'] = $options['timeout'] ?? null;
+        $conf['cache'] = $options['debug'] ?? false;
         $conf['headers'] = $options['headers'] ?? null;
         $conf['baseUri'] = $options['url'] ?? null;
+        $conf['api'] = $options['api'];
 
-        if ($options['api'] !== 'CHARGES') {
+        if ($conf['api'] !== 'CHARGES') {
             $conf['certificate'] = $options['certificate'] ?? $options['pix_cert'];
         }
 

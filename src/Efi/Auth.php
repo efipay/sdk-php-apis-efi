@@ -29,7 +29,7 @@ class Auth
         $this->config = Config::options($options);
 
         if (!isset($this->config['clientId']) || !isset($this->config['clientSecret'])) {
-            throw new Exception('Client_Id or Client_Secret not found');
+            throw new Exception('Credenciais Client_Id ou Client_Secret não encontradas');
         }
 
         $this->request = new Request($options);

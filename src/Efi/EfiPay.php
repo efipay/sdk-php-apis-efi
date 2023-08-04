@@ -1,5 +1,7 @@
 <?php
 
+namespace Efi;
+
 /**
  * Class EfiPay
  * @package EfiPay
@@ -116,8 +118,6 @@
  * @method array accountDetailWebhook(array $params)
  * @method array accountListWebhook(array $params)
  */
-
-namespace Efi;
 
 class EfiPay extends Endpoints
 {

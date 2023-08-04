@@ -5,8 +5,7 @@ namespace Efi;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
-use Efi\Exception\EfiPayException;
-use Efi\Exception\AuthorizationException;
+use Efi\Exception\EfiException;
 
 class Request
 {
@@ -14,6 +13,11 @@ class Request
     private $config;
     private $certifiedPath;
 
+    /**
+     * Initializes a new instance of the Request class.
+     *
+     * @param array|null $options The options to configure the Request.
+     */
     public function __construct(array $options = null)
     {
         $this->config = Config::options($options);
@@ -36,45 +40,61 @@ class Request
         $this->client = new Client($clientData);
     }
 
+    /**
+     * Verifies the certificate and returns the certificate path.
+     *
+     * @param string $certificate The certificate path.
+     * @return string The path of the certificate.
+     * @throws EfiException If the certificate is invalid or expired.
+     */
     private function verifyCertificate(string $certificate): string
     {
         if ($this->certifiedPath) {
             $this->client->setDefaultOption('verify', $this->certifiedPath);
         }
+        
+        if (file_exists($certificate)) {
+            $certPath = realpath($certificate);
 
-        if (isset($certificate)) {
-            if (file_exists($certPath = realpath($certificate))) {
-                if (!$fileContents = file_get_contents($certPath)) {
-                    throw new EfiPayException(['name' => 'forbidden', 'message' => 'Unable to read the cert file'], 403);
-                }
-
-                if (strtolower(substr($certPath, -3)) === 'p12') {
-                    if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
-                        throw new EfiPayException(['name' => 'forbidden', 'message' => 'Unable to read the cert file p12'], 403);
-                    }
-
-                    $fileContents = $certData['cert'];
-                    $requestOptions['curl'] = [CURLOPT_SSLCERTTYPE => 'P12'];
-                }
-
-                if (!$publicKey = openssl_x509_parse($fileContents)) {
-                    throw new EfiPayException(['name' => 'forbidden', 'message' => 'Certificate invalid'], 403);
-                }
-
-                $today = date("Y-m-d H:i:s");
-                $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
-
-                if ($validTo <= $today) {
-                    throw new EfiPayException(['name' => 'forbidden', 'message' => 'Authentication certificate expired on ' . $validTo], 403);
-                }
-
-                return $certPath;
-            } else {
-                throw new EfiPayException(['name' => 'forbidden', 'message' => 'Certificate not found'], 403);
+            if (!$fileContents = file_get_contents($certPath)) {
+                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado'], 403);
             }
+
+            if (pathinfo($certPath, PATHINFO_EXTENSION) === 'p12') {
+                if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
+                    throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado p12'], 403);
+                }
+
+                $fileContents = $certData['cert'];
+                $requestOptions['curl'] = [CURLOPT_SSLCERTTYPE => 'P12'];
+            }
+
+            if (!$publicKey = openssl_x509_parse($fileContents)) {
+                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado inválido ou inativo'], 403);
+            }
+
+            $today = date("Y-m-d H:i:s");
+            $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
+
+            if ($validTo <= $today) {
+                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'O certificado de autenticação expirou em ' . $validTo], 403);
+            }
+
+            return $certPath;
+        } else {
+            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado não encontrado'], 403);
         }
     }
 
+    /**
+     * Sends an HTTP request.
+     *
+     * @param string $method The HTTP method.
+     * @param string $route The URL route.
+     * @param array $requestOptions The request options.
+     * @return mixed The response data.
+     * @throws EfiException If there is an EFI Pay specific error.
+     */
     public function send(string $method, string $route, array $requestOptions)
     {
         try {
@@ -89,28 +109,34 @@ class Request
             }
 
             $response = $this->client->request($method, $route, $requestOptions);
+            $headersResponse = $response->getHeader('Content-Type');
 
-            if (stristr($response->getHeader('Content-Type')[0], 'application/json')) {
-                if ($decodedResponse = json_decode($response->getBody(), true)) {
-                    return $decodedResponse;
+            if (isset($headersResponse[0]) && stristr(substr($headersResponse[0], 0, strpos($headersResponse[0], ';')), 'application/json')) {
+                return json_decode($response->getBody(), true);
+            } else {
+                $bodyResponse = $response->getBody()->getContents();
+
+                if ($bodyResponse) {
+                    return $bodyResponse;
                 } else {
                     return ["code" => $response->getStatusCode()];
                 }
-            } else {
-                return $response->getBody()->getContents();
             }
         } catch (ClientException $e) {
             if (is_array(json_decode($e->getResponse()->getBody(), true)) && $e->getResponse()->getStatusCode() != 401) {
-                throw new EfiPayException(json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
+                throw new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
             } else {
-                throw new AuthorizationException(
-                    $e->getResponse()->getStatusCode(),
-                    $e->getResponse()->getReasonPhrase(),
-                    $e->getResponse()->getBody()
+                throw new EfiException(
+                    $this->config['api'],
+                    [
+                        'name' => $e->getResponse()->getReasonPhrase(),
+                        'message' => $e->getResponse()->getBody()
+                    ],
+                    $e->getResponse()->getStatusCode()
                 );
             }
         } catch (ServerException $se) {
-            throw new EfiPayException($se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
+            throw new EfiException($this->config['api'], $se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
         }
     }
 

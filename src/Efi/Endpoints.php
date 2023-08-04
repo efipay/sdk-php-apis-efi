@@ -37,7 +37,7 @@ class Endpoints
     {
         if (!isset(self::$instance)) {
             if (!isset($options)) {
-                throw new Exception('Credentials Client_Id and Client_Secret not defined');
+                throw new Exception('Credenciais Client_Id e Client_Secret não foram definidas corretamente');
             }
             self::$instance = new self($options, $requester);
         }
@@ -79,7 +79,7 @@ class Endpoints
             );
         }
 
-        throw new Exception("Nonexistent requested '$method' method");
+        throw new Exception("Método '$method' solicitado inexistente");
     }
 
     /**
@@ -102,7 +102,7 @@ class Endpoints
             }
 
             if (!isset($this->options['api'])) {
-                throw new Exception("Nonexistent requested '$method' method");
+                throw new Exception("Método '$method' solicitado inexistente");
             }
         }
 
@@ -115,7 +115,7 @@ class Endpoints
                 $this->options['url'] = $this->options['sandbox'] ? $this->endpoints['URL']['sandbox'] : $this->endpoints['URL']['production'];
 
                 if ($this->options['url'] === null) {
-                    throw new Exception($this->options['api'] . ' API endpoints work only in production environment');
+                    throw new Exception('Os endpoints da API ' . $this->options['api'] . ' funcionam apenas em ambiente de produção');
                 }
 
                 $this->requester = $this->requester ?? new ApiRequest($this->options);
