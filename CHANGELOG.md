@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.1.1 (2023-08-04)
+--------------------------
+* Updated API base routes
+* Code refactored for optimization and security
+* Compatibility with PHP >= 7.2
+
 Version 1.1.0 (2023-05-18)
 --------------------------
 * Refactored code

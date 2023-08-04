@@ -1,5 +1,21 @@
-languages:
-   PHP: true
-
-exclude_patterns:
-  - "examples/"
+engines:
+  structure:
+    enabled: false
+  duplication:
+    enabled: false
+  sonar-php:
+    enabled: true
+  fixme:
+    enabled: false
+  phpmd:
+    enabled: true
+  phpcodesniffer:
+    enabled: true
+    config:
+      file_extensions: "php"
+      standard: "PSR1,PSR2"
+ratings:
+  paths:
+  - "**.php"
+exclude_paths:
+- examples/**/*
