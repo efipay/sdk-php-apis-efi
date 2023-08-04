@@ -3,7 +3,8 @@
 namespace Efi;
 
 use Efi\CacheRetriever;
-use Efi\Exception\AuthorizationException;
+use GuzzleHttp\Exception\ClientException;
+use Efi\Exception\EfiException;
 
 class ApiRequest
 {
@@ -33,16 +34,20 @@ class ApiRequest
      * @param string $route The URL route.
      * @param array $body The request body.
      * @return mixed The response data.
-     * @throws AuthorizationException If the request requires authorization.
+     * @throws EfiException If the request requires authorization.
      */
-    public function send(string $method, string $route, array $body): mixed
+    public function send(string $method, string $route, array $body)
     {
         $hash = $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->options['client_id'], -6);
 
         $this->cacheAccessToken = $this->cache->get(hash('sha512', "Efí-access_token_$hash"));
         $this->cacheAccessTokenExpires = $this->cache->get(hash('sha512', "Efí-access_token_expires_$hash"));
 
-        if ($this->cacheAccessToken === null || $this->cacheAccessTokenExpires <= (time() - 5)) {
+        if (
+            (isset($this->options['cache']) ? !$this->options['cache'] : false) ||
+            ($this->cacheAccessToken === null || $this->cacheAccessTokenExpires <= (time() - 5)
+            )
+        ) {
             $this->auth->authorize();
         } else {
             $this->auth->accessToken = $this->cacheAccessToken;
@@ -52,7 +57,7 @@ class ApiRequest
         $requestTimeout = $this->options['timeout'] ?? 30.0;
         $requestHeaders = [
             'Authorization' =>  'Bearer ' . $this->auth->accessToken,
-            'api-sdk' => 'php-' . $composerData['version']
+            'api-sdk' => 'efi-php-' . $composerData['version']
         ];
 
         if (isset($this->options['partner_token']) || isset($this->options['partner-token'])) {
@@ -65,15 +70,15 @@ class ApiRequest
                 'timeout' => $requestTimeout,
                 'headers' => $requestHeaders
             ]);
-        } catch (AuthorizationException $e) {
-            $this->auth->authorize();
-            $requestHeaders['Authorization'] = 'Bearer ' . $this->auth->accessToken;
-
-            return $this->request->send($method, $route, [
-                'json' => $body,
-                'timeout' => $requestTimeout,
-                'headers' => $requestHeaders
-            ]);
+        } catch (ClientException $e) {
+            throw new EfiException(
+                $this->options['api'],
+                [
+                    'name' => $e->getResponse(),
+                    'message' => $e->getResponse()->getBody()
+                ],
+                $e->getResponse()->getStatusCode()
+            );
         }
     }
 
