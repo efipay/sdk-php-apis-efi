@@ -15,7 +15,7 @@ class Request
 
     /**
      * Initializes a new instance of the Request class.
-     *
+     * 
      * @param array|null $options The options to configure the Request.
      */
     public function __construct(array $options = null)
@@ -47,42 +47,94 @@ class Request
      * @return string The path of the certificate.
      * @throws EfiException If the certificate is invalid or expired.
      */
+
     private function verifyCertificate(string $certificate): string
     {
         if ($this->certifiedPath) {
             $this->client->setDefaultOption('verify', $this->certifiedPath);
         }
-        
+
         if (file_exists($certificate)) {
             $certPath = realpath($certificate);
+            $fileContents = $this->readCertificateFile($certPath);
 
-            if (!$fileContents = file_get_contents($certPath)) {
-                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado'], 403);
-            }
-
-            if (pathinfo($certPath, PATHINFO_EXTENSION) === 'p12') {
-                if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
-                    throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado p12'], 403);
-                }
-
-                $fileContents = $certData['cert'];
-                $requestOptions['curl'] = [CURLOPT_SSLCERTTYPE => 'P12'];
-            }
-
-            if (!$publicKey = openssl_x509_parse($fileContents)) {
-                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado inválido ou inativo'], 403);
-            }
-
-            $today = date("Y-m-d H:i:s");
-            $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
-
-            if ($validTo <= $today) {
-                throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'O certificado de autenticação expirou em ' . $validTo], 403);
-            }
+            $this->validateCertificate($fileContents, $certPath);
 
             return $certPath;
         } else {
             throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado não encontrado'], 403);
+        }
+    }
+
+    /**
+     * Reads the contents of the certificate file.
+     *
+     * @param string $certPath The path of the certificate file.
+     * @return string The contents of the certificate file.
+     * @throws EfiException If unable to read the certificate file.
+     */
+
+    private function readCertificateFile(string $certPath): string
+    {
+        $fileContents = file_get_contents($certPath);
+        if (!$fileContents) {
+            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado'], 403);
+        }
+        return $fileContents;
+    }
+
+    /**
+     * Validates the certificate contents and checks for expiration.
+     *
+     * @param string $fileContents The contents of the certificate.
+     * @param string $certPath The path of the certificate file.
+     * @throws EfiException If the certificate is invalid or expired.
+     */
+
+    private function validateCertificate(string $fileContents, string $certPath): void
+    {
+        if (pathinfo($certPath, PATHINFO_EXTENSION) === 'p12') {
+            $certData = $this->readP12Certificate($fileContents);
+            $fileContents = $certData['cert'];
+        }
+
+        $publicKey = openssl_x509_parse($fileContents);
+        if (!$publicKey) {
+            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado inválido ou inativo'], 403);
+        }
+
+        $this->checkCertificateExpiration($publicKey);
+    }
+
+    /**
+     * Reads the contents of a P12 certificate file.
+     *
+     * @param string $fileContents The contents of the P12 certificate.
+     * @return array The certificate data extracted from the P12 file.
+     * @throws EfiException If unable to read the P12 certificate.
+     */
+
+    private function readP12Certificate(string $fileContents): array
+    {
+        if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
+            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado p12'], 403);
+        }
+        return $certData;
+    }
+
+    /**
+     * Checks if the certificate has expired.
+     *
+     * @param array $publicKey The parsed public key data from the certificate.
+     * @throws EfiException If the certificate has expired.
+     */
+
+    private function checkCertificateExpiration(array $publicKey): void
+    {
+        $today = date("Y-m-d H:i:s");
+        $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
+        if ($validTo <= $today) {
+            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'O certificado de autenticação expirou em ' . $validTo], 403);
         }
     }
 
@@ -95,48 +147,100 @@ class Request
      * @return mixed The response data.
      * @throws EfiException If there is an EFI Pay specific error.
      */
+
     public function send(string $method, string $route, array $requestOptions)
     {
         try {
-            if (isset($this->config['certificate'])) {
-                $requestOptions['cert'] = $this->verifyCertificate($this->config['certificate']);
-            }
-
-            if (isset($this->config['headers'])) {
-                foreach ($this->config['headers'] as $key => $value) {
-                    $requestOptions['headers'][$key] = $value;
-                }
-            }
+            $this->applyCertificateAndHeaders($requestOptions);
 
             $response = $this->client->request($method, $route, $requestOptions);
-            $headersResponse = $response->getHeader('Content-Type');
-
-            if (isset($headersResponse[0]) && stristr(substr($headersResponse[0], 0, strpos($headersResponse[0], ';')), 'application/json')) {
-                return json_decode($response->getBody(), true);
-            } else {
-                $bodyResponse = $response->getBody()->getContents();
-
-                if ($bodyResponse) {
-                    return $bodyResponse;
-                } else {
-                    return ["code" => $response->getStatusCode()];
-                }
-            }
+            return $this->processResponse($response);
         } catch (ClientException $e) {
-            if (is_array(json_decode($e->getResponse()->getBody(), true)) && $e->getResponse()->getStatusCode() != 401) {
-                throw new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
-            } else {
-                throw new EfiException(
-                    $this->config['api'],
-                    [
-                        'name' => $e->getResponse()->getReasonPhrase(),
-                        'message' => $e->getResponse()->getBody()
-                    ],
-                    $e->getResponse()->getStatusCode()
-                );
-            }
+            throw $this->handleClientException($e);
         } catch (ServerException $se) {
             throw new EfiException($this->config['api'], $se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
+        }
+    }
+
+    /**
+     * Applies certificate and headers to the request options.
+     *
+     * @param array $requestOptions The request options to be modified.
+     */
+
+    private function applyCertificateAndHeaders(array &$requestOptions): void
+    {
+        if (isset($this->config['certificate'])) {
+            $requestOptions['cert'] = $this->verifyCertificate($this->config['certificate']);
+        }
+
+        if (isset($this->config['headers'])) {
+            $requestOptions['headers'] = $this->mergeHeaders($requestOptions, $this->config['headers']);
+        }
+    }
+
+    /**
+     * Merges default headers with request-specific headers.
+     *
+     * @param array $requestOptions The request options containing headers.
+     * @param array $defaultHeaders The default headers to be merged.
+     * @return array The merged headers.
+     */
+
+    private function mergeHeaders(array $requestOptions, array $defaultHeaders): array
+    {
+        foreach ($defaultHeaders as $key => $value) {
+            if (!isset($requestOptions['headers'][$key])) {
+                $requestOptions['headers'][$key] = $value;
+            }
+        }
+        return $requestOptions['headers'];
+    }
+
+    /**
+     * Processes the HTTP response and returns the appropriate data.
+     *
+     * @param mixed $response The HTTP response object.
+     * @return mixed The processed response data.
+     */
+
+    private function processResponse($response)
+    {
+        $headersResponse = $response->getHeader('Content-Type');
+
+        if (isset($headersResponse[0]) && stristr(substr($headersResponse[0], 0, strpos($headersResponse[0], ';')), 'application/json')) {
+            return json_decode($response->getBody(), true);
+        } else {
+            $bodyResponse = $response->getBody()->getContents();
+
+            if ($bodyResponse) {
+                return $bodyResponse;
+            } else {
+                return ["code" => $response->getStatusCode()];
+            }
+        }
+    }
+
+    /**
+     * Handles the ClientException and creates an EFI exception.
+     *
+     * @param ClientException $e The caught ClientException.
+     * @return EfiException The created EFI exception.
+     */
+
+    private function handleClientException(ClientException $e): EfiException
+    {
+        if (is_array(json_decode($e->getResponse()->getBody(), true)) && $e->getResponse()->getStatusCode() != 401) {
+            return new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
+        } else {
+            return new EfiException(
+                $this->config['api'],
+                [
+                    'name' => $e->getResponse()->getReasonPhrase(),
+                    'message' => $e->getResponse()->getBody()
+                ],
+                $e->getResponse()->getStatusCode()
+            );
         }
     }
 
