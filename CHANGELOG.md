@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.1.2 (2023-08-24)
+--------------------------
+* Refactor: Improved code optimization and organization
+
 Version 1.1.1 (2023-08-04)
 --------------------------
 * Updated API base routes
