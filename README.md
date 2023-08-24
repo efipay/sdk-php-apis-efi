@@ -33,6 +33,8 @@ Ir para:
 - [**Executar exemplos**](#executar-exemplos)
 - [**Guia de versão**](#guia-de-versão)
 - [**Documentação Adicional**](#documentação-adicional)
+- [**Validador de Migração**](#validador-de-migração)
+	- [Como usar o Validador:](#como-usar-o-validador)
 - [**Licença**](#licença)
 
 ---
@@ -179,6 +181,25 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx e abrir q
 A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.efipay.com.br/.
 
 Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://app.sejaefi.com.br)!
+
+## **Validador de Migração**
+Se você já possui integração com a SDK de PHP da Gerencianet, e está buscando preparar sua aplicação para as inovações futuras das APIs Efí, você pode usar nosso validador para migra para esta SDK.
+
+O Validador de Migração da SDK Efí torna o processo de migração mais suave e eficiente. **Essa ferramenta não modifica o seu código**, somente analisa o código existente em busca de padrões específicos relacionados a classes e métodos que foram modificados na nova versão da SDK.
+
+Antes de realizar qualquer modificação no código de sua aplicação, é altamente aconselhável fazer um backup completo de todo o seu projeto.
+
+### Como usar o Validador:
+1. Faça o download do [Validador de Migração](https://raw.githubusercontent.com/efipay/sdk-php-apis-efi/master/migrationChecker.php).
+2. Certifique-se de inserir este arquivo `migrationChecker.php` no diretório raiz do seu projeto.
+3. Altere o arquivo `migrationChecker.php` e certifique-se de inserir corretamente na linha *55* e *56* o caminho para os arquivos `composer.json` e `installed.json`.
+4. Execute o *Verificador de Migração*, que analisará seus arquivos em busca de problemas.
+5. Revise os resultados apresentados, identificando os trechos de código que precisam ser atualizados.
+6. Realize as correções recomendadas, seguindo as instruções exibidas.
+
+O verificador ajuda a identificar potenciais problemas de migração e oferece sugestões de correção, mas é essencial lembrar que cada aplicação é única e pode ter peculiaridades que não podem ser abordadas automaticamente. Após realizar as correções sugeridas, é altamente recomendado realizar testes extensivos em sua aplicação para validar o funcionamento adequado da SDK.
+
+![Validador de Migração](https://s3.amazonaws.com/gerencianet-pub-prod-1/printscreen/2023/08/23/guilherme.cota/0e29ad-%25guic.png)
 
 ## **Licença**
 [MIT](LICENSE)
