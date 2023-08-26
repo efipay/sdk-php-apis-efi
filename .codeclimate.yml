@@ -32,3 +32,4 @@ checks:
       threshold: 28
 exclude_patterns:
 - "examples/"
+- "migrationChecker.php"
