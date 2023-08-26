@@ -21,8 +21,21 @@ class Request
     public function __construct(array $options = null)
     {
         $this->config = Config::options($options);
-        $composerData = json_decode(file_get_contents(__DIR__ . '/../../composer.json'), true);
         $this->certifiedPath = $options['certified_path'] ?? null;
+
+        $clientData = $this->getClientData($options);
+        $this->client = new Client($clientData);
+    }
+
+    /**
+     * Prepares the data for configuring the Guzzle HTTP Client.
+     *
+     * @param array $options The options to configure the client.
+     * @return array The configured data for the Guzzle HTTP Client.
+     */
+    private function getClientData(array $options): array
+    {
+        $composerData = json_decode(file_get_contents(__DIR__ . '/../../composer.json'), true);
 
         $clientData = [
             'debug' => $this->config['debug'],
@@ -37,7 +50,7 @@ class Request
             $clientData['headers']['partner-token'] = $options['partner_token'] ?? $options['partner-token'];
         }
 
-        $this->client = new Client($clientData);
+        return $clientData;
     }
 
     /**
@@ -47,7 +60,6 @@ class Request
      * @return string The path of the certificate.
      * @throws EfiException If the certificate is invalid or expired.
      */
-
     private function verifyCertificate(string $certificate): string
     {
         if ($this->certifiedPath) {
