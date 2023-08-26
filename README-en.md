@@ -33,7 +33,7 @@ Jump To:
 - [**Version Guidance**](#version-guidance)
 - [**Additional Documentation**](#additional-documentation)
 - [**Migration Validator**](#migration-validator)
-	- [How to Use the Validator:](#how-to-use-the-validator)
+	- [How to use the Validator:](#how-to-use-the-validator)
 - [**License**](#license)
 
 ---
@@ -176,26 +176,26 @@ You can run it using any web server like apache or nginx and open any example in
 
 ## **Additional Documentation**
 
-Complete documentation with all endpoints and API details is available at https://dev.efipay.com.br/.
+The complete documentation containing all endpoints and API details is available at https://dev.efipay.com.br/.
 
-If you don't have a Efí Bank digital account yet, [open yours now](https://sistema.sejaefi.com.br/)!
+If you don't have an Efí Bank digital account yet, [open yours now](https://app.sejaefi.com.br)!
 
 ## **Migration Validator**
-If you already have integration with the Gerencianet PHP SDK and are looking to prepare your application for future innovations in the Efí APIs, you can use our validator to migrate to this SDK.
+If you're already integrated with the Gerencianet PHP SDK and are looking to prepare your application for future innovations in the Efí APIs, you can use our validator to assist in migrating to this SDK.
 
-The Efí Pay SDK Migration Validator makes the migration process smoother and more efficient. **This tool does not modify your code**, it only analyzes the existing code for specific patterns related to classes and methods that have been modified in the new version of the SDK.
+The Efí SDK Migration Validator makes the migration process smoother and more efficient. **This tool doesn't modify your code**, it simply analyzes the existing code for specific patterns related to classes and methods that have been changed in the new version of the SDK.
 
-Before making any modifications to your application's code, it is highly advisable to create a complete backup of your entire project.
+Before making any modifications to your application's code, it's highly advisable to create a complete backup of your entire project.
 
-### How to Use the Validator:
+### How to use the Validator:
 1. Download the [Migration Validator](https://raw.githubusercontent.com/efipay/sdk-php-apis-efi/master/migrationChecker.php).
-2. Make sure to place the `migrationChecker.php` file in the root directory of your project.
-3. Edit the `migrationChecker.php` file and make sure to correctly enter the path to the `composer.json` and `installed.json` files in lines *55* and *56*.
+2. Make sure to place this `migrationChecker.php` file in the root directory of your project.
+3. Edit the `migrationChecker.php` file and make sure to correctly input the paths to the `composer.json` and `installed.json` files on lines *55* and *56*.
 4. Run the *Migration Checker*, which will analyze your files for issues.
 5. Review the presented results, identifying code snippets that need to be updated.
-6. Implement the recommended fixes following the displayed instructions.
+6. Make the recommended corrections following the displayed instructions.
 
-The validator helps identify potential migration problems and offers suggestions for correction, but it's essential to remember that each application is unique and may have intricacies that cannot be automatically addressed. After making the suggested fixes, it's highly recommended to perform extensive testing on your application to ensure the proper functioning of the SDK.
+The validator helps identify potential migration problems and provides suggestions for correction, but it's essential to remember that each application is unique and may have intricacies that cannot be automatically addressed. After making the suggested corrections, it's highly recommended to conduct extensive testing on your application to validate the proper functioning of the SDK.
 
 ![Validador de Migração](https://s3.amazonaws.com/gerencianet-pub-prod-1/printscreen/2023/08/23/guilherme.cota/0e29ad-%25guic.png)
 

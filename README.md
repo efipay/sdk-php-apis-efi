@@ -183,11 +183,11 @@ A documentação completa com todos os endpoints e detalhes das APIs está dispo
 Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://app.sejaefi.com.br)!
 
 ## **Validador de Migração**
-Se você já possui integração com a SDK de PHP da Gerencianet, e está buscando preparar sua aplicação para as inovações futuras das APIs Efí, você pode usar nosso validador para migra para esta SDK.
+Se você já possui integração com a SDK de PHP da Gerencianet e está buscando preparar a sua aplicação para as inovações futuras das APIs Efí, você pode usar o nosso validador para auxiliar na migração para esta SDK.
 
-O Validador de Migração da SDK Efí torna o processo de migração mais suave e eficiente. **Essa ferramenta não modifica o seu código**, somente analisa o código existente em busca de padrões específicos relacionados a classes e métodos que foram modificados na nova versão da SDK.
+O Validador de Migração da SDK Efí torna o processo de migração mais suave e eficiente. **Essa ferramenta não modifica o seu código**, apenas analisa o código existente em busca de padrões específicos relacionados a classes e métodos que foram modificados na nova versão da SDK.
 
-Antes de realizar qualquer modificação no código de sua aplicação, é altamente aconselhável fazer um backup completo de todo o seu projeto.
+Antes de realizar qualquer modificação no código da sua aplicação, é altamente aconselhável fazer um backup completo de todo o seu projeto.
 
 ### Como usar o Validador:
 1. Faça o download do [Validador de Migração](https://raw.githubusercontent.com/efipay/sdk-php-apis-efi/master/migrationChecker.php).
