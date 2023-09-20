@@ -49,6 +49,7 @@ $customer = [
 
 $body = [
 	"items" => $items,
+	"metadata" => $metadata,
 	"payment" => [
 		"banking_billet" => [
 			"expire_at" => "2024-12-10",
