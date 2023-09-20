@@ -65,6 +65,7 @@ namespace Efi;
  * @method array pixDetailDevolution(array $params)
  * @method array pixSend(array $params, array $body)
  * @method array pixSendDetail(array $params)
+ * @method array pixSendDetailId(array $params)
  * @method array pixSendList(array $params)
  * @method array pixDetail(array $params)
  * @method array pixReceivedList(array $params)

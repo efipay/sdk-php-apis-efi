@@ -246,6 +246,10 @@
                     "route": "/v2/gn/pix/enviados/:e2eId",
                     "method": "get"
                 },
+                "pixSendDetailId": {
+                    "route": "/v2/gn/pix/enviados/id-envio/:idEnvio",
+                    "method": "get"
+                },
                 "pixSendList": {
                     "route": "/v2/gn/pix/enviados",
                     "method": "get"

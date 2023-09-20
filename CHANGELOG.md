@@ -1,6 +1,15 @@
 Changelog
 =========
 
+Version 1.2.0 (2023-09-20)
+--------------------------
+* Added a new endpoint and example to query a Pix send by its Id
+
+Version 1.1.3 (2023-08-26)
+--------------------------
+* Refactor: Improved code optimization and organization
+* Update .codeclimate.yml
+
 Version 1.1.2 (2023-08-24)
 --------------------------
 * Refactor: Improved code optimization and organization
