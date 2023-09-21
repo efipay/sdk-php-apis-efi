@@ -450,9 +450,9 @@
                     "route": "/v1/conta-simplificada/:idContaSimplificada/credenciais",
                     "method": "get"
                 },
-                "getAccountCertificate": {
+                "createAccountCertificate": {
                     "route": "/v1/conta-simplificada/:idContaSimplificada/certificado",
-                    "method": "get"
+                    "method": "post"
                 },
                 "accountConfigWebhook": {
                     "route": "/v1/webhook",

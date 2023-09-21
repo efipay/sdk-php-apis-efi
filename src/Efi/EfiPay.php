@@ -112,7 +112,7 @@ namespace Efi;
  * 
  * API ABERTURA DE CONTAS
  * @method array createAccount(array $params = [], array $body)
- * @method array getAccountCertificate(array $params)
+ * @method array createAccountCertificate(array $params)
  * @method array getAccountCredentials(array $params)
  * @method array accountConfigWebhook(array $params = [], array $body)
  * @method array accountDeleteWebhook(array $params)

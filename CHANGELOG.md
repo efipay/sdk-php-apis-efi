@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.2.1 (2023-09-21)
+--------------------------
+* Updated method "getAccountCertificate()" renamed to "createAccountCertificate()"
+* Updated the endpoint method "/v1/conta-simplificação/:idContaSimplificação/certificate" from "GET" to "POST"
+
 Version 1.2.0 (2023-09-20)
 --------------------------
 * Added a new endpoint and example to query a Pix send by its Id
