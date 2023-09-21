@@ -2,11 +2,11 @@
 	"name": "efipay/sdk-php-apis-efi",
 	"description": "SDK PHP para APIs Efi Pay",
 	"homepage": "https://github.com/efipay/sdk-php-apis-efi/",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"type": "library",
 	"require": {
-		"php": ">=7.2",
-		"guzzlehttp/guzzle": "7.4",
+		"php": "^7.2.5 || ^8.0",
+		"guzzlehttp/guzzle": "^7.0",
 		"symfony/cache": "^5.0"
 	},
 	"support": {

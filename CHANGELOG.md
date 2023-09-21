@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.2.2 (2023-09-21)
+--------------------------
+* Fixed PHP version and dependency compatibility
+* Added efí to the request header
+
 Version 1.2.1 (2023-09-21)
 --------------------------
 * Updated method "getAccountCertificate()" renamed to "createAccountCertificate()"
