@@ -21,7 +21,7 @@ class ApiRequest
      */
     public function __construct(?array $options = null)
     {
-        $this->options = $options;
+        $this->options = Config::options($options);
         $this->auth = new Auth($options);
         $this->request = new Request($options);
         $this->cache = new CacheRetriever();
@@ -42,9 +42,11 @@ class ApiRequest
 
         if (!$this->isAccessTokenValid() || !$this->options['cache']) {
             $this->auth->authorize();
+        } else {
+            $this->auth->accessToken = $this->cacheAccessToken;
         }
 
-        $requestTimeout = $this->options['timeout'] ?? 30.0;
+        $requestTimeout = $this->options['timeout'];
         $requestHeaders = $this->buildRequestHeaders();
 
         try {
@@ -112,7 +114,7 @@ class ApiRequest
      */
     private function generateCacheHash(): string
     {
-        return $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->options['client_id'], -6);
+        return $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->options['clientId'], -6);
     }
 
     public function __get($property)

@@ -46,7 +46,7 @@ class Auth
     public function authorize()
     {
         $endpoints = Config::get($this->options['api']);
-        $requestTimeout = (float) ($this->options['timeout'] ?? 30.0);
+        $requestTimeout = $this->options['timeout'];
 
         $requestOptions = [
             'auth' => [$this->clientId, $this->clientSecret],
