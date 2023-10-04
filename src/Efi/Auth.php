@@ -7,16 +7,15 @@ use Efi\CacheRetriever;
 use Efi\Config;
 use Efi\Request;
 
-class Auth
+class Auth extends BaseModel
 {
+    protected $accessToken;
     private $clientId;
     private $clientSecret;
-    private $accessToken;
     private $expires;
     private $config;
     private $options;
     private $request;
-    private $certificate;
     private $cache;
 
     /**
@@ -37,7 +36,6 @@ class Auth
 
         $this->clientId = $this->config['clientId'];
         $this->clientSecret = $this->config['clientSecret'];
-        $this->certificate = $this->config['certificate'] ?? ($this->config['pix_cert'] ?? null);
     }
 
     /**
@@ -68,31 +66,5 @@ class Auth
 
         $this->cache->set(hash('sha512', "Efí-access_token_$hash"), $this->accessToken, $session_expire);
         $this->cache->set(hash('sha512', "Efí-access_token_expires_$hash"), $this->expires, $session_expire);
-    }
-
-    /**
-     * Magic method to get the value of a property.
-     *
-     * @param string $property The name of the property.
-     * @return mixed|null The value of the property, or null if it doesn't exist.
-     */
-    public function __get($property)
-    {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-    }
-
-    /**
-     * Magic method to set the value of a property.
-     *
-     * @param string $property The name of the property.
-     * @param mixed $value The value to set.
-     */
-    public function __set($property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
     }
 }

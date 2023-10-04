@@ -5,7 +5,7 @@ namespace Efi;
 use Efi\Exception\EfiException;
 use GuzzleHttp\Exception\ClientException;
 
-class ApiRequest
+class ApiRequest extends BaseModel
 {
     private Auth $auth;
     private CacheRetriever $cache;
@@ -115,17 +115,5 @@ class ApiRequest
     private function generateCacheHash(): string
     {
         return $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->options['clientId'], -6);
-    }
-
-    public function __get($property)
-    {
-        return $this->$property ?? null;
-    }
-
-    public function __set($property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
-        }
     }
 }

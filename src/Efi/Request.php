@@ -7,7 +7,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Efi\Exception\EfiException;
 
-class Request
+class Request extends BaseModel
 {
     private $client;
     private $config;
@@ -253,20 +253,6 @@ class Request
                 ],
                 $e->getResponse()->getStatusCode()
             );
-        }
-    }
-
-    public function __get(string $property)
-    {
-        if (property_exists($this, $property)) {
-            return $this->$property;
-        }
-    }
-
-    public function __set(string $property, $value)
-    {
-        if (property_exists($this, $property)) {
-            $this->$property = $value;
         }
     }
 }
