@@ -35,7 +35,7 @@ class Request extends BaseModel
      */
     private function getClientData(array $options): array
     {
-        $composerData = json_decode(file_get_contents(__DIR__ . '/../../composer.json'), true);
+        $composerData = Utils::getComposerData();
 
         $clientData = [
             'debug' => $this->config['debug'],
@@ -74,7 +74,7 @@ class Request extends BaseModel
 
             return $certPath;
         } else {
-            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado não encontrado'], 403);
+            $this->throwEfiException('Certificado não encontrado', 403);
         }
     }
 
@@ -90,7 +90,7 @@ class Request extends BaseModel
     {
         $fileContents = file_get_contents($certPath);
         if (!$fileContents) {
-            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado'], 403);
+            $this->throwEfiException('Não foi possível ler o arquivo de certificado', 403);
         }
         return $fileContents;
     }
@@ -112,7 +112,7 @@ class Request extends BaseModel
 
         $publicKey = openssl_x509_parse($fileContents);
         if (!$publicKey) {
-            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Certificado inválido ou inativo'], 403);
+            $this->throwEfiException('Certificado inválido ou inativo', 403);
         }
 
         $this->checkCertificateExpiration($publicKey);
@@ -129,7 +129,7 @@ class Request extends BaseModel
     private function readP12Certificate(string $fileContents): array
     {
         if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
-            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'Não foi possível ler o arquivo de certificado p12'], 403);
+            $this->throwEfiException('Não foi possível ler o arquivo de certificado p12', 403);
         }
         return $certData;
     }
@@ -146,7 +146,7 @@ class Request extends BaseModel
         $today = date("Y-m-d H:i:s");
         $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
         if ($validTo <= $today) {
-            throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => 'O certificado de autenticação expirou em ' . $validTo], 403);
+            $this->throwEfiException('O certificado de autenticação expirou em ' . $validTo, 403);
         }
     }
 
@@ -170,7 +170,7 @@ class Request extends BaseModel
         } catch (ClientException $e) {
             throw $this->handleClientException($e);
         } catch (ServerException $se) {
-            throw new EfiException($this->config['api'], $se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
+            $this->throwEfiException($se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
         }
     }
 
@@ -254,5 +254,17 @@ class Request extends BaseModel
                 $e->getResponse()->getStatusCode()
             );
         }
+    }
+
+    /**
+     * Throws a common EfiException.
+     *
+     * @param string $message Error message.
+     * @param int $statusCode HTTP status code.
+     * @throws EfiException The EfiException.
+     */
+    private function throwEfiException(string $message, int $statusCode): void
+    {
+        throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => $message], $statusCode);
     }
 }

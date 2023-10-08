@@ -48,12 +48,12 @@ class Config
      */
     public static function options(array $options): array
     {
-        $conf['sandbox'] = isset($options['sandbox']) ? (bool) $options['sandbox'] : false;
-        $conf['debug'] = isset($options['debug']) ? (bool) $options['debug'] : false;
-        $conf['cache'] = isset($options['cache']) ? (bool) $options['cache'] : true;
-        $conf['clientId'] = (string) $options['client_id'] ?? null;
-        $conf['clientSecret'] = (string) $options['client_secret'] ?? null;
-        $conf['timeout'] = (float) $options['timeout'] ?? 30.0;
+        $conf['sandbox'] = (bool) isset($options['sandbox']) ? (bool) $options['sandbox'] : false;
+        $conf['debug'] = (bool) isset($options['debug']) ? (bool) $options['debug'] : false;
+        $conf['cache'] = (bool) isset($options['cache']) ? (bool) $options['cache'] : true;
+        $conf['timeout'] = (float) isset($options['timeout']) ? $options['timeout'] : 30.0;
+        $conf['clientId'] = (string) isset($options['client_id']) ? $options['client_id'] : null;
+        $conf['clientSecret'] = (string) isset($options['client_secret']) ? $options['client_secret'] : null;
         $conf['headers'] = $options['headers'] ?? null;
         $conf['baseUri'] = $options['url'] ?? null;
         $conf['api'] = $options['api'];

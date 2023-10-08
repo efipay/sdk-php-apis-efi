@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.2.3 (2023-10-08)
+--------------------------
+* Fixed the use of cache attributes
+* Refactor: Improved code optimization and organization
+
 Version 1.2.2 (2023-09-21)
 --------------------------
 * Fixed PHP version and dependency compatibility

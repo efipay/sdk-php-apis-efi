@@ -42,8 +42,15 @@ class PixException extends Exception
         }
 
         if (isset($error['mensagem'])) {
-            if (isset($error['erros'][0]) && $error['erros'][0]['mensagem'] && $error['erros'][0]['caminho']) {
+            if (!empty($error['erros'][0]['mensagem']) && !empty($error['erros'][0]['caminho'])) {
                 return $error['mensagem'] . '. Parâmetro "' . $error['erros'][0]['caminho'] . '" ' . $error['erros'][0]['mensagem'];
+            }
+            $messageDetail = json_decode($error['mensagem'],true);
+            if (is_array($messageDetail) && isset($messageDetail['detail'])) {
+                return $messageDetail['detail'];
+            }
+            if (isset($messageDetail['mensagem'])) {
+                return $messageDetail['mensagem'];
             }
             return $error['mensagem'];
         }

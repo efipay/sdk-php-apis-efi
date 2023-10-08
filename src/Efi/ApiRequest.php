@@ -72,9 +72,8 @@ class ApiRequest extends BaseModel
      */
     private function loadAccessTokenFromCache(): void
     {
-        $hash = $this->generateCacheHash();
-        $this->cacheAccessToken = $this->cache->get(hash('sha512', "Efí-access_token_$hash"));
-        $this->cacheAccessTokenExpires = $this->cache->get(hash('sha512', "Efí-access_token_expires_$hash"));
+        $this->cacheAccessToken = $this->cache->get(Utils::getCacheHash('access_token', $this->options['api'], $this->options['clientId']));
+        $this->cacheAccessTokenExpires = $this->cache->get(Utils::getCacheHash('access_token_expires', $this->options['api'], $this->options['clientId']));
     }
 
     /**
@@ -94,7 +93,7 @@ class ApiRequest extends BaseModel
      */
     private function buildRequestHeaders(): array
     {
-        $composerData = json_decode(file_get_contents(__DIR__ . '/../../composer.json'), true);
+        $composerData = Utils::getComposerData();
         $requestHeaders = [
             'Authorization' => 'Bearer ' . $this->auth->accessToken,
             'api-sdk' => 'efi-php-' . $composerData['version']
@@ -105,15 +104,5 @@ class ApiRequest extends BaseModel
         }
 
         return $requestHeaders;
-    }
-
-    /**
-     * Generates a cache hash based on API, IP address, and client ID.
-     *
-     * @return string The generated cache hash.
-     */
-    private function generateCacheHash(): string
-    {
-        return $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->options['clientId'], -6);
     }
 }

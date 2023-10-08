@@ -435,7 +435,7 @@
         "OPENING-ACCOUNTS": {
             "URL": {
                 "production": "https://abrircontas.api.efipay.com.br",
-                "sandbox": null
+                "sandbox": "https://abrircontas-h.api.efipay.com.br"
             },
             "ENDPOINTS": {
                 "authorize": {

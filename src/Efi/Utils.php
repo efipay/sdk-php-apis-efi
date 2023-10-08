@@ -37,4 +37,28 @@ class Utils
 
         return $hex;
     }
+
+    /**
+     * Generates a cache hash based on the provided parameters.
+     *
+     * @param string $prefix Prefix for the hash.
+     * @param string $api API identifier.
+     * @param string $clientId Client ID.
+     * @return string The generated cache hash.
+     */
+    public static function getCacheHash(string $prefix, string $api, string $clientId): string
+    {
+        return hash('sha512', 'Efí-'. $prefix ."-". $api . $_SERVER['REMOTE_ADDR'] . substr($clientId, -6));
+    }
+
+    /**
+     * Gets the data from the composer.json file and decodes it.
+     *
+     * @return array Parsed data from the composer.json file.
+     */
+    public static function getComposerData(): array
+    {
+        $composerJsonPath = __DIR__ . '/../../composer.json';
+        return json_decode(file_get_contents($composerJsonPath), true);
+    }
 }

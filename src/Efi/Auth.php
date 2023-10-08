@@ -57,14 +57,12 @@ class Auth extends BaseModel
             $endpoints['ENDPOINTS']['authorize']['route'],
             $requestOptions
         );
-
+        
         $this->accessToken = $response['access_token'];
         $this->expires = time() + $response['expires_in'];
-
-        $hash = $this->options['api'] . $_SERVER['REMOTE_ADDR'] . substr($this->clientId, -6);
         $session_expire = ($this->options['api'] === 'CHARGES') ? 600 : 3600;
 
-        $this->cache->set(hash('sha512', "Efí-access_token_$hash"), $this->accessToken, $session_expire);
-        $this->cache->set(hash('sha512', "Efí-access_token_expires_$hash"), $this->expires, $session_expire);
+        $this->cache->set(Utils::getCacheHash('access_token', $this->options['api'], $this->clientId), $this->accessToken, $session_expire);
+        $this->cache->set(Utils::getCacheHash('access_token_expires', $this->options['api'], $this->clientId), $this->expires, $session_expire);
     }
 }
