@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 1.3.0 (2023-10-12)
+--------------------------
+* Added option to enter the certificate password through the "pwdCertificate" parameter
+* Added option to enable/disable cache to reuse authentication hrough the "cache" parameter
+* Parameters "client_id" and "client_secret" changed following the camel case convention, that is, "clientId" and "clientSecret", but the old names are accepted
+* Support symfony/cache v6
+
 Version 1.2.3 (2023-10-08)
 --------------------------
 * Fixed the use of cache attributes
