@@ -35,26 +35,23 @@ class PixException extends Exception
     private function getErrorDescription(array $error)
     {
         if (isset($error['detail'])) {
-            if (isset($error['violacoes'][0]) && $error['violacoes'][0]['razao']) {
-                return $error['detail'] . ' Propriedade: "' . $error['violacoes'][0]['propriedade'] . '". ' . $error['violacoes'][0]['razao'];
+            $description = $error['detail'];
+            if (isset($error['violacoes'][0]['razao'])) {
+                $description .= ' Propriedade: "' . $error['violacoes'][0]['propriedade'] . '". ' . $error['violacoes'][0]['razao'];
             }
-            return $error['detail'];
+            return $description;
         }
 
         if (isset($error['mensagem'])) {
-            if (!empty($error['erros'][0]['mensagem']) && !empty($error['erros'][0]['caminho'])) {
-                return $error['mensagem'] . '. Parâmetro "' . $error['erros'][0]['caminho'] . '" ' . $error['erros'][0]['mensagem'];
-            }
-            $messageDetail = json_decode($error['mensagem'],true);
+            $messageDetail = json_decode($error['mensagem'], true);
             if (is_array($messageDetail) && isset($messageDetail['detail'])) {
                 return $messageDetail['detail'];
             }
-            if (isset($messageDetail['mensagem'])) {
-                return $messageDetail['mensagem'];
-            }
-            return $error['mensagem'];
+            return !empty($error['erros'][0]['mensagem']) && !empty($error['erros'][0]['caminho'])
+                ? $error['mensagem'] . '. Parâmetro "' . $error['erros'][0]['caminho'] . '" ' . $error['erros'][0]['mensagem']
+                : $error['mensagem'];
         }
-
-        return '';
+        
+        return 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
     }
 }
