@@ -78,7 +78,7 @@ $options = [
 	"clientId" => "Client_Id...",
 	"clientSecret" => "Client_Secret...",
 	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Caminho absoluto para o certificado no formato .p12 ou .pem
-	"pwdCertificate" => "" // Opcional | Padrão = "" | Senha de criptografia do certificado
+	"pwdCertificate" => "", // Opcional | Padrão = "" | Senha de criptografia do certificado
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
 	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
