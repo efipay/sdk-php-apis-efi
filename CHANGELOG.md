@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.3.1 (2023-10-12)
+--------------------------
+* Updated link to technical documentation for examples
+* Added a new endpoint and example to cancel a scheduled Pix payment via Open Finance
+
 Version 1.3.0 (2023-10-12)
 --------------------------
 * Added option to enter the certificate password through the "pwdCertificate" parameter
