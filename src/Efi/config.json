@@ -398,6 +398,10 @@
                     "route": "/v1/pagamentos/pix/:identificadorPagamento/devolver",
                     "method": "post"
                 },
+                "ofCancelSchedulePix": {
+                    "route": "/v1/pagamentos/pix/:identificadorPagamento/cancelar",
+                    "patch": "post"
+                },
                 "ofListPixPayment": {
                     "route": "/v1/pagamentos/pix",
                     "method": "get"

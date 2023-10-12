@@ -102,6 +102,7 @@ namespace Efi;
  * @method array ofListParticipants(array $params)
  * @method array ofStartPixPayment(array $params = [], array $body)
  * @method array ofDevolutionPix(array $params, array $body)
+ * @method array ofCancelSchedulePix(array $params)
  * @method array ofListPixPayment(array $params)
  * 
  * API PAYMENTS
