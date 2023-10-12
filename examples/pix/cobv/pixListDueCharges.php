@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/CobrancasComVencimento#consultar-lista-de-cobran%C3%A7as-com-vencimento
+ * https://dev.efipay.com.br/docs/api-pix/cobrancas-com-vencimento#consultar-lista-de-cobranças-com-vencimento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

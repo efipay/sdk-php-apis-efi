@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Carne#reenvio-do-carn%C3%AA-para-o-email-desejado
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#reenvio-do-carnê-para-o-email-desejado
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

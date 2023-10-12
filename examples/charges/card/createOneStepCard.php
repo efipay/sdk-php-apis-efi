@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Cartao#cria%C3%A7%C3%A3o-de-cobran%C3%A7a-por-cart%C3%A3o-de-cr%C3%A9dito-em-one-step-um-passo
+ * https://dev.efipay.com.br/docs/api-cobrancas/cartao#criação-de-cobrança-por-cartão-de-crédito-em-one-step-um-passo
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

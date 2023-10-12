@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#retornar-informa%C3%A7%C3%B5es-de-um-plano
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#retornar-informações-de-um-plano
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

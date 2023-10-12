@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/gestao-de-pix#consultar-pix-enviado-atrav%C3%A9s-do-identificador-da-transa%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-pix/gestao-de-pix#consultar-pix-enviado-atrav%C3%A9s-do-identificador-da-transação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

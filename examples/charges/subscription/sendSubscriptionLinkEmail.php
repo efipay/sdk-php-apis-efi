@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#reenvio-do-link-associado-ao-plano-para-o-email-desejado
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#reenvio-do-link-associado-ao-plano-para-o-email-desejado
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/Pix#consultar-lista-de-pix-enviados
+ * https://dev.efipay.com.br/docs/api-pix/gestao-de-pix#consultar-lista-de-pix-enviados
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

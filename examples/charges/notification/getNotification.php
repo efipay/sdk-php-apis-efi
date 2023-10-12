@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Notificacoes
+ * https://dev.efipay.com.br/docs/api-cobrancas/notificacoes
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
@@ -21,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 $params = [
-	"token" => "00000000-0000-0000-0000-000000000000"
+	"token" => $_POST["notification"] // Notification token example: "00000000-0000-0000-0000-000000000000"
 ];
 
 try {
@@ -37,5 +37,5 @@ try {
 	header("HTTP/1.1 400");
 } catch (Exception $e) {
 	print_r($e->getMessage());
-	header("HTTP/1.1 401");
+	header("HTTP/1.1 403");
 }

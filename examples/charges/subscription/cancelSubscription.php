@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#cancelar-uma-transa%C3%A7%C3%A3o-existente
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#cancelar-uma-assinatura
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

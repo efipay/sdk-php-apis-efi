@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPagamentoContas/Pagamentos#solicitar-pagamento-de-c%C3%B3digo-de-barras
+ * https://dev.efipay.com.br/docs/api-pagamento-de-contas/pagamentos#solicitar-pagamento-de-código-de-barras
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

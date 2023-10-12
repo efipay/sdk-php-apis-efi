@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#associar-plano-ao-link-de-pagamento
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#associar-plano-ao-link-de-pagamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

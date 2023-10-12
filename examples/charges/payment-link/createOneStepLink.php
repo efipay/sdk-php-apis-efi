@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#criando-o-link-de-pagamento-em-one-step
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#criando-o-link-de-pagamento-em-one-step
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Devolucao#efetuar-uma-devolu%C3%A7%C3%A3o-de-um-pagamento
+ * https://dev.efipay.com.br/docs/api-open-finance/devolucao#efetuar-uma-devolução-de-um-pagamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
@@ -20,14 +20,17 @@ if (!file_exists($options)) {
 }
 require $options;
 
-$body = [
+$params = [
 	"identificadorPagamento" => "urn:participant:00000000-0000-0000-0000-000000000000",
+];
+
+$body = [
 	"valor" => "0.01"
 ];
 
 try {
 	$api = EfiPay::getInstance($options);
-	$response = $api->ofDevolutionPix($params = [], $body);
+	$response = $api->ofDevolutionPix($params, $body);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
 } catch (EfiException $e) {

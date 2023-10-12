@@ -2,12 +2,12 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Pagamentos#solicitar-inicia%C3%A7%C3%A3o-de-pix-via-open-finance
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos#solicitar-iniciação-de-pix-via-open-finance
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -39,9 +39,12 @@ $body = [
 			"tipoConta" => "CACC"
 		]
 	],
-	"valor" => "0.01",
-	"infoPagador" => "Order 00001",
-	"idProprio" => "Client00001Order00001"
+	"detalhes" => [
+		"valor" => "0.01",
+		"infoPagador" => "Order 00001",
+		"idProprio" => "Client00001Order00001",
+		"dataAgendamento" => "2024-12-20"
+	]
 ];
 
 try {

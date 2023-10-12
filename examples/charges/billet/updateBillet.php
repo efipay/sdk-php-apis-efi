@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#alterar-data-de-vencimento-de-uma-transa%C3%A7%C3%A3o-existente
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#alterar-data-de-vencimento-de-uma-transação-existente
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

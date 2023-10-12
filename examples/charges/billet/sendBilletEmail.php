@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#reenvio-do-boleto-banc%C3%A1rio-para-o-email-desejado
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#reenvio-do-boleto-bancário-para-o-email-desejado
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

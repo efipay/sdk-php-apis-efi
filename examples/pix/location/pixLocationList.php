@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/PayloadLocations#consultar-locations-cadastradas
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#consultar-locations-cadastradas
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

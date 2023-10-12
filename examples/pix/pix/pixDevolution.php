@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/Pix#solicitar-devolu%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-pix/gestao-de-pix#solicitar-devolução
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

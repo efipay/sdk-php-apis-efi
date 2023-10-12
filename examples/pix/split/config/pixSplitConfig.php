@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/SplitDePagamentoPix#configura%C3%A7%C3%A3o-de-um-split-de-pagamento-sem-passar-id
+ * https://dev.efipay.com.br/docs/api-pix/split-de-pagamento-pix#configuração-de-um-split-de-pagamento-sem-passar-id
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");

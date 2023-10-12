@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Carne#marcar-como-pago-baixa-manual-um-determinado-carn%C3%AA
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#marcar-como-pago-baixa-manual-um-determinado-carnê
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

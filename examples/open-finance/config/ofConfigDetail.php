@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Config_aplicacao#retornar-as-configura%C3%A7%C3%B5es-da-aplica%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-open-finance/configuracoes-de-aplicacao#retornar-as-configura%C3%A7%C3%B5es-da-aplicação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

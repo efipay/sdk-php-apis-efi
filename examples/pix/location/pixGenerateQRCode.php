@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/PayloadLocations#gerar-qrcode-de-um-location
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#gerar-qrcode-de-um-location
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

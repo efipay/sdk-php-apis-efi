@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#cancelar-um-link-de-pagamento-existente
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#cancelar-um-link-de-pagamento-existente
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

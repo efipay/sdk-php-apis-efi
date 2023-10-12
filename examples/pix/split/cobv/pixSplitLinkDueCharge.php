@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/SplitDePagamentoPix#vincular-uma-cobran%C3%A7a-com-vencimento-a-um-split-de-pagamento-por-txid
+ * https://dev.efipay.com.br/docs/api-pix/split-de-pagamento-pix#vincular-uma-cobrança-com-vencimento-a-um-split-de-pagamento-por-txid
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");

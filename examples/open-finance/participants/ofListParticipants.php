@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Participantes#recuperar-as-institui%C3%A7%C3%B5es-participantes-do-open-finance
+ * https://dev.efipay.com.br/docs/api-open-finance/participantes#recuperar-as-instituições-participantes-do-open-finance
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

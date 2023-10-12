@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#acrescentar-descri%C3%A7%C3%A3o-ao-hist%C3%B3rico-de-uma-assinatura
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#acrescentar-descrição-ao-histórico-de-uma-assinatura
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

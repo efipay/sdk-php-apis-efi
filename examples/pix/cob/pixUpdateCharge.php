@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/CobrancasImediatas#revisar-cobran%C3%A7a
+ * https://dev.efipay.com.br/docs/api-pix/cobrancas-imediatas#revisar-cobrança
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

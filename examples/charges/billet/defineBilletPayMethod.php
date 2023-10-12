@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#2-associar-%C3%A0-forma-de-pagamento-via-boleto
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#2-associar-à-forma-de-pagamento-via-boleto
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#incluir-notification_url-e-custom_id-em-uma-assinatura-existente
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#incluir-notification_url-e-custom_id-em-uma-transação-existente
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

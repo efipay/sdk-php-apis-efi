@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/SplitDePagamentoPix#deletar-o-v%C3%ADnculo-entre-um-split-de-pagamento-e-uma-cobran%C3%A7a
+ * https://dev.efipay.com.br/docs/api-pix/split-de-pagamento-pix#deletar-o-v%C3%ADnculo-entre-um-split-de-pagamento-e-uma-cobrança
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");

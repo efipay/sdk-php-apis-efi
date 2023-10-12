@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Carne#cancelar-parcela-espec%C3%ADfica-de-carn%C3%AA
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#cancelar-parcela-específica-de-carnê
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

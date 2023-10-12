@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#reenviar-link-de-pagamento-por-e-mail
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#reenviar-link-de-pagamento-por-e-mail
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/CobrancasImediatas#criar-cobran%C3%A7a-imediata-sem-txid
+ * https://dev.efipay.com.br/docs/api-pix/cobrancas-imediatas#criar-cobrança-imediata-sem-txid
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

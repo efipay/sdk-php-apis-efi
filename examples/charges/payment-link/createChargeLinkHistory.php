@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#acrescentar-descri%C3%A7%C3%A3o-ao-hist%C3%B3rico-de-uma-transa%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#acrescentar-descrição-ao-hist%C3%B3rico-de-uma-transação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

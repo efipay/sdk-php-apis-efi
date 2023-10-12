@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Carne#marcar-como-pago-determinada-parcela-de-carn%C3%AA
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#marcar-como-pago-determinada-parcela-de-carnê
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

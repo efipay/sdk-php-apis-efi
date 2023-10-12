@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/EndpointsExclusivosEfi#solicitar-download-extrato-concilia%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#solicitar-download-extrato-conciliação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

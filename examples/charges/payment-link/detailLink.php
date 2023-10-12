@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#retornar-informa%C3%A7%C3%B5es-de-um-link-de-pagamento
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#retornar-informações-de-um-link-de-pagamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

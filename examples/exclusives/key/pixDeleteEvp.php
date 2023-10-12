@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/EndpointsExclusivosEfi#remover-chave-evp
+ * https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#remover-chave-evp
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

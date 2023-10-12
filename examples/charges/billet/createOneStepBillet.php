@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#cria%C3%A7%C3%A3o-de-boleto-bolix-em-one-step-um-passo
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#criação-de-boleto-bolix-em-one-step-um-passo
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

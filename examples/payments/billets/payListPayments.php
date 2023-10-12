@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPagamentoContas/Pagamentos#consultar-solicita%C3%A7%C3%A3o-de-pagamento
+ * https://dev.efipay.com.br/docs/api-pagamento-de-contas/pagamentos#consultar-resumo-de-solicitações-de-pagamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

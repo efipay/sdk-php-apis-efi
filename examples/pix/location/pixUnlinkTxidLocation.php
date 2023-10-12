@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/PayloadLocations#desvincular-um-txid-de-uma-location
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#desvincular-um-txid-de-um-location
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

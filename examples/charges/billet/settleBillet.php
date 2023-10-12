@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#marcar-como-pago-baixa-manual-uma-determinada-transa%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#marcar-como-pago-baixa-manual-uma-determinada-transação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/SplitPagamento#cria%C3%A7%C3%A3o-de-transa%C3%A7%C3%A3o-marketplace-em-one-step-um-passo
+ *https://dev.efipay.com.br/docs/api-cobrancas/split-de-pagamento#criação-de-transação-split-de-pagamento-em-one-step-um-passo
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#crie-o-plano-de-assinatura
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#crie-o-plano-de-assinatura
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

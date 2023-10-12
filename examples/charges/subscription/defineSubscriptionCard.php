@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Assinatura#2-defina-a-forma-de-pagamento-da-assinatura-e-os-dados-do-cliente
+ * https://dev.efipay.com.br/docs/api-cobrancas/assinatura#2-defina-a-forma-de-pagamento-da-assinatura-e-os-dados-do-cliente
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Cartao#listar-parcelas-de-acordo-com-a-bandeira-do-cart%C3%A3o
+ * https://dev.efipay.com.br/docs/api-cobrancas/cartao#listar-parcelas-de-acordo-com-a-bandeira-do-cartão
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

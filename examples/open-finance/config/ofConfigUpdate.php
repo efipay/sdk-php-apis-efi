@@ -2,12 +2,12 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Config_aplicacao#configurar-urls-da-aplica%C3%A7%C3%A3o
+ * https://dev.efipay.com.br/docs/api-open-finance/configuracoes-de-aplicacao#configurar-urls-da-aplicação
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -22,7 +22,11 @@ require $options;
 
 $body = [
 	"redirectURL" => "https://your-domain.com.br/redirect/",
-	"webhookURL" => "https://your-domain.com.br/webhook/"
+	"webhookURL" => "https://your-domain.com.br/webhook/",
+	"webhookSecurity" => [
+		"type" => "mtls"
+	],
+	"processPayment" => "async"
 ];
 
 try {

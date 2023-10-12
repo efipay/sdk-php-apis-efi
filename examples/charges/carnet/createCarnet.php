@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Carne#criando-carn%C3%AAs
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#criando-carnês
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

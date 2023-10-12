@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Boleto#definir-que-a-transa%C3%A7%C3%A3o-ser%C3%A1-do-tipo-boleto-balancete
+ * https://dev.efipay.com.br/docs/api-cobrancas/boleto/#definir-que-a-transação-será-do-tipo-boleto-balancete
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

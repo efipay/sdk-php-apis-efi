@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/Cartao#2-associar-%C3%A0-forma-de-pagamento-via-cart%C3%A3o
+ * https://dev.efipay.com.br/docs/api-cobrancas/cartao#2-associar-à-forma-de-pagamento-via-cartão
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

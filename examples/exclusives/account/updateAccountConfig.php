@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/EndpointsExclusivosEfi#criarmodificar-configura%C3%A7%C3%B5es-da-conta
+ * https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#criarmodificar-configurações-da-conta
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APICobrancas/LinkPagamento#alterar-determinados-par%C3%A2metrosatributos-de-um-link-de-pagamento-existente
+ * https://dev.efipay.com.br/docs/api-cobrancas/link-de-pagamento#alterar-determinados-parâmetrosatributos-de-um-link-de-pagamento-existente
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

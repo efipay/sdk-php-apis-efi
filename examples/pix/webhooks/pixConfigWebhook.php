@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/Webhooks#configurar-o-webhook-pix
+ * https://dev.efipay.com.br/docs/api-pix/webhooks#configurar-o-webhook-pix
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

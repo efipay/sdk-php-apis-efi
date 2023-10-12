@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIPix/SplitDePagamentoPix#vincular-uma-cobran%C3%A7a-a-um-split-de-pagamento
+ * https://dev.efipay.com.br/docs/api-pix/split-de-pagamento-pix#vincular-uma-cobrança-a-um-split-de-pagamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");

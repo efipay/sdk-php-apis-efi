@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/APIOpenFinance/Pagamentos#listar-pagamentos-por-um-determinado-per%C3%ADodo
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos#listar-pagamentos-por-um-determinado-período
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
