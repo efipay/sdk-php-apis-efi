@@ -21,7 +21,6 @@ class Request extends BaseModel
     public function __construct(array $options = null)
     {
         $this->config = Config::options($options);
-        $this->certifiedPath = $options['certified_path'] ?? null;
 
         $clientData = $this->getClientData($options);
         $this->client = new Client($clientData);
@@ -46,8 +45,8 @@ class Request extends BaseModel
             ]
         ];
 
-        if (isset($options['partner_token']) || isset($options['partner-token'])) {
-            $clientData['headers']['partner-token'] = $options['partner_token'] ?? $options['partner-token'];
+        if (isset($options['partnerToken'])) {
+            $clientData['headers']['partner-token'] = $options['partnerToken'];
         }
 
         return $clientData;
@@ -62,10 +61,6 @@ class Request extends BaseModel
      */
     private function verifyCertificate(string $certificate): string
     {
-        if ($this->certifiedPath) {
-            $this->client->setDefaultOption('verify', $this->certifiedPath);
-        }
-
         if (file_exists($certificate)) {
             $certPath = realpath($certificate);
             $fileContents = $this->readCertificateFile($certPath);
@@ -128,7 +123,7 @@ class Request extends BaseModel
 
     private function readP12Certificate(string $fileContents): array
     {
-        if (!openssl_pkcs12_read($fileContents, $certData, $password = '')) {
+        if (!openssl_pkcs12_read($fileContents, $certData, $this->config['pwdCertificate'])) {
             $this->throwEfiException('Não foi possível ler o arquivo de certificado p12', 403);
         }
         return $certData;
@@ -183,7 +178,7 @@ class Request extends BaseModel
     private function applyCertificateAndHeaders(array &$requestOptions): void
     {
         if (isset($this->config['certificate'])) {
-            $requestOptions['cert'] = $this->verifyCertificate($this->config['certificate']);
+            $requestOptions['cert'] = [$this->verifyCertificate($this->config['certificate']), $this->config['pwdCertificate']];
         }
 
         if (isset($this->config['headers'])) {

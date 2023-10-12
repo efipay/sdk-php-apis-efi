@@ -99,8 +99,8 @@ class ApiRequest extends BaseModel
             'api-sdk' => 'efi-php-' . $composerData['version']
         ];
 
-        if (isset($this->options['partner_token']) || isset($this->options['partner-token'])) {
-            $requestHeaders['partner-token'] = $this->options['partner_token'] ?? $this->options['partner-token'];
+        if (isset($this->options['partnerToken'])) {
+            $requestHeaders['partner-token'] = $this->options['partnerToken'] ?? $this->options['partner-token'];
         }
 
         return $requestHeaders;

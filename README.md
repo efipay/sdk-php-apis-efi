@@ -15,15 +15,13 @@
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
 
 SDK em PHP para integração com as APIs Efí para emissão de Pix, boletos, carnês, cartão de crédito, assinatura, link de pagamento, marketplance, Pix via Open Finance, pagamento de boletos, dentre outras funcionalidades.
-Para mais informações sobre [parâmetros](http://sejaefi.com.br/api) e [valores/tarifas](http://sejaefi.com.br/tarifas) consulte nosso site.
+Para mais [informações técnicas](https://dev.efipay.com.br/) e [valores/tarifas](http://sejaefi.com.br/tarifas), consulte nosso site.
 
 Ir para:
 - [**Requisitos**](#requisitos)
 - [**Testado com**](#testado-com)
 - [**Instalação**](#instalação)
 - [**Começando**](#começando)
-	- [**Para ambiente de homologação**](#para-ambiente-de-homologação)
-	- [**Para ambiente de produção**](#para-ambiente-de-produção)
 - [**Como obter as credenciais Client-Id e Client-Secret**](#como-obter-as-credenciais-client-id-e-client-secret)
 	- [**Crie uma nova aplicação para usar as APIs Efí Pay:**](#crie-uma-nova-aplicação-para-usar-as-apis-efí-pay)
 - [**Como gerar um certificado Pix**](#como-gerar-um-certificado-pix)
@@ -40,8 +38,9 @@ Ir para:
 ---
 
 ## **Requisitos**
-* PHP >= 7.2
+* PHP >= 7.2.5
 * Guzzle >= 7.0
+* Symfony/Cache >= 5.0 || >= 6.0
 
 ## **Testado com**
 ```
@@ -49,8 +48,9 @@ PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
 ```
 
 ## **Instalação**
-Clone este repositório e execute o seguinte comando para instalar as dependências
+Clone este repositório e execute o comando para instalar as dependências
 ```
+git clone https://github.com/efipay/sdk-php-apis-efi.git
 composer install
 ```
 
@@ -70,33 +70,19 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Começando**
 
-Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `client_id`, `client_secret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Se você usa cobrança Pix, informe no atributo `certificate` o diretório **absoluto** e o nome do seu certificado no formato `.p12` ou `.pem`.
+Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Se você usa a API Pix, API Open Finance e API Pagamento de Contas, informe no atributo `certificate` o diretório **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`.
 
-Veja exemplos de configuração a seguir:
-
-### **Para ambiente de homologação**
-Instancie os parâmetros do módulo usando `client_id`, `client_secret`, `sandbox` igual a **true** e `certificate` com o nome do certificado de homologação:
+Veja um exemplo de configuração:
 ```php
 $options = [
-	"client_id" => "Client_Id...",
-	"client_secret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/homologacao.p12"), // Caminho absoluto para o certificado no formato .p12 ou .pem
-	"sandbox" => true,
-	"debug" => false,
-	"timeout" => 30
-];
-```
-
-### **Para ambiente de produção**
-Instancie os parâmetros do módulo usando `client_id`, `client_secret`, `sandbox` igual a *false* e `certificate` com o nome do certificado de produção:
-```php
-$options = [
-	"client_id" => "Client_Id...",
-	"client_secret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/producao.p12"), // Caminho absoluto para o certificado no formato .p12 ou .pem
-	"sandbox" => false,
-	"debug" => false,
-	"timeout" => 30
+	"clientId" => "Client_Id...",
+	"clientSecret" => "Client_Secret...",
+	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Caminho absoluto para o certificado no formato .p12 ou .pem
+	"pwdCertificate" => "" // Opcional | Padrão = "" | Senha de criptografia do certificado
+	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
+	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
+	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
+	"cache" => true // Opcional. | Padrão = true | Ativa/desativa cache da autenticação. Se igual a `true` o token será reutilizado para otimizar as requisições
 ];
 ```
 
@@ -108,15 +94,19 @@ use Efi\Exception\EfiException;
 use Efi\EfiPay;
 ```
 
-Embora as respostas dos serviços da web estejam no formato json, a SDK converterá qualquer resposta do servidor em array. O código deve estar dentro de um try-catch, e podem ser tratadas da seguinte forma:
+Embora as respostas dos serviços da web estejam no formato json, a SDK converterá a resposta da API em array. O código deve estar dentro de um try-catch, e podem ser tratadas da seguinte forma:
 
 ```php
 try {
-  /* chamada da função desejada */
+	/* chamada da função desejada */
 } catch(EfiException $e) {
-  /* Os erros da API virão aqui */
+	/* Os erros da API virão aqui */
+	print_r($e->code . "<br>");
+	print_r($e->error . "<br>");
+	print_r($e->errorDescription . "<br>");
 } catch(Exception $e) {
-  /* Outros erros virão aqui */
+	/* Outros erros virão aqui */
+	print_r($e->getMessage());
 }
 ```
 
@@ -147,13 +137,13 @@ O cadastro das chaves Pix pode ser feito através do aplicativo mobille da Efí,
 
 1. Acesse sua [conta digital](https://app.sejaefi.com.br/).
 2. No menu lateral, clique em **Pix**.
-3. Clique em **Minhas Chaves** e depois clique no botão **Cadastrar Chave**.
+3. Clique em **Minhas Chaves** e, depois clique no botão **Cadastrar Chave**.
 4. Você deve escolher pelo menos 1 das 4 opções de chaves disponíveis (CPF/CNPJ, E-mail, Celular ou Chave aleatória).
 5. Após cadastrar as chaves do Pix desejadas, clique em **Continuar**.
 6. Insira sua Assinatura Eletrônica para confirmar o cadastro.
 
 ### **Cadastrar chave Pix através da API:**
-O endpoint utilizado para criar uma chave Pix aleatória (evp), é o `POST /v2/gn/evp` ([Criar chave evp](https://dev.sejaefi.com.br/docs/api-pix-endpoints#section-criar-chave-evp)). Um detalhe é que, através deste endpoint é realizado o registro somente de chaves Pix do tipo aleatória.
+O endpoint utilizado para criar uma chave Pix aleatória (evp), é o `POST /v2/gn/evp` ([Criar chave evp](https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#criar-chave-evp)). Um detalhe é que, através deste endpoint é realizado o registro somente de chaves Pix do tipo aleatória.
 
 Para consumí-lo, basta executar o exemplo  `/examples/exclusive/key/pixCreateEvp.php` da nossa SDK. A requisição enviada para esse endpoint não precisa de um body. 
 
@@ -165,22 +155,22 @@ A resposta de exemplo abaixo representa Sucesso (201), apresentando a chave Pix 
 ```
 
 ## **Executar exemplos**
-Você pode executar usando qualquer servidor web, como Apache ou nginx e abrir qualquer exemplo em seu navegador.
+Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir qualquer exemplo em seu navegador ou linha de comando.
 
-:warning: Alguns exemplos requerem que você altere alguns parâmetros para funcionar, como `/examples/charges/billet/createOneStepBillet.php` ou `/examples/pix/cob/pixCreateCharge.php`.
+⚠️ Alguns exemplos requerem que você altere alguns parâmetros para funcionar, como `/examples/charges/billet/createOneStepBillet.php` ou `/examples/pix/cob/pixCreateCharge.php`.
 
 
 ## **Guia de versão**
 
 | Versão | Status | Packagist | Repo | Versão PHP |
 | --- | --- | --- | --- | --- |
-| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2 |
+| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2.5 |
 
 ## **Documentação Adicional**
 
 A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.efipay.com.br/.
 
-Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://app.sejaefi.com.br)!
+Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://sejaefi.com.br)!
 
 ## **Validador de Migração**
 Se você já possui integração com a SDK de PHP da Gerencianet e está buscando preparar a sua aplicação para as inovações futuras das APIs Efí, você pode usar o nosso validador para auxiliar na migração para esta SDK.

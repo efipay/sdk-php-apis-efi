@@ -14,16 +14,13 @@
 [![Total Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
 
-SDK in PHP for integration with Efí APIs for emission Pix, bank slips, carnet, credit card, subscription, payment link, marketplance, Pix through Open Finance, among other features.
-For more informations about [parameters](http://dev.sejaefi.com.br) and [values](http://sejaefi.com.br/tarifas) see our website.
+SDK in PHP for integration with Efí APIs for Pix issuance, boletos (banking payment slips), payment slips, credit card, subscription, payment links, marketplace, Pix via Open Finance, payment of boletos, among other functionalities. For more [technical information](https://dev.efipay.com.br/) and [pricing](http://sejaefi.com.br/tarifas), please refer to our website.
 
 Jump To:
 - [**Requirements**](#requirements)
 - [**Tested with**](#tested-with)
 - [**Installation**](#installation)
 - [**Getting started**](#getting-started)
-	- [**For homologation environment**](#for-homologation-environment)
-	- [**For production environment**](#for-production-environment)
 - [**How to get Client-Id and Client-Secret credentials**](#how-to-get-client-id-and-client-secret-credentials)
 - [**How to generate a Pix certificate**](#how-to-generate-a-pix-certificate)
 - [**How to register Pix keys**](#how-to-register-pix-keys)
@@ -39,8 +36,9 @@ Jump To:
 ---
 
 ## **Requirements**
-* PHP >= 7.2
+* PHP >= 7.2.5
 * Guzzle >= 7.0
+* Symfony/Cache >= 5.0 || >= 6.0
 
 ## **Tested with**
 ```
@@ -48,12 +46,15 @@ PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
 ```
 
 ## **Installation**
-Clone this repository and execute the following command to install the dependencies
+Clone this repository and run the command to install the dependencies:
+
 ```
+git clone https://github.com/efipay/sdk-php-apis-efi.git
 composer install
 ```
 
-Or if you already have a project with composer, include the dependency in your `composer.json`:
+Or if you already have a project managed with [Composer](https://getcomposer.org/), include the dependency in your `composer.json` file:
+
 ```
 ...
 "require": {
@@ -62,59 +63,52 @@ Or if you already have a project with composer, include the dependency in your `
 ...
 ```
 
-Or download this package direct with [composer](https://getcomposer.org/):
+Or download this package directly with [Composer](https://getcomposer.org/):
+
 ```
 composer require efipay/sdk-php-apis-efi
 ```
 
 ## **Getting started**
 
-To begin, you must configure the parameters in the `/examples/credentials/options.php` file. Instantiate the information `client_id`, `client_secret` for authentication and `sandbox` equal to *true*, if your environment is Homologation, or *false*, if it is Production. If you use Pix charges, inform in the attribute `certificate` with the relative **absolute** directory and name of your certificate in `.p12` or `.pem`. format.
+To start, you should configure the credentials in the file `/examples/credentials/options.php`. Instantiate the `clientId` and `clientSecret` for authentication, and set `sandbox` to *true* if your environment is for testing (Homologação), or *false* if it's for production (Produção). If you're using the Pix API, Open Finance API, and Bill Payment API, provide the **absolute** directory for the `certificate` attribute with the filename in `.p12` or `.pem` format.
 
-See configuration examples below:
+Here's an example of the configuration in PHP:
 
-### **For homologation environment**
-Instantiate the module parameters using `client_id`, `client_secret`, `sandbox` equal to **true** and `certificate` with the name of the approval certificate:
 ```php
 $options = [
-	"client_id" => "Client_Id...",
-	"client_secret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/homologation.p12"), // Absolute path to the certificate in .p12 or .pem format
-	"sandbox" => true,
-	"debug" => false,
-	"timeout" => 30
+    "clientId" => "Client_Id...",
+    "clientSecret" => "Client_Secret...",
+    "certificate" => realpath(__DIR__ . "/certificateFile.p12"), // Absolute path to the certificate in .p12 or .pem format
+    "pwdCertificate" => "", // Optional | Default = "" | Certificate encryption password
+    "sandbox" => false, // Optional | Default = false | Defines the development environment as Production or Homologation
+    "debug" => false, // Optional | Default = false | Enable/disable Guzzle request logs
+    "timeout" => 30, // Optional | Default = 30 | Defines the maximum response time for requests
+    "cache" => true // Optional | Default = true | Enable/disable authentication cache. If set to `true`, the token will be reused to optimize requests
 ];
 ```
 
-### **For production environment**
-Instantiate the module parameters using `client_id`, `client_secret`, `sandbox` equals *false* and `certificate` with the name of the production certificate:
-```php
-$options = [
-	"client_id" => "Client_Id...",
-	"client_secret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/production.p12"), // Absolute path to the certificate in .p12 or .pem format
-	"sandbox" => false,
-	"debug" => false,
-	"timeout" => 30
-];
-```
+To initiate the SDK, you need to require the module and namespaces, and handle the API responses as follows:
 
-Require the module and namespaces:
 ```php
+<?php
 require __DIR__ . '/vendor/autoload.php';
 
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
-```
-Although the web services responses are in json format, the SDK will convert any server response to array. The code must be within a try-catch and exceptions can be handled as follow:
-```php
+
 try {
-  /* call the desired function */
-} catch(EfiException $e) {
-  /* API errors will come here */
-} catch(Exception $e) {
-  /* Other errors will come here */
+    /* Call the desired function */
+} catch (EfiException $e) {
+    /* API errors will come here */
+    print_r($e->code . "<br>");
+    print_r($e->error . "<br>");
+    print_r($e->errorDescription . "<br>");
+} catch (Exception $e) {
+    /* Other errors will come here */
+    print_r($e->getMessage());
 }
+?>
 ```
 
 ## **How to get Client-Id and Client-Secret credentials**
@@ -163,9 +157,9 @@ The example response below represents Success (201), showing the registered Pix 
 
 
 ## **Running examples**
-You can run it using any web server like apache or nginx and open any example in your browser.
+You can run it using any web server like Apache or nginx and open any example in your browser or command line.
 
-:warning: Some examples require you to change some parameters to work, like `/examples/charges/billet/createOneStepBillet.php` or `/examples/pix/cob/pixCreateCharge.php`.
+⚠️ Some examples may require you to modify certain parameters to work, such as `/examples/charges/billet/createOneStepBillet.php` or `/examples/pix/cob/pixCreateCharge.php`.
 
 
 ## **Version Guidance**

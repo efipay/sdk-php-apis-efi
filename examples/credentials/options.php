@@ -23,10 +23,11 @@ $pathCertificateHomolog = realpath(__DIR__ . "/developmentCertificate.p12"); // 
  * Array with credentials for sending requests
  */
 $options = [
-	"client_id" => ($sandbox) ? $clientIdHomolog : $clientIdProd,
-	"client_secret" => ($sandbox) ? $clientSecretHomolog : $clientSecretProd,
+	"clientId" => ($sandbox) ? $clientIdHomolog : $clientIdProd,
+	"clientSecret" => ($sandbox) ? $clientSecretHomolog : $clientSecretProd,
 	"certificate" => ($sandbox) ? $pathCertificateHomolog : $pathCertificateProd,
-	"sandbox" => $sandbox,
-	"debug" => false,
-	"timeout" => 30
+	"pwdCertificate" => "", // Optional | Default = ""
+	"sandbox" => $sandbox, // Optional || Default = false
+	"debug" => false, // Optional
+	"timeout" => 30 // Optional
 ];

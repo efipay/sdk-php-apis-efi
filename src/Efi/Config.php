@@ -52,14 +52,16 @@ class Config
         $conf['debug'] = (bool) isset($options['debug']) ? (bool) $options['debug'] : false;
         $conf['cache'] = (bool) isset($options['cache']) ? (bool) $options['cache'] : true;
         $conf['timeout'] = (float) isset($options['timeout']) ? $options['timeout'] : 30.0;
-        $conf['clientId'] = (string) isset($options['client_id']) ? $options['client_id'] : null;
-        $conf['clientSecret'] = (string) isset($options['client_secret']) ? $options['client_secret'] : null;
+        $conf['clientId'] = (string) isset($options['client_id']) || isset($options['clientId']) ? $options['client_id'] ?? $options['clientId'] : null;
+        $conf['clientSecret'] = (string) isset($options['client_secret']) || isset($options['clientSecret']) ? $options['client_secret'] ?? $options['clientSecret'] : null;
+        $conf['partnerToken'] = (string) isset($options['partner_token']) || isset($options['partner-token']) || isset($options['partnerToken']) ? $options['partner_token'] ?? $options['partner-token'] ?? $options['partnerToken'] : null;
         $conf['headers'] = $options['headers'] ?? null;
         $conf['baseUri'] = $options['url'] ?? null;
         $conf['api'] = $options['api'];
-
+        
         if ($conf['api'] !== 'CHARGES') {
-            $conf['certificate'] = $options['certificate'] ?? $options['pix_cert'];
+            $conf['certificate'] = (string) isset($options['certificate']) || isset($options['pix_cert']) ? $options['certificate'] ?? $options['pix_cert'] : null;
+            $conf['pwdCertificate'] = (string) isset($options['pwdCertificate']) ? $options['pwdCertificate'] : '';
         }
 
         if ($conf['debug']) {
