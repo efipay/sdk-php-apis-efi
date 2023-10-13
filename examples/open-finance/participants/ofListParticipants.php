@@ -22,6 +22,7 @@ require $options;
 
 // $params = [ // optional
 // 	"nome" => "Name of participant"
+//	"organizacao" => false
 // ];
 
 try {
