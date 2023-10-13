@@ -24,13 +24,14 @@ Jump To:
 - [**How to get Client-Id and Client-Secret credentials**](#how-to-get-client-id-and-client-secret-credentials)
 - [**How to generate a Pix certificate**](#how-to-generate-a-pix-certificate)
 - [**How to register Pix keys**](#how-to-register-pix-keys)
-	- [**Register Pix key via web digital account:**](#register-pix-key-via-web-digital-account)
-	- [**Register Pix key via API:**](#register-pix-key-via-api)
+  - [**Register Pix key via web digital account:**](#register-pix-key-via-web-digital-account)
+  - [**Register Pix key via API:**](#register-pix-key-via-api)
 - [**Running examples**](#running-examples)
 - [**Version Guidance**](#version-guidance)
 - [**Additional Documentation**](#additional-documentation)
+- [**Discord Community**](#discord-community)
 - [**Migration Validator**](#migration-validator)
-	- [How to use the Validator:](#how-to-use-the-validator)
+  - [How to use the Validator:](#how-to-use-the-validator)
 - [**License**](#license)
 
 ---
@@ -173,6 +174,10 @@ You can run it using any web server like Apache or nginx and open any example in
 The complete documentation containing all endpoints and API details is available at https://dev.efipay.com.br/.
 
 If you don't have an Efí Bank digital account yet, [open yours now](https://app.sejaefi.com.br)!
+
+## **Discord Community**
+
+If you need to integrate your system or application with a comprehensive payment API, want to exchange experiences, and share your knowledge, connect to the [Efipay community on Discord](https://comunidade.sejaefi.com.br/).
 
 ## **Migration Validator**
 If you're already integrated with the Gerencianet PHP SDK and are looking to prepare your application for future innovations in the Efí APIs, you can use our validator to assist in migrating to this SDK.

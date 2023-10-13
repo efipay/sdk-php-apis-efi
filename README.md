@@ -31,6 +31,7 @@ Ir para:
 - [**Executar exemplos**](#executar-exemplos)
 - [**Guia de versão**](#guia-de-versão)
 - [**Documentação Adicional**](#documentação-adicional)
+- [**Comunidade no Discord**](#comunidade-no-discord)
 - [**Validador de Migração**](#validador-de-migração)
 	- [Como usar o Validador:](#como-usar-o-validador)
 - [**Licença**](#licença)
@@ -171,6 +172,12 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir 
 A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.efipay.com.br/.
 
 Se você ainda não tem uma conta digital Efí Bank, [abra a sua agora](https://sejaefi.com.br)!
+
+## **Comunidade no Discord**
+
+<a href="https://comunidade.sejaefi.com.br/"><img src="https://efipay.github.io/comunidade-discord-efi/assets/img/thumb-repository.png"></a>
+
+Se você tem a necessidade de integrar seu sistema ou aplicação a uma API completa de pagamentos, desejos de trocar experiências e compartilhar seu conhecimento, conecte-se à [comunidade da Efí no Discord](https://comunidade.sejaefi.com.br/).
 
 ## **Validador de Migração**
 Se você já possui integração com a SDK de PHP da Gerencianet e está buscando preparar a sua aplicação para as inovações futuras das APIs Efí, você pode usar o nosso validador para auxiliar na migração para esta SDK.
