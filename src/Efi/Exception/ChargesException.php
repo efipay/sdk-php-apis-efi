@@ -16,18 +16,18 @@ class ChargesException extends Exception
     public function __construct(array $error, int $code)
     {
         $this->code = $error['code'] ?? $code;
-        $this->error = $error['error'] ?? '';
-        $this->errorDescription = $this->getErrorDescription($error);
-
-        if ($this->code === 401) {
-            $this->error = 'unauthorized';
-            $this->errorDescription = 'Credenciais inválidas ou inativas';
-        }
+        $this->error = self::getErrorTitle($error, $this->code);
+        $this->errorDescription = self::getErrorDescription($error, $this->code);
 
         parent::__construct($this->errorDescription, $this->code);
     }
 
-    private function getErrorDescription(array $error)
+    private static function getErrorTitle(array $error, int $code): string
+    {
+        return $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error');
+    }
+
+    private function getErrorDescription(array $error, int $code): string
     {
         if (isset($error['error_description'])) {
             if (is_array($error['error_description'])) {
@@ -35,7 +35,7 @@ class ChargesException extends Exception
                     ? 'Propriedade: "' . $error['error_description']['property'] . '". ' . $error['error_description']['message']
                     : $error['error_description'];
             } else {
-                return $error['error_description'];
+                return ($code === 401) ? 'Credenciais inválidas ou inativas' : $error['error_description'];
             }
         }
 
@@ -43,6 +43,6 @@ class ChargesException extends Exception
             return $error['error_description'];
         }
 
-        return '';
+        return 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
     }
 }

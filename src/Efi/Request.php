@@ -237,14 +237,14 @@ class Request extends BaseModel
 
     private function handleClientException(ClientException $e): EfiException
     {
-        if (is_array(json_decode($e->getResponse()->getBody(), true)) && $e->getResponse()->getStatusCode() != 401) {
+        if (is_array(json_decode($e->getResponse()->getBody(), true))) {
             return new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
         } else {
             return new EfiException(
                 $this->config['api'],
                 [
-                    'name' => $e->getResponse()->getReasonPhrase(),
-                    'message' => $e->getResponse()->getBody()
+                    'error' => $e->getResponse()->getReasonPhrase(),
+                    'error_description' => $e->getResponse()->getBody()
                 ],
                 $e->getResponse()->getStatusCode()
             );
@@ -260,6 +260,11 @@ class Request extends BaseModel
      */
     private function throwEfiException(string $message, int $statusCode): void
     {
-        throw new EfiException($this->config['api'], ['nome' => 'forbidden', 'mensagem' => $message], $statusCode);
+        if (is_array(json_decode($message, true))) {
+            throw new EfiException($this->config['api'], json_decode($message, true), $statusCode);
+        }
+        else {
+            throw new EfiException($this->config['api'], ['error' => 'forbidden', 'error_description' => $message], $statusCode);
+        }
     }
 }

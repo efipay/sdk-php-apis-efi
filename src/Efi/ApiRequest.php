@@ -59,8 +59,8 @@ class ApiRequest extends BaseModel
             throw new EfiException(
                 $this->options['api'],
                 [
-                    'name' => $e->getResponse(),
-                    'message' => $e->getResponse()->getBody()
+                    'error' => $e->getResponse(),
+                    'error_description' => $e->getResponse()->getBody()
                 ],
                 $e->getResponse()->getStatusCode()
             );

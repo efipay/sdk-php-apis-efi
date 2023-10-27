@@ -16,28 +16,27 @@ class PixException extends Exception
     public function __construct(array $error, int $code)
     {
         $this->code = $code;
-        $this->error = $this->getErrorTitle($error);
-        $this->errorDescription = $this->getErrorDescription($error);
-
-        if ($this->code === 401) {
-            $this->error = 'invalid_client';
-            $this->errorDescription = 'Credenciais inválidas ou inativas';
-        }
+        $this->error = self::getErrorTitle($error, $this->code);
+        $this->errorDescription = self::getErrorDescription($error, $this->code);
 
         parent::__construct($this->errorDescription, $this->code);
     }
-
-    private function getErrorTitle(array $error)
+    
+    private static function getErrorTitle(array $error, int $code): string
     {
-        return $error['nome'] ?? ($error['title'] ?? '');
+        return $error['nome'] ?? ($error['title'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error'));
     }
 
-    private function getErrorDescription(array $error)
+    private function getErrorDescription(array $error, int $code): string
     {
         if (isset($error['detail'])) {
             $description = $error['detail'];
-            if (isset($error['violacoes'][0]['razao'])) {
-                $description .= ' Propriedade: "' . $error['violacoes'][0]['propriedade'] . '". ' . $error['violacoes'][0]['razao'];
+            if (isset($error['violacoes']) && is_array($error['violacoes'])) {
+                foreach ($error['violacoes'] as $violacao) {
+                    if (isset($violacao['razao'])) {
+                        $description .= ' Propriedade: "' . $violacao['propriedade'] . '". ' . $violacao['razao'];
+                    }
+                }
             }
             return $description;
         }
@@ -47,11 +46,24 @@ class PixException extends Exception
             if (is_array($messageDetail) && isset($messageDetail['detail'])) {
                 return $messageDetail['detail'];
             }
-            return !empty($error['erros'][0]['mensagem']) && !empty($error['erros'][0]['caminho'])
-                ? $error['mensagem'] . '. Parâmetro "' . $error['erros'][0]['caminho'] . '" ' . $error['erros'][0]['mensagem']
-                : $error['mensagem'];
+    
+            if (isset($error['erros']) && is_array($error['erros'])) {
+                $errorMessages = [];
+                foreach ($error['erros'] as $errorItem) {
+                    if (!empty($errorItem['mensagem']) && !empty($errorItem['caminho'])) {
+                        $errorMessages[] = 'Parâmetro "' . $errorItem['caminho'] . '", ' . $errorItem['mensagem'];
+                    }
+                }
+                return implode('. ', $errorMessages);
+            }
+    
+            return $error['mensagem'];
         }
-        
-        return 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
+
+        if (isset($error['error_description'])) {
+            return $error['error_description'];
+        }
+
+        return ($code === 401) ? 'Credenciais inválidas ou inativas' : 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
     }
 }

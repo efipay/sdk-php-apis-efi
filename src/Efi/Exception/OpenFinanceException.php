@@ -16,14 +16,19 @@ class OpenFinanceException extends Exception
     public function __construct(array $error, int $code)
     {
         $this->code = $code;
-        $this->error = $error['nome'] ?? $error['error'] ?? '';
-        $this->errorDescription = $error['mensagem'] ?? $error['error_description'] ?? '';
+        $this->error = self::getErrorTitle($error, $this->code);
+        $this->errorDescription = self::getErrorDescription($error, $this->code);
 
-        if ($this->code === 401) {
-            $this->error = 'invalid_client';
-            $this->errorDescription = 'Credenciais inválidas ou inativas';
-        }
-        
         parent::__construct($this->errorDescription, $this->code);
+    }
+
+    private static function getErrorTitle(array $error, int $code): string
+    {
+        return $error['nome'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error');
+    }
+
+    private function getErrorDescription(array $error, int $code): string
+    {
+        return $error['mensagem'] ?? $error['error_description'] ?? (($code === 401) ? 'Credenciais inválidas ou inativas' : 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.');
     }
 }
