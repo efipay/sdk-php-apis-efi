@@ -20,11 +20,8 @@ if (!file_exists($options)) {
 }
 require $options;
 
-//To enable the pix/send endpoint it is necessary to contact
-//with Efí's Commercial team for a new contractual annex.
-
 $params = [
-	"idEnvio" => "0S000000000000000000000000000000000"
+	"idEnvio" => "00000000000000000000000000000000000"
 ];
 
 $body = [

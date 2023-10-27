@@ -68,11 +68,6 @@ $discount = [
 	"value" => 599
 ];
 
-$configurations = [
-	"fine" => 200,
-	"interest" => 33
-];
-
 $credit_card = [
 	"customer" => $customer,
 	"installments" => 1,
