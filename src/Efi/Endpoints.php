@@ -21,7 +21,7 @@ class Endpoints
     public function __construct(array $options, ?object $requester = null)
     {
         $this->requester = $requester;
-        $this->options = $options;
+        $this->options = Config::options($options);
         $this->endpoints = Config::get('APIs');
     }
 

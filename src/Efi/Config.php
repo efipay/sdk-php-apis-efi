@@ -48,9 +48,9 @@ class Config
      */
     public static function options(array $options): array
     {
-        $conf['sandbox'] = (bool) isset($options['sandbox']) ? (bool) $options['sandbox'] : false;
-        $conf['debug'] = (bool) isset($options['debug']) ? (bool) $options['debug'] : false;
-        $conf['cache'] = (bool) isset($options['cache']) ? (bool) $options['cache'] : true;
+        $conf['sandbox'] = (bool) isset($options['sandbox']) ? filter_var($options['sandbox'], FILTER_VALIDATE_BOOLEAN) : false;
+        $conf['debug'] = (bool) isset($options['debug']) ? filter_var($options['debug'], FILTER_VALIDATE_BOOLEAN) : false;
+        $conf['cache'] = (bool) isset($options['cache']) ? filter_var($options['cache'], FILTER_VALIDATE_BOOLEAN) : true;
         $conf['timeout'] = (float) isset($options['timeout']) ? $options['timeout'] : 30.0;
         $conf['clientId'] = (string) isset($options['client_id']) || isset($options['clientId']) ? $options['client_id'] ?? $options['clientId'] : null;
         $conf['clientSecret'] = (string) isset($options['client_secret']) || isset($options['clientSecret']) ? $options['client_secret'] ?? $options['clientSecret'] : null;
@@ -58,7 +58,7 @@ class Config
         $conf['headers'] = $options['headers'] ?? null;
         $conf['baseUri'] = $options['url'] ?? null;
         $conf['api'] = $options['api'];
-        
+
         if ($conf['api'] !== 'CHARGES') {
             $conf['certificate'] = (string) isset($options['certificate']) || isset($options['pix_cert']) ? $options['certificate'] ?? $options['pix_cert'] : null;
             $conf['pwdCertificate'] = (string) isset($options['pwdCertificate']) ? $options['pwdCertificate'] : '';
