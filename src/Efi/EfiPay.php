@@ -16,6 +16,7 @@ namespace Efi;
  * @method array definePayMethod(array $params, array $body)
  * @method array definePayMethodPartner(array $params, array $body)
  * @method array cancelCharge(array $params)
+ * @method array cardPaymentRetry(array $params, array $body)
  * @method array createCarnet(array $params = [], array $body)
  * @method array detailCarnet(array $params)
  * @method array updateCarnetParcel(array $params, array $body)

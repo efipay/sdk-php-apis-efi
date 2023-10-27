@@ -46,6 +46,10 @@
                     "route": "/v1/charge/:id/cancel",
                     "method": "put"
                 },
+                "cardPaymentRetry": {
+                    "route": "/v1/charge/:id/retry",
+                    "method": "post"
+                },
                 "createCarnet": {
                     "route": "/v1/carnet",
                     "method": "post"
@@ -400,7 +404,7 @@
                 },
                 "ofCancelSchedulePix": {
                     "route": "/v1/pagamentos/pix/:identificadorPagamento/cancelar",
-                    "patch": "post"
+                    "method": "patch"
                 },
                 "ofListPixPayment": {
                     "route": "/v1/pagamentos/pix",
