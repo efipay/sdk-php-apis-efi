@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.4.0 (2023-10-27)
+--------------------------
+* Added a new endpoint and example to retry card payment
+* Fixed validation of configuration parameters
+* Fixed exception validation
+
 Version 1.3.1 (2023-10-12)
 --------------------------
 * Updated link to technical documentation for examples
