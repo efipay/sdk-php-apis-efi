@@ -6,7 +6,7 @@
 	"type": "library",
 	"require": {
 		"php": ">=7.2.5",
-		"guzzlehttp/guzzle": "^6.0",
+		"guzzlehttp/guzzle": "^7.0",
 		"symfony/cache": "^5.0 || ^6.0"
 	},
 	"support": {
