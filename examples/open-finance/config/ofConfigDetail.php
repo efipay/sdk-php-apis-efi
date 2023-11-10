@@ -21,7 +21,7 @@ if (!file_exists($options)) {
 require $options;
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$response = $api->ofConfigDetail();
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

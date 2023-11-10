@@ -46,7 +46,7 @@ $body = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$pix = $api->pixCreateImmediateCharge($params = [], $body); // Using this function the txid will be generated automatically by Efí API
 
 	if ($pix["txid"]) {

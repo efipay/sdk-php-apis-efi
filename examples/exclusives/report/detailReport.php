@@ -25,7 +25,7 @@ $params = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$response = $api->detailReport($params);
 
 	if (is_array($response)) {

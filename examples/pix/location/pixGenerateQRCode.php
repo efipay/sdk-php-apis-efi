@@ -25,7 +25,7 @@ $params = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$response = $api->pixGenerateQRCode($params);
 
 	echo "Pix Copia e Cola, QR Code e link de visualização:<br>";

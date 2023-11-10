@@ -25,7 +25,7 @@ $params = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$response = $api->pixDetailWebhook($params);
 
 	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

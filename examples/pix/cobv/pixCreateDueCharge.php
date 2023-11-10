@@ -82,7 +82,7 @@ $body = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$pix = $api->pixCreateDueCharge($params, $body);
 
 	if ($pix["txid"]) {

@@ -50,7 +50,7 @@ $body = [
 ];
 
 try {
-	$api = EfiPay::getInstance($options);
+	$api = new EfiPay($options);
 	$pix = $api->pixCreateCharge($params, $body);
 
 	if ($pix["txid"]) {
