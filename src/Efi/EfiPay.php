@@ -137,6 +137,12 @@ class EfiPay extends Endpoints
             Config::setEndpointsConfigFile($endpointsConfigFile);
         }
 
-        parent::__construct($options, $requester);
+        // If $options is an instance of Endpoints, use it directly.
+        if ($options instanceof Endpoints) {
+            parent::__construct([], $requester);
+            $this->setEndpoints($options->getEndpoints());
+        } else {
+            parent::__construct($options, $requester);
+        }
     }
 }

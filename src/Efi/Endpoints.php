@@ -166,4 +166,24 @@ class Endpoints
 
         return $query;
     }
+
+    /**
+     * Setter method for endpoints.
+     *
+     * @param array $endpoints The endpoints to set.
+     */
+    public function setEndpoints(array $endpoints)
+    {
+        $this->endpoints = $endpoints;
+    }
+
+    /**
+     * Getter method for endpoints.
+     *
+     * @return array The endpoints.
+     */
+    public function getEndpoints(): array
+    {
+        return $this->endpoints;
+    }
 }
