@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.5.0 (2023-11-10)
+--------------------------
+* Added Flexibility of the EfiPay class instance to use both "new EfiPay($options)" and "EfiPay::getInstance($options)"
+
 Version 1.4.0 (2023-10-27)
 --------------------------
 * Added a new endpoint and example to retry card payment
