@@ -99,6 +99,7 @@ use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
 try {
+    $api = new EfiPay($options);
     /* Call the desired function */
 } catch (EfiException $e) {
     /* API errors will come here */

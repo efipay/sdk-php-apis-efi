@@ -99,6 +99,7 @@ Embora as respostas dos serviços da web estejam no formato json, a SDK converte
 
 ```php
 try {
+	$api = new EfiPay($options);
 	/* chamada da função desejada */
 } catch(EfiException $e) {
 	/* Os erros da API virão aqui */
