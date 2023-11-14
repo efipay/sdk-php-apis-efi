@@ -39,20 +39,6 @@ class Utils
     }
 
     /**
-     * Generates a cache hash based on the provided parameters.
-     *
-     * @param string $prefix Prefix for the hash.
-     * @param string $api API identifier.
-     * @param string $clientId Client ID.
-     * @return string The generated cache hash.
-     */
-    public static function getCacheHash(string $prefix, string $api, string $clientId): string
-    {
-        $ip = $_SERVER['REMOTE_ADDR'] ?? 'localhost';
-        return hash('sha512', 'Efí-'. $prefix ."-". $api . $ip . substr($clientId, -6));
-    }
-
-    /**
      * Gets the data from the composer.json file and decodes it.
      *
      * @return array Parsed data from the composer.json file.
@@ -61,5 +47,26 @@ class Utils
     {
         $composerJsonPath = __DIR__ . '/../../composer.json';
         return json_decode(file_get_contents($composerJsonPath), true);
+    }
+
+    /**
+     * Get the client's IP address by checking various headers in order of preference.
+     *
+     * @return string The client's IP address or 'localhost' if no valid IP is found.
+     */
+    public static function getIPAddress(): string
+    {
+        $headersToCheck = ['HTTP_X_REAL_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'REMOTE_ADDR'];
+
+        foreach ($headersToCheck as $header) {
+            if (isset($_SERVER[$header]) && $_SERVER[$header] !== 'unknown') {
+                $ip = $_SERVER[$header];
+                break;
+            }
+        }
+
+        $ip = $ip ?? 'localhost';
+
+        return $ip;
     }
 }

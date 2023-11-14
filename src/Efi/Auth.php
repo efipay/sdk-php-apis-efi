@@ -6,6 +6,7 @@ use Exception;
 use Efi\CacheRetriever;
 use Efi\Config;
 use Efi\Request;
+use Efi\Security;
 
 class Auth extends BaseModel
 {
@@ -63,8 +64,10 @@ class Auth extends BaseModel
         if ($this->options['cache']) {
             $this->expires = time() + $response['expires_in'];
             $session_expire = ($this->options['api'] === 'CHARGES') ? 600 : 3600;
-            $this->cache->set(Utils::getCacheHash('access_token', $this->options['api'], $this->clientId), $this->accessToken, $session_expire);
-            $this->cache->set(Utils::getCacheHash('access_token_expires', $this->options['api'], $this->clientId), $this->expires, $session_expire);
+            $security = new Security(Security::getCacheHash('credential', $this->options['api'], $this->clientId));
+            $accessTokenEncrypted = $security->encrypt($this->accessToken);
+            $this->cache->set(Security::getCacheHash('access_token', $this->options['api'], $this->clientId), $accessTokenEncrypted, $session_expire);
+            $this->cache->set(Security::getCacheHash('access_token_expires', $this->options['api'], $this->clientId), $this->expires, $session_expire);
         }
     }
 }

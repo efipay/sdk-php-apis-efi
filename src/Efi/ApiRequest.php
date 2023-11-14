@@ -3,6 +3,7 @@
 namespace Efi;
 
 use Efi\Exception\EfiException;
+use Efi\Security;
 use GuzzleHttp\Exception\ClientException;
 
 class ApiRequest extends BaseModel
@@ -72,8 +73,10 @@ class ApiRequest extends BaseModel
      */
     private function loadAccessTokenFromCache(): void
     {
-        $this->cacheAccessToken = $this->cache->get(Utils::getCacheHash('access_token', $this->options['api'], $this->options['clientId']));
-        $this->cacheAccessTokenExpires = $this->cache->get(Utils::getCacheHash('access_token_expires', $this->options['api'], $this->options['clientId']));
+        $security = new Security(Security::getCacheHash('credential', $this->options['api'], $this->options['clientId']));
+        $cacheAccessTokenEncrypted = $this->cache->get(Security::getCacheHash('access_token', $this->options['api'], $this->options['clientId']));
+        $this->cacheAccessToken = $security->decrypt($cacheAccessTokenEncrypted);
+        $this->cacheAccessTokenExpires = $this->cache->get(Security::getCacheHash('access_token_expires', $this->options['api'], $this->options['clientId']));
     }
 
     /**
