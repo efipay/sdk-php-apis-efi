@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.5.1 (2023-11-14)
+--------------------------
+* Added access token security encryption in cache.
+
 Version 1.5.0 (2023-11-10)
 --------------------------
 * Added Flexibility of the EfiPay class instance to use both "new EfiPay($options)" and "EfiPay::getInstance($options)"
