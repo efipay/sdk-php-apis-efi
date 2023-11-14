@@ -42,6 +42,7 @@ Ir para:
 * PHP >= 7.2.5
 * Guzzle >= 7.0
 * Symfony/Cache >= 5.0 || >= 6.0
+* Extensão [openssl](https://www.php.net/manual/en/book.openssl.php) habilitada
 
 ## **Testado com**
 ```
