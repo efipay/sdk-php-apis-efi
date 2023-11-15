@@ -2,6 +2,8 @@
 
 namespace Efi;
 
+use Exception;
+
 /**
  * Utility class for various functions.
  */
@@ -69,4 +71,11 @@ class Utils
 
         return $ip;
     }
+
+    public static function checkOpenSslExtension()
+	{
+		if (!extension_loaded('openssl')) {
+            throw new Exception('A extensão OpenSSL não está habilitada no PHP ' . PHP_VERSION);
+        }
+	}
 }

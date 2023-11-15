@@ -21,7 +21,7 @@ class MigrationChecker
 		'use Gerencianet\Exception\GerencianetException;' => 'use Efi\Exception\EfiException;',
 		'use Gerencianet\Gerencianet;' => 'use Efi\EfiPay;',
 		'new Gerencianet' => 'new EfiPay',
-		'Gerencianet::getInstance' => 'EfiPay::getInstance',
+		'Gerencianet::getInstance' => 'new EfiPay',
 		'catch (GerencianetException' => 'catch (EfiException',
 		'oneStep(' => 'createOneStepCharge(',
 		'payCharge' => 'definePayMethod',
@@ -124,6 +124,11 @@ class MigrationChecker
 		}
 	}
 
+	public function checkOpenSslEstension(): bool
+	{
+		return extension_loaded('openssl');
+	}
+
 	private function getMissingPackages(): array
 	{
 		$missingPackages = [];
@@ -152,6 +157,10 @@ class MigrationChecker
 			if (!$packageFound) {
 				$missingPackages[] = "$package:$version";
 			}
+		}
+
+		if (!$this->checkOpenSslEstension()) {
+			$missingPackages[] .= 'A <a href="https://www.php.net/manual/en/openssl.installation.php" target="_blank">extensão OpenSSL</a> não está habilitada no PHP.';
 		}
 
 		return $missingPackages;
