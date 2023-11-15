@@ -14,6 +14,7 @@ class Security
      */
     public function __construct($encryptionKey)
     {
+        Utils::checkOpenSslExtension();
         $this->encryptionKey = $encryptionKey;
     }
 
@@ -39,6 +40,9 @@ class Security
      */
     public function decrypt($data): string|bool
     {
+        if ($data === null) {
+            return false;
+        }
         $data = base64_decode($data);
         $ivSize = openssl_cipher_iv_length($this->encryptionMethod);
         $iv = substr($data, 0, $ivSize);
@@ -52,12 +56,12 @@ class Security
      *
      * @param string $prefix - Prefix for the hash.
      * @param string $api - API identifier.
-     * @param string $clientId - ClientId.
+     * @param string $credencial - ClientId.
      * @return string The generated cache hash.
      */
-    public static function getCacheHash(string $prefix, string $api, string $clientId): string
+    public static function getHash(string $prefix, string $api, string $credencial): string
     {
         $ip = Utils::getIPAddress();
-        return hash('sha512', 'Efí-' . $prefix . "-" . $api . $ip . substr($clientId, -6));
+        return hash('sha512', 'Efí-' . $prefix . "-" . $api . $ip . substr($credencial, -6));
     }
 }

@@ -73,10 +73,13 @@ class ApiRequest extends BaseModel
      */
     private function loadAccessTokenFromCache(): void
     {
-        $security = new Security(Security::getCacheHash('credential', $this->options['api'], $this->options['clientId']));
-        $cacheAccessTokenEncrypted = $this->cache->get(Security::getCacheHash('access_token', $this->options['api'], $this->options['clientId']));
+        $cacheAccessTokenEncrypted = $this->cache->get(Security::getHash('accessToken', $this->options['api'], $this->options['clientId']));
+        $security = new Security(Security::getHash('accessToken', $this->options['api'], $this->options['clientSecret']));
         $this->cacheAccessToken = $security->decrypt($cacheAccessTokenEncrypted);
-        $this->cacheAccessTokenExpires = $this->cache->get(Security::getCacheHash('access_token_expires', $this->options['api'], $this->options['clientId']));
+        $this->cacheAccessTokenExpires = $this->cache->get(Security::getHash('accessTokenExpires', $this->options['api'], $this->options['clientId']));
+        if (!$this->cacheAccessToken) {
+            $this->auth->authorize();
+        }
     }
 
     /**

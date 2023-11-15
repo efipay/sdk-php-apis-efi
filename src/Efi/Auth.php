@@ -64,10 +64,10 @@ class Auth extends BaseModel
         if ($this->options['cache']) {
             $this->expires = time() + $response['expires_in'];
             $session_expire = ($this->options['api'] === 'CHARGES') ? 600 : 3600;
-            $security = new Security(Security::getCacheHash('credential', $this->options['api'], $this->clientId));
+            $security = new Security(Security::getHash('accessToken', $this->options['api'], $this->clientSecret));
             $accessTokenEncrypted = $security->encrypt($this->accessToken);
-            $this->cache->set(Security::getCacheHash('access_token', $this->options['api'], $this->clientId), $accessTokenEncrypted, $session_expire);
-            $this->cache->set(Security::getCacheHash('access_token_expires', $this->options['api'], $this->clientId), $this->expires, $session_expire);
+            $this->cache->set(Security::getHash('accessToken', $this->options['api'], $this->clientId), $accessTokenEncrypted, $session_expire);
+            $this->cache->set(Security::getHash('accessTokenExpires', $this->options['api'], $this->clientId), $this->expires, $session_expire);
         }
     }
 }
