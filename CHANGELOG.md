@@ -1,9 +1,14 @@
 Changelog
 =========
 
+Version 1.5.2 (2023-11-15)
+--------------------------
+* Refactored: access token security encryption in cache
+* Checking the OpenSSL extension is enabled
+
 Version 1.5.1 (2023-11-14)
 --------------------------
-* Added access token security encryption in cache.
+* Added access token security encryption in cache
 
 Version 1.5.0 (2023-11-10)
 --------------------------
