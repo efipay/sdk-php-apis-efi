@@ -10,7 +10,6 @@ class Endpoints
     private $endpoints;
     private $methods;
     private $options;
-    private static $instance;
 
     /**
      * Constructor method.
@@ -26,22 +25,20 @@ class Endpoints
     }
 
     /**
-     * Singleton instance method.
+     * Instance of Endpoints.
      *
      * @param array $options The options for the API.
      * @param mixed $requester The requester for the API.
-     * @return Endpoints The singleton instance of the class.
+     * @return Endpoints A new instance of the class.
      * @throws Exception When the credentials are not defined.
      */
     public static function getInstance($options = null, ?object $requester = null): Endpoints
     {
-        if (!isset(self::$instance)) {
-            if (!isset($options)) {
-                throw new Exception('Credenciais Client_Id e Client_Secret não foram definidas corretamente');
-            }
-            self::$instance = new self($options, $requester);
+        if (!isset($options)) {
+            throw new Exception('Credenciais Client_Id e Client_Secret não foram definidas corretamente');
         }
-        return self::$instance;
+
+        return new self($options, $requester);
     }
 
     /**
