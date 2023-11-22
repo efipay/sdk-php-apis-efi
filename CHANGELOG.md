@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.6.0 (2023-11-22)
+--------------------------
+* Added a new endpoint and example to change expire date for installments of a carnet
+* Refactored: Removal singleton pattern in class Endpoints
+
 Version 1.5.2 (2023-11-15)
 --------------------------
 * Refactored: access token security encryption in cache
