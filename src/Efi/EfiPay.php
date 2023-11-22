@@ -20,6 +20,7 @@ namespace Efi;
  * @method array createCarnet(array $params = [], array $body)
  * @method array detailCarnet(array $params)
  * @method array updateCarnetParcel(array $params, array $body)
+ * @method array updateCarnetParcels(array $params, array $body)
  * @method array updateCarnetMetadata(array $params, array $body)
  * @method array getNotification(array $params)
  * @method array listPlans(array $params)

@@ -62,6 +62,10 @@
                     "route": "/v1/carnet/:id/parcel/:parcel",
                     "method": "put"
                 },
+                "updateCarnetParcels": {
+                    "route": "/v1/carnet/:id/parcels",
+                    "method": "put"
+                },
                 "updateCarnetMetadata": {
                     "route": "/v1/carnet/:id/metadata",
                     "method": "put"
