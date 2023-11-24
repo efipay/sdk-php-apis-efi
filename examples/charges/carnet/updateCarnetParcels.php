@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-cobrancas/carne#alterar-data-de-vencimento-de-parcela-do-carnê
+ * https://dev.efipay.com.br/docs/api-cobrancas/carne#alterar-vencimento-de-parcelas-de-um-carnê
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
