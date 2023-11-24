@@ -84,7 +84,6 @@ $options = [
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
 	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
-	"cache" => true // Opcional. | Padrão = true | Ativa/desativa cache da autenticação. Se igual a `true` o token será reutilizado para otimizar as requisições
 ];
 ```
 

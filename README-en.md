@@ -86,7 +86,6 @@ $options = [
     "sandbox" => false, // Optional | Default = false | Defines the development environment as Production or Homologation
     "debug" => false, // Optional | Default = false | Enable/disable Guzzle request logs
     "timeout" => 30, // Optional | Default = 30 | Defines the maximum response time for requests
-    "cache" => true // Optional | Default = true | Enable/disable authentication cache. If set to `true`, the token will be reused to optimize requests
 ];
 ```
 
