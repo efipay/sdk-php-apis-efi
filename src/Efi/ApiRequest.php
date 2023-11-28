@@ -8,12 +8,12 @@ use GuzzleHttp\Exception\ClientException;
 
 class ApiRequest extends BaseModel
 {
-    private Auth $auth;
-    private CacheRetriever $cache;
-    private Request $request;
-    private array $options;
-    private ?string $cacheAccessToken = null;
-    private ?int $cacheAccessTokenExpires = null;
+    private $auth;
+    private $cache;
+    private $request;
+    private $options;
+    private $cacheAccessToken = null;
+    private $cacheAccessTokenExpires = null;
 
     /**
      * Initializes a new instance of the ApiRequest class.

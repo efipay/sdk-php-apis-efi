@@ -36,9 +36,9 @@ class Security
      * Decrypts the data using OpenSSL.
      *
      * @param string $data - The encrypted data.
-     * @return string|false The decrypted data or false if decryption fails.
+     * @return string|bool The decrypted data or false if decryption fails.
      */
-    public function decrypt($data): string|bool
+    public function decrypt($data)
     {
         if ($data === null) {
             return false;
