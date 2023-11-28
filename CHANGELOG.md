@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.6.1 (2023-11-28)
+--------------------------
+* Fixed compatibility with PHP versions >=7.2
+
 Version 1.6.0 (2023-11-22)
 --------------------------
 * Added a new endpoint and example to change expire date for installments of a carnet
