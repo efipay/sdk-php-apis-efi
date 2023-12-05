@@ -87,7 +87,8 @@ $bankingBillet = [
 	"message" => "This is a space\n of up to 80 characters\n to tell\n your client something",
 	"customer" => $customer,
 	"discount" => $discount,
-	"conditional_discount" => $conditional_discount
+	"conditional_discount" => $conditional_discount,
+	"configurations" => $configurations,
 ];
 
 $payment = [
@@ -98,7 +99,6 @@ $body = [
 	"items" => $items,
 	"shippings" => $shippings,
 	"metadata" => $metadata,
-	"configurations" => $configurations,
 	"payment" => $payment
 ];
 
