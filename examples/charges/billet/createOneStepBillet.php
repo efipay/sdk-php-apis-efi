@@ -98,6 +98,7 @@ $body = [
 	"items" => $items,
 	"shippings" => $shippings,
 	"metadata" => $metadata,
+	"configurations" => $configurations,
 	"payment" => $payment
 ];
 
