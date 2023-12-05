@@ -7,7 +7,7 @@
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -51,6 +51,10 @@ $customer = [
 	// "email" => "",
 	// "phone_number" => "",
 	// "birth" => "",
+	// "juridical_person" => [
+	// 	"corporate_name" => "Nome da Empresa",
+	// 	"cnpj" => "99794567000144"
+	// ],
 	// "address" => [
 	// 	"street" => "",
 	// 	"number" => "",
@@ -58,10 +62,7 @@ $customer = [
 	// 	"zipcode" => "",
 	// 	"city" => "",
 	// 	"complement" => "",
-	// 	"state" => "",
-	// 	"juridical_person" => "",
-	// 	"corporate_name" => "",
-	// 	"cnpj" => ""
+	// 	"state" => ""
 	// ],
 ];
 
