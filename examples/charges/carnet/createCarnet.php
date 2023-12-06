@@ -86,7 +86,6 @@ $body = [
 	"configurations" => $configurations,
 	"discount" => $discount,
 	"conditional_discount" => $conditional_discount,
-	"message" => $message,
 	"metadata" => $metadata
 ];
 
