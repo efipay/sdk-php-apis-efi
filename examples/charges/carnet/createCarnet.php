@@ -80,7 +80,6 @@ $body = [
 	"items" => $items,
 	"customer" => $customer,
 	"expire_at" => "2024-12-10",
-	"message" => $message,
 	"repeats" => 5,
 	"split_items" => false,
 	"configurations" => $configurations,
