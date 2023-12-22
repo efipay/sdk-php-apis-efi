@@ -12,7 +12,7 @@ class Security
      *
      * @param string $encryptionKey - The encryption key used for encryption and decryption.
      */
-    public function __construct($encryptionKey)
+    public function __construct(string $encryptionKey)
     {
         Utils::checkOpenSslExtension();
         $this->encryptionKey = $encryptionKey;
@@ -24,7 +24,7 @@ class Security
      * @param string $data - The data to be encrypted.
      * @return string The encrypted data.
      */
-    public function encrypt($data): string
+    public function encrypt(string $data): string
     {
         $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length($this->encryptionMethod));
         $encrypted = openssl_encrypt($data, $this->encryptionMethod, $this->encryptionKey, 0, $iv);

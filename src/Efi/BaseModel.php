@@ -12,7 +12,7 @@ class BaseModel
      * @param string $property The name of the property.
      * @return mixed|null The value of the property, or null if it doesn't exist.
      */
-    public function __get($property)
+    public function __get(string $property)
     {
         if (array_key_exists($property, $this->properties)) {
             return $this->properties[$property];
@@ -31,7 +31,7 @@ class BaseModel
      * @param string $property The name of the property.
      * @param mixed $value The value to set.
      */
-    public function __set($property, $value)
+    public function __set(string $property, mixed $value)
     {
         if (property_exists($this, $property)) {
             $this->$property = $value;

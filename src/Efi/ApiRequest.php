@@ -12,6 +12,7 @@ class ApiRequest extends BaseModel
     private $cache;
     private $request;
     private $options;
+    private $cacheScopes = null;
     private $cacheAccessToken = null;
     private $cacheAccessTokenExpires = null;
 
@@ -37,14 +38,18 @@ class ApiRequest extends BaseModel
      * @return mixed The response data.
      * @throws EfiException If there is an EFI specific error.
      */
-    public function send(string $method, string $route, array $body)
+    public function send(string $method, string $route, string $scope, array $body): mixed
     {
         $this->loadAccessTokenFromCache();
 
         if (!$this->isAccessTokenValid() || !$this->options['cache']) {
             $this->auth->authorize();
         } else {
-            $this->auth->accessToken = $this->cacheAccessToken;
+            if (in_array($scope, json_decode($this->cacheScopes))) {
+                $this->auth->accessToken = $this->cacheAccessToken;
+            } else {
+                $this->auth->authorize();
+            }
         }
 
         $requestTimeout = $this->options['timeout'];
@@ -77,9 +82,7 @@ class ApiRequest extends BaseModel
         $security = new Security(Security::getHash('accessToken', $this->options['api'], $this->options['clientSecret']));
         $this->cacheAccessToken = $security->decrypt($cacheAccessTokenEncrypted);
         $this->cacheAccessTokenExpires = $this->cache->get(Security::getHash('accessTokenExpires', $this->options['api'], $this->options['clientId']));
-        if (!$this->cacheAccessToken) {
-            $this->auth->authorize();
-        }
+        $this->cacheScopes = $this->cache->get(Security::getHash('scopes', $this->options['api'], $this->options['clientId']));
     }
 
     /**

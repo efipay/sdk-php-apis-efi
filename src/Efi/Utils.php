@@ -16,7 +16,7 @@ class Utils
      * @param string $str The input string.
      * @return string The CRC16 checksum.
      */
-    public static function CRC16Checksum($str)
+    public static function CRC16Checksum(string $str)
     {
         $crc = 0xFFFF;
         $strlen = strlen($str);

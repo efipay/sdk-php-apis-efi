@@ -21,7 +21,7 @@ class PixException extends Exception
 
         parent::__construct($this->errorDescription, $this->code);
     }
-    
+
     private static function getErrorTitle(array $error, int $code): string
     {
         return $error['nome'] ?? ($error['title'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error'));
@@ -29,6 +29,7 @@ class PixException extends Exception
 
     private function getErrorDescription(array $error, int $code): string
     {
+        $description = '';
         if (isset($error['detail'])) {
             $description = $error['detail'];
             if (isset($error['violacoes']) && is_array($error['violacoes'])) {
@@ -38,32 +39,26 @@ class PixException extends Exception
                     }
                 }
             }
-            return $description;
-        }
-
-        if (isset($error['mensagem'])) {
+        } elseif (isset($error['mensagem'])) {
             $messageDetail = json_decode($error['mensagem'], true);
             if (is_array($messageDetail) && isset($messageDetail['detail'])) {
-                return $messageDetail['detail'];
-            }
-    
-            if (isset($error['erros']) && is_array($error['erros'])) {
+                $description = $messageDetail['detail'];
+            } elseif (isset($error['erros']) && is_array($error['erros'])) {
                 $errorMessages = [];
                 foreach ($error['erros'] as $errorItem) {
                     if (!empty($errorItem['mensagem']) && !empty($errorItem['caminho'])) {
                         $errorMessages[] = 'Parâmetro "' . $errorItem['caminho'] . '", ' . $errorItem['mensagem'];
                     }
                 }
-                return implode('. ', $errorMessages);
+                $description = implode('. ', $errorMessages);
+            } else {
+                $description = $error['mensagem'];
             }
-    
-            return $error['mensagem'];
+        } elseif (isset($error['error_description'])) {
+            $description = $error['error_description'];
+        } else {
+            $description = ($code === 401) ? 'Credenciais inválidas ou inativas' : 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
         }
-
-        if (isset($error['error_description'])) {
-            return $error['error_description'];
-        }
-
-        return ($code === 401) ? 'Credenciais inválidas ou inativas' : 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
+        return $description;
     }
 }

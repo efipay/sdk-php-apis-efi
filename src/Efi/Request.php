@@ -155,7 +155,7 @@ class Request extends BaseModel
      * @throws EfiException If there is an EFI Pay specific error.
      */
 
-    public function send(string $method, string $route, array $requestOptions)
+    public function send(string $method, string $route, array $requestOptions): mixed
     {
         try {
             $this->applyCertificateAndHeaders($requestOptions);
@@ -211,7 +211,7 @@ class Request extends BaseModel
      * @return mixed The processed response data.
      */
 
-    private function processResponse($response)
+    private function processResponse(mixed $response): mixed
     {
         $headersResponse = $response->getHeader('Content-Type');
 
@@ -262,8 +262,7 @@ class Request extends BaseModel
     {
         if (is_array(json_decode($message, true))) {
             throw new EfiException($this->config['api'], json_decode($message, true), $statusCode);
-        }
-        else {
+        } else {
             throw new EfiException($this->config['api'], ['error' => 'forbidden', 'error_description' => $message], $statusCode);
         }
     }

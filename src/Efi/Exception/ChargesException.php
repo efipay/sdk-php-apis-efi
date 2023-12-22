@@ -29,20 +29,20 @@ class ChargesException extends Exception
 
     private function getErrorDescription(array $error, int $code): string
     {
+        $description = '';
         if (isset($error['error_description'])) {
             if (is_array($error['error_description'])) {
-                return isset($error['error_description']['message'])
+                $description = isset($error['error_description']['message'])
                     ? 'Propriedade: "' . $error['error_description']['property'] . '". ' . $error['error_description']['message']
                     : $error['error_description'];
             } else {
-                return ($code === 401) ? 'Credenciais inválidas ou inativas' : $error['error_description'];
+                $description = ($code === 401) ? 'Credenciais inválidas ou inativas' : $error['error_description'];
             }
+        } elseif (isset($error['error']) && isset($error['error_description'])) {
+            $description = $error['error_description'];
+        } else {
+            $description = 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
         }
-
-        if (isset($error['error']) && isset($error['error_description'])) {
-            return $error['error_description'];
-        }
-
-        return 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
+        return $description;
     }
 }
