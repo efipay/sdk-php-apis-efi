@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Version 1.6.2 (2023-12-22)
+--------------------------
+* Refactored: Authentication verification improvements
+
 Version 1.6.1 (2023-11-28)
 --------------------------
 * Fixed compatibility with PHP versions >=7.2
