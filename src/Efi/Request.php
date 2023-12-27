@@ -110,7 +110,8 @@ class Request extends BaseModel
             $this->throwEfiException('Certificado inválido ou inativo', 403);
         }
 
-        $this->checkCertificateExpiration($publicKey);
+        $this->checkCertificateEnviroment($publicKey['issuer']['CN']);
+        $this->checkCertificateExpiration($publicKey['validTo_time_t']);
     }
 
     /**
@@ -130,16 +131,30 @@ class Request extends BaseModel
     }
 
     /**
+     * Checks if the certificate is valid to environment chosen.
+     *
+     * @param string $issuerCn The certificate issuer.
+     * @throws EfiException If the certificate is not valid to environment chosed.
+     */
+    private function checkCertificateEnviroment(string $issuerCn): void
+    {
+        if ($this->config['sandbox'] === true && ($issuerCn === 'apis.sejaefi.com.br' || $issuerCn ===  'apis.efipay.com.br' || $issuerCn ===  'api-pix.gerencianet.com.br')) {
+            $this->throwEfiException('Certificado de produção inválido para o ambiente escolhido [homologação].', 403);
+        } elseif (!$this->config['sandbox'] && ($issuerCn === 'apis-h.sejaefi.com.br' || $issuerCn ===  'apis-h.efipay.com.br' || $issuerCn ===  'api-pix-h.gerencianet.com.br')) {
+            $this->throwEfiException('Certificado de homologação inválido para o ambiente escolhido [produção].', 403);
+        }
+    }
+
+    /**
      * Checks if the certificate has expired.
      *
-     * @param array $publicKey The parsed public key data from the certificate.
+     * @param string $validToTime Certificate validity data.
      * @throws EfiException If the certificate has expired.
      */
-
-    private function checkCertificateExpiration(array $publicKey): void
+    private function checkCertificateExpiration(string $validToTime): void
     {
         $today = date("Y-m-d H:i:s");
-        $validTo = date('Y-m-d H:i:s', $publicKey['validTo_time_t']);
+        $validTo = date('Y-m-d H:i:s', $validToTime);
         if ($validTo <= $today) {
             $this->throwEfiException('O certificado de autenticação expirou em ' . $validTo, 403);
         }
