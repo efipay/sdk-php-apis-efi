@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.6.3 (2023-12-27)
+--------------------------
+* Certificate environment validation
+* Refactored: Improved code optimization and organization
+
 Version 1.6.2 (2023-12-22)
 --------------------------
 * Refactored: Authentication verification improvements
