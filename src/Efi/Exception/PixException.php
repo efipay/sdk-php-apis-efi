@@ -32,33 +32,46 @@ class PixException extends Exception
         $description = '';
         if (isset($error['detail'])) {
             $description = $error['detail'];
-            if (isset($error['violacoes']) && is_array($error['violacoes'])) {
-                foreach ($error['violacoes'] as $violacao) {
-                    if (isset($violacao['razao'])) {
-                        $description .= ' Propriedade: "' . $violacao['propriedade'] . '". ' . $violacao['razao'];
-                    }
-                }
-            }
+            $description .= $this->getDetailError($error);
         } elseif (isset($error['mensagem'])) {
-            $messageDetail = json_decode($error['mensagem'], true);
-            if (is_array($messageDetail) && isset($messageDetail['detail'])) {
-                $description = $messageDetail['detail'];
-            } elseif (isset($error['erros']) && is_array($error['erros'])) {
-                $errorMessages = [];
-                foreach ($error['erros'] as $errorItem) {
-                    if (!empty($errorItem['mensagem']) && !empty($errorItem['caminho'])) {
-                        $errorMessages[] = 'Parâmetro "' . $errorItem['caminho'] . '", ' . $errorItem['mensagem'];
-                    }
-                }
-                $description = implode('. ', $errorMessages);
-            } else {
-                $description = $error['mensagem'];
-            }
+            $description = $this->getMessageError($error);
         } elseif (isset($error['error_description'])) {
             $description = $error['error_description'];
         } else {
             $description = ($code === 401) ? 'Credenciais inválidas ou inativas' : 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
         }
         return $description;
+    }
+
+    private function getDetailError(array $error): string
+    {
+        $detailError = '';
+        if (isset($error['violacoes']) && is_array($error['violacoes'])) {
+            foreach ($error['violacoes'] as $violacao) {
+                if (isset($violacao['razao'])) {
+                    $detailError .= ' Propriedade: "' . $violacao['propriedade'] . '". ' . $violacao['razao'];
+                }
+            }
+        }
+        return $detailError;
+    }
+
+    private function getMessageError(array $error): string
+    {
+        $messageDetail = json_decode($error['mensagem'], true);
+        if (is_array($messageDetail) && isset($messageDetail['detail'])) {
+            $messageError = $messageDetail['detail'];
+        } elseif (isset($error['erros']) && is_array($error['erros'])) {
+            $errorMessages = [];
+            foreach ($error['erros'] as $errorItem) {
+                if (!empty($errorItem['mensagem']) && !empty($errorItem['caminho'])) {
+                    $errorMessages[] = 'Parâmetro "' . $errorItem['caminho'] . '", ' . $errorItem['mensagem'];
+                }
+            }
+            $messageError = implode('. ', $errorMessages);
+        } else {
+            $messageError = $error['mensagem'];
+        }
+        return $messageError;
     }
 }
