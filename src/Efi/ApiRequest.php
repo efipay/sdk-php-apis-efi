@@ -45,7 +45,7 @@ class ApiRequest extends BaseModel
         if (!$this->isAccessTokenValid() || !$this->options['cache']) {
             $this->auth->authorize();
         } else {
-            if (in_array($scope, json_decode($this->cacheScopes))) {
+            if (in_array($scope, $this->cacheScopes)) {
                 $this->auth->accessToken = $this->cacheAccessToken;
             } else {
                 $this->auth->authorize();

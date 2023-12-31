@@ -9,7 +9,7 @@ class Config
     /**
      * @var string Configuration file path for endpoints
      */
-    private static $endpointsConfigFile = __DIR__ . '/config.json';
+    private static $endpointsConfigFile = __DIR__ . '/EndpointsConfigFile.php';
 
     /**
      * Set the endpoints configuration file.
@@ -30,10 +30,13 @@ class Config
      */
     public static function get(string $property)
     {
-        $file = file_get_contents(self::$endpointsConfigFile);
-        $config = json_decode($file, true);
+        if (!file_exists(self::$endpointsConfigFile)) {
+            throw new Exception('Arquivo de configuração não encontrado');
+        }
 
-        if (json_last_error() !== JSON_ERROR_NONE) {
+        $config = include self::$endpointsConfigFile;
+        
+        if (!is_array($config) || !isset($config['APIs'])) {
             throw new Exception('Erro ao carregar o arquivo de endpoints');
         }
 
