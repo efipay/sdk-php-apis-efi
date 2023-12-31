@@ -14,11 +14,11 @@ require_once $autoload;
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$options = __DIR__ . "/../../credentials/options.php";
-if (!file_exists($options)) {
+$optionsFile = __DIR__ . "/../../credentials/options.php";
+if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
-require $options;
+$options = include $optionsFile;
 
 $paymentToken = "insert_here_the_payment_token_referring_to_card_data";
 

@@ -132,7 +132,7 @@ class EfiPay extends Endpoints
      * @param object|null $requester       Object with request settings.
      * @param string|null $endpointsConfigFile   Endpoint list file name.
      */
-    public function __construct($options, ?object $requester = null, ?string $endpointsConfigFile = null)
+    public function __construct(array $options, ?object $requester = null, ?string $endpointsConfigFile = null)
     {
         if ($endpointsConfigFile) {
             Config::setEndpointsConfigFile($endpointsConfigFile);

@@ -14,14 +14,14 @@ require_once $autoload;
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$options = __DIR__ . "/../../credentials/options.php";
-if (!file_exists($options)) {
+$optionsFile = __DIR__ . "/../../credentials/options.php";
+if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
-require $options;
+$options = include $optionsFile;
 
 $options["headers"] = [
-	"x-skip-mtls-checking" => "true",
+	"x-skip-mtls-checking" => "false",
 ];
 
 $params = [
