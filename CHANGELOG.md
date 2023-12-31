@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.6.4 (2023-12-27)
+--------------------------
+* Refactored: Improved endpoint file loading
+* Refactored: Improved options file loading
+
 Version 1.6.3 (2023-12-27)
 --------------------------
 * Certificate environment validation
