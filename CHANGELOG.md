@@ -1,6 +1,11 @@
 Changelog
 =========
 
+Version 1.7.0 (2024-01-10)
+-------------------------- 
+* Added new endpoints and examples for managing batches of due charges
+* Refactored: Improved endpoint file organization
+
 Version 1.6.4 (2023-12-27)
 --------------------------
 * Refactored: Improved endpoint file loading
