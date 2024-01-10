@@ -9,7 +9,7 @@ class Config
     /**
      * @var string Configuration file path for endpoints
      */
-    private static $endpointsConfigFile = __DIR__ . '/EndpointsConfigFile.php';
+    private static $endpointsConfigFile = __DIR__ . '/Endpoints/Config.php';
 
     /**
      * Set the endpoints configuration file.
@@ -38,7 +38,7 @@ class Config
         
         if (!is_array($config) || !isset($config['APIs'])) {
             throw new Exception('Erro ao carregar o arquivo de endpoints');
-        }
+        }        
 
         return $config[$property] ?? $config['APIs'][$property];
     }
