@@ -97,6 +97,10 @@ namespace Efi;
  * @method string pixSplitConfig(array $params = [], array $body)
  * @method string pixSplitConfigId(array $params, array $body)
  * @method string pixSplitDetailConfig(array $params)
+ * @method string pixCreateDueChargeBatch(array $params, array $body)
+ * @method string pixUpdateDueChargeBatch(array $params, array $body)
+ * @method string pixDetailDueChargeBatch(array $params)
+ * @method string pixListDueChargeBatch(array $params)
  * 
  * API OPEN FINANCE
  * @method array ofConfigUpdate(array $params = [], array $body)
