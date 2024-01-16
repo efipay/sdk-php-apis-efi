@@ -31,7 +31,7 @@ class BaseModel
      * @param string $property The name of the property.
      * @param mixed $value The value to set.
      */
-    public function __set(string $property, mixed $value)
+    public function __set(string $property, $value)
     {
         if (property_exists($this, $property)) {
             $this->$property = $value;

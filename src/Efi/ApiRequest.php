@@ -35,10 +35,10 @@ class ApiRequest extends BaseModel
      * @param string $method The HTTP method.
      * @param string $route The URL route.
      * @param array $body The request body.
-     * @return mixed The response data.
+     * @return The response data.
      * @throws EfiException If there is an EFI specific error.
      */
-    public function send(string $method, string $route, string $scope, array $body): mixed
+    public function send(string $method, string $route, string $scope, array $body)
     {
         $this->loadAccessTokenFromCache();
 

@@ -23,7 +23,7 @@ class EfiException extends Exception
      * @param mixed $exception The original exception or error response.
      * @param int   $code      The error code.
      */
-    public function __construct($api, mixed $exception, int $code)
+    public function __construct($api, $exception, int $code)
     {
         $error = $exception;
 

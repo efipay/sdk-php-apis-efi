@@ -70,7 +70,7 @@ class Auth extends BaseModel
      *
      * @return mixed The response data.
      */
-    private function sendAuthorizationRequest(): mixed
+    private function sendAuthorizationRequest()
     {
         return $this->request->send(
             $this->endpoints['ENDPOINTS']['authorize']['method'],

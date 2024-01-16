@@ -42,7 +42,7 @@ class CacheRetriever
 	 * @param mixed $value The value to be cached.
 	 * @param int|null $ttl The time-to-live in seconds (optional).
 	 */
-	public function set(string $key, mixed $value, $ttl = null)
+	public function set(string $key, $value, $ttl = null)
 	{
 		$cacheItem = $this->cache->getItem($key);
 		$cacheItem->set($value);
