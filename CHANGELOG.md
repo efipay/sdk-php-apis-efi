@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.7.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.7.1) (2024-01-16)
+-------------------------- 
+* Fixed compatibility with PHP 7.x
+
 [Release 1.7.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.7.0) (2024-01-10)
 -------------------------- 
 * Added new endpoints and examples for managing batches of due charges
