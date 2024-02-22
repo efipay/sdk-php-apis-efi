@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.8.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.8.0) (2024-02-22)
+-------------------------- 
+* Added a new endpoint and example to update subscriptions
+
 [Release 1.7.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.7.1) (2024-01-16)
 -------------------------- 
 * Fixed compatibility with PHP 7.x
