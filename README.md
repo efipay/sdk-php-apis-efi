@@ -168,6 +168,16 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir 
 | --- | --- | --- | --- | --- |
 | 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2.5 |
 
+## **Framewoks compatíveis**
+
+| Framework     | Versão Mínima Compatível | Observações                                    |
+|---------------|--------------------------|-----------------------------------------------|
+| Laravel       | 7.x e superior           | PHP >= 7.2.5, Guzzle 7.0, Symfony/Cache >= 5.0 |
+| CodeIgniter   | 4.x e superior           | PHP >= 7.2.5 (Guzzle e Symfony/Cache, se usado)|
+| Symfony       | 5.0 e superior           | PHP >= 7.2.5, Guzzle 7.0, Symfony/Cache >= 5.0 |
+
+A SDK é pode ser integrada também com outros frameworks PHP. Certifique-se de atender aos [**requisitos mínimos**](#requisitos).
+
 ## **Documentação Adicional**
 
 A documentação completa com todos os endpoints e detalhes das APIs está disponível em https://dev.efipay.com.br/.
