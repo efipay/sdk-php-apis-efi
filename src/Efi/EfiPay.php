@@ -32,6 +32,7 @@ namespace Efi;
  * @method array detailSubscription(array $params)
  * @method array defineSubscriptionPayMethod(array $params, array $body)
  * @method array cancelSubscription(array $params)
+ * @method array updateSubscription(array $params, array $body)
  * @method array updateSubscriptionMetadata(array $params, array $body)
  * @method array createSubscriptionHistory(array $params, array $body)
  * @method array sendSubscriptionLinkEmail(array $params, array $body)

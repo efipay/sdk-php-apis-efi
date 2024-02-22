@@ -135,6 +135,11 @@ return [
             "method" => "put",
             "scope" => "charge"
         ],
+        "updateSubscription" => [
+            "route" => "/v1/subscription/:id",
+            "method" => "put",
+            "scope" => "charge"
+        ],
         "updateSubscriptionMetadata" => [
             "route" => "/v1/subscription/:id/metadata",
             "method" => "put",
