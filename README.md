@@ -30,6 +30,7 @@ Ir para:
 	- [**Cadastrar chave Pix através da API:**](#cadastrar-chave-pix-através-da-api)
 - [**Executar exemplos**](#executar-exemplos)
 - [**Guia de versão**](#guia-de-versão)
+- [**Frameworks compatíveis**](#frameworks-compatíveis)
 - [**Documentação Adicional**](#documentação-adicional)
 - [**Comunidade no Discord**](#comunidade-no-discord)
 - [**Validador de Migração**](#validador-de-migração)
@@ -168,7 +169,7 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir 
 | --- | --- | --- | --- | --- |
 | 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2.5 |
 
-## **Framewoks compatíveis**
+## **Frameworks compatíveis**
 
 | Framework     | Versão Mínima Compatível | Observações                                    |
 |---------------|--------------------------|-----------------------------------------------|

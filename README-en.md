@@ -28,6 +28,7 @@ Jump To:
   - [**Register Pix key via API:**](#register-pix-key-via-api)
 - [**Running examples**](#running-examples)
 - [**Version Guidance**](#version-guidance)
+- [**Supported frameworks**](#supported-frameworks)
 - [**Additional Documentation**](#additional-documentation)
 - [**Discord Community**](#discord-community)
 - [**Migration Validator**](#migration-validator)
@@ -169,6 +170,17 @@ You can run it using any web server like Apache or nginx and open any example in
 | Version | Status | Packagist | Repo | Version PHP |
 | --- | --- | --- | --- | --- |
 | 1.x | Maintained | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2 |
+
+## **Supported frameworks**
+
+| Framework     | Minimum Compatible Version | Notes                                        |
+|---------------|--------------------------|-----------------------------------------------|
+| Laravel       | 7.x and above             | PHP >= 7.2.5, Guzzle 7.0, Symfony/Cache >= 5.0 |
+| CodeIgniter   | 4.x and above             | PHP >= 7.2.5 (Guzzle and Symfony/Cache, if used)|
+| Symfony       | 5.0 and above             | PHP >= 7.2.5, Guzzle 7.0, Symfony/Cache >= 5.0 |
+
+The SDK can also be integrated with other PHP frameworks. Make sure to meet the [**minimum requirements**](#requirements).
+
 
 ## **Additional Documentation**
 
