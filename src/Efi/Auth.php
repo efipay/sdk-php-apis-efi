@@ -47,7 +47,7 @@ class Auth extends BaseModel
     {
         $this->initializeRequestOptions();
         $response = $this->sendAuthorizationRequest();
-        $this->processAuthorizationResponse($response);
+        $this->processAuthorizationResponse(($this->config['responseHeaders']) ? $response->body : $response);
     }
 
     /**

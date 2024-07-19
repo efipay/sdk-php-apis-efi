@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
 use Efi\Exception\EfiException;
+use Efi\Response;
 
 class Request extends BaseModel
 {
@@ -69,7 +70,7 @@ class Request extends BaseModel
 
             return $certPath;
         } else {
-            $this->throwEfiException('Certificado não encontrado', 403);
+            $this->throwEfiException('Certificado não encontrado', 403, ['headers' => []]);
         }
     }
 
@@ -85,7 +86,7 @@ class Request extends BaseModel
     {
         $fileContents = file_get_contents($certPath);
         if (!$fileContents) {
-            $this->throwEfiException('Não foi possível ler o arquivo de certificado', 403);
+            $this->throwEfiException('Não foi possível ler o arquivo de certificado', 403, ['headers' => []]);
         }
         return $fileContents;
     }
@@ -107,7 +108,7 @@ class Request extends BaseModel
 
         $publicKey = openssl_x509_parse($fileContents);
         if (!$publicKey) {
-            $this->throwEfiException('Certificado inválido ou inativo', 403);
+            $this->throwEfiException('Certificado inválido ou inativo', 403, ['headers' => []]);
         }
 
         $this->checkCertificateEnviroment($publicKey['issuer']['CN']);
@@ -125,7 +126,7 @@ class Request extends BaseModel
     private function readP12Certificate(string $fileContents): array
     {
         if (!openssl_pkcs12_read($fileContents, $certData, $this->config['pwdCertificate'])) {
-            $this->throwEfiException('Não foi possível ler o arquivo de certificado p12', 403);
+            $this->throwEfiException('Não foi possível ler o arquivo de certificado p12', 403, ['headers' => []]);
         }
         return $certData;
     }
@@ -139,9 +140,9 @@ class Request extends BaseModel
     private function checkCertificateEnviroment(string $issuerCn): void
     {
         if ($this->config['sandbox'] === true && ($issuerCn === 'apis.sejaefi.com.br' || $issuerCn ===  'apis.efipay.com.br' || $issuerCn ===  'api-pix.gerencianet.com.br')) {
-            $this->throwEfiException('Certificado de produção inválido para o ambiente escolhido [homologação].', 403);
+            $this->throwEfiException('Certificado de produção inválido para o ambiente escolhido [homologação].', 403, ['headers' => []]);
         } elseif (!$this->config['sandbox'] && ($issuerCn === 'apis-h.sejaefi.com.br' || $issuerCn ===  'apis-h.efipay.com.br' || $issuerCn ===  'api-pix-h.gerencianet.com.br')) {
-            $this->throwEfiException('Certificado de homologação inválido para o ambiente escolhido [produção].', 403);
+            $this->throwEfiException('Certificado de homologação inválido para o ambiente escolhido [produção].', 403, ['headers' => []]);
         }
     }
 
@@ -156,7 +157,7 @@ class Request extends BaseModel
         $today = date("Y-m-d H:i:s");
         $validTo = date('Y-m-d H:i:s', $validToTime);
         if ($validTo <= $today) {
-            $this->throwEfiException('O certificado de autenticação expirou em ' . $validTo, 403);
+            $this->throwEfiException('O certificado de autenticação expirou em ' . $validTo, 403, ['headers' => []]);
         }
     }
 
@@ -166,7 +167,7 @@ class Request extends BaseModel
      * @param string $method The HTTP method.
      * @param string $route The URL route.
      * @param array $requestOptions The request options.
-     * @return mixed The response data.
+     * @return object The response data.
      * @throws EfiException If there is an EFI Pay specific error.
      */
 
@@ -180,7 +181,7 @@ class Request extends BaseModel
         } catch (ClientException $e) {
             throw $this->handleClientException($e);
         } catch (ServerException $se) {
-            $this->throwEfiException($se->getResponse()->getBody(), $se->getResponse()->getStatusCode());
+            $this->throwEfiException($se->getResponse()->getBody(), $se->getResponse()->getStatusCode(), $se->getResponse()->getHeaders());
         }
     }
 
@@ -228,20 +229,23 @@ class Request extends BaseModel
 
     private function processResponse($response)
     {
-        $headersResponse = $response->getHeader('Content-Type');
+        $headersResponse = $this->config['responseHeaders'] ? $response->getHeaders() : $response->getHeader('Content-Type');
 
-        if (isset($headersResponse[0]) && stristr(substr($headersResponse[0], 0, strpos($headersResponse[0], ';')), 'application/json')) {
-            return json_decode($response->getBody(), true);
+        $contentType = isset($headersResponse['Content-Type'][0]) ? $headersResponse['Content-Type'][0] : $headersResponse[0];
+
+        if (stristr($contentType, 'application/json')) {
+            $bodyResponse = json_decode($response->getBody(), true);
         } else {
             $bodyResponse = $response->getBody()->getContents();
-
-            if ($bodyResponse) {
-                return $bodyResponse;
-            } else {
-                return ["code" => $response->getStatusCode()];
-            }
         }
+
+        if ($this->config['responseHeaders']) {
+            return new Response($bodyResponse ?: ["code" => $response->getStatusCode()], $headersResponse);
+        }
+
+        return $bodyResponse ?: ["code" => $response->getStatusCode()];
     }
+
 
     /**
      * Handles the ClientException and creates an EFI exception.
@@ -252,8 +256,9 @@ class Request extends BaseModel
 
     private function handleClientException(ClientException $e): EfiException
     {
+        $responseHeaders = $e->getResponse()->getHeaders();
         if (is_array(json_decode($e->getResponse()->getBody(), true))) {
-            return new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode());
+            return new EfiException($this->config['api'], json_decode($e->getResponse()->getBody(), true), $e->getResponse()->getStatusCode(), $responseHeaders);
         } else {
             return new EfiException(
                 $this->config['api'],
@@ -261,7 +266,8 @@ class Request extends BaseModel
                     'error' => $e->getResponse()->getReasonPhrase(),
                     'error_description' => $e->getResponse()->getBody()
                 ],
-                $e->getResponse()->getStatusCode()
+                $e->getResponse()->getStatusCode(),
+                $responseHeaders
             );
         }
     }
@@ -273,12 +279,12 @@ class Request extends BaseModel
      * @param int $statusCode HTTP status code.
      * @throws EfiException The EfiException.
      */
-    private function throwEfiException(string $message, int $statusCode): void
+    private function throwEfiException(string $message, int $statusCode, array $headers): void
     {
         if (is_array(json_decode($message, true))) {
-            throw new EfiException($this->config['api'], json_decode($message, true), $statusCode);
+            throw new EfiException($this->config['api'], json_decode($message, true), $statusCode, $headers);
         } else {
-            throw new EfiException($this->config['api'], ['error' => 'forbidden', 'error_description' => $message], $statusCode);
+            throw new EfiException($this->config['api'], ['error' => 'forbidden', 'error_description' => $message], $statusCode, $headers);
         }
     }
 }

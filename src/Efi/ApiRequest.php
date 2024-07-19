@@ -68,7 +68,8 @@ class ApiRequest extends BaseModel
                     'error' => $e->getResponse(),
                     'error_description' => $e->getResponse()->getBody()
                 ],
-                $e->getResponse()->getStatusCode()
+                $e->getResponse()->getStatusCode(),
+                $e->getResponse()->getHeaders()
             );
         }
     }

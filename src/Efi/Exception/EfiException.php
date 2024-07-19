@@ -14,6 +14,7 @@ use Efi\Exception\OpeningAccountsException;
  */
 class EfiException extends Exception
 {
+    private $headers;
     private $error;
     private $errorDescription;
 
@@ -23,7 +24,7 @@ class EfiException extends Exception
      * @param mixed $exception The original exception or error response.
      * @param int   $code      The error code.
      */
-    public function __construct($api, $exception, int $code)
+    public function __construct($api, $exception, int $code, array $headers)
     {
         $error = $exception;
 
@@ -52,7 +53,7 @@ class EfiException extends Exception
                 break;
         }
 
-        $this->handleException($exceptionClass, $error, $code);
+        $this->handleException($exceptionClass, $error, $code, $headers);
     }
 
     /**
@@ -78,13 +79,14 @@ class EfiException extends Exception
      * @param array $error The error response array.
      * @param int   $code  The error code.
      */
-    private function handleException(string $exceptionClass, array $error, int $code)
+    private function handleException(string $exceptionClass, array $error, int $code, array $headers)
     {
         $exception = new $exceptionClass($error, $code);
         $this->error = $exception->error;
         $this->errorDescription = $exception->errorDescription;
         $this->code = $exception->code;
         $this->message = $exception->message;
+        $this->headers = $headers;
     }
 
     /**
