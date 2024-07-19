@@ -7,7 +7,7 @@
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -21,22 +21,31 @@ if (!file_exists($optionsFile)) {
 $options = include $optionsFile;
 
 $params = [
-	"id" => 0
+	"id" => 1
 ];
 
 try {
 	$api = new EfiPay($options);
 	$response = $api->pixGenerateQRCode($params);
 
+	$responseBody = (isset($options["responseHeaders"]) && $options["responseHeaders"]) ? $response->body : $response;
+
 	echo "Pix Copia e Cola, QR Code e link de visualização:<br>";
-	echo "<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
+	print_r("<pre>" . json_encode($responseBody, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
 
 	echo "Imagem:<br />";
-	echo "<img src='" . $response["imagemQrcode"] . "' />";
+	echo "<img src='" . $responseBody["imagemQrcode"] . "' />";
+
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($response->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (EfiException $e) {
-	echo $e->code . "<br>";
-	echo $e->error . "<br>";
-	echo $e->errorDescription . "<br>";
+	print_r($e->code . "<br>");
+	print_r($e->error . "<br>");
+	print_r($e->errorDescription) . "<br>";
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (Exception $e) {
 	echo $e->getMessage();
 }

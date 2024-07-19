@@ -47,38 +47,48 @@ $body = [
 
 try {
 	$api = new EfiPay($options);
-	$pix = $api->pixCreateImmediateCharge($params = [], $body); // Using this function the txid will be generated automatically by Efí API
+	$responsePix = $api->pixCreateImmediateCharge($params = [], $body); // Using this function the txid will be generated automatically by Efí API
 
-	if ($pix["txid"]) {
+	$responseBodyPix = (isset($options["responseHeaders"]) && $options["responseHeaders"]) ? $responsePix->body : $responsePix;
+
+	if ($responseBodyPix["txid"]) {
 		$params = [
-			"id" => $pix["loc"]["id"]
+			"id" => $responseBodyPix["loc"]["id"]
 		];
 
 		try {
-			$qrcode = $api->pixGenerateQRCode($params);
+			$responseQrcode = $api->pixGenerateQRCode($params);
+
+			$responseBodyQrcode = (isset($options["responseHeaders"]) && $options["responseHeaders"]) ? $responseQrcode->body : $responseQrcode;
 
 			echo "<b>Detalhes da cobrança:</b>";
-			echo "<pre>" . json_encode($pix, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
+			echo "<pre>" . json_encode($responseBodyPix, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 
 			echo "<b>QR Code:</b>";
-			echo "<pre>" . json_encode($qrcode, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
+			echo "<pre>" . json_encode($responseBodyQrcode, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 
-			echo "<b>Imagem:</b><br />";
-			echo "<img src='" . $qrcode["imagemQrcode"] . "' />";
+			echo "<b>Imagem:</b><br>";
+			echo "<img src='" . $responseBodyQrcode["imagemQrcode"] . "' />";
 		} catch (EfiException $e) {
 			print_r($e->code . "<br>");
 			print_r($e->error . "<br>");
 			print_r($e->errorDescription . "<br>");
+			if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+				print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+			}
 		} catch (Exception $e) {
 			print_r($e->getMessage());
 		}
 	} else {
-		echo "<pre>" . json_encode($pix, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
+		echo "<pre>" . json_encode($responseBodyPix, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 	}
 } catch (EfiException $e) {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription . "<br>");
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (Exception $e) {
 	print_r($e->getMessage());
 }

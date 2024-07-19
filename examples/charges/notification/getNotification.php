@@ -28,14 +28,22 @@ try {
 	$api = new EfiPay($options);
 	$response = $api->getNotification($params);
 
-	print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
 	header("HTTP/1.1 200");
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+		print_r("<pre>" . json_encode($response->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	} else {
+		print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (EfiException $e) {
+	header("HTTP/1.1 400");
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription) . "<br>";
-	header("HTTP/1.1 400");
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (Exception $e) {
-	print_r($e->getMessage());
 	header("HTTP/1.1 403");
+	print_r($e->getMessage());
 }

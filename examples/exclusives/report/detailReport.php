@@ -7,7 +7,7 @@
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -28,12 +28,15 @@ try {
 	$api = new EfiPay($options);
 	$response = $api->detailReport($params);
 
-	if (is_array($response)) {
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"] && is_array($response->body)) {
+		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+		print_r("<pre>" . json_encode($response->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	} else if (is_array($response)) {
 		print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
 	} else {
 		$output = fopen("php://output", "w,ccs=UTF-8");
 		fputs($output, "\xEF\xBB\xBF");
-		fputs($output, mb_convert_encoding($response, 'UTF-8'));
+		fputs($output, mb_convert_encoding($response->body, 'UTF-8'));
 
 		// Tell the browser it's going to be a csv file and download it
 		header("Content-Type: text/csv; charset=utf-8");
@@ -43,6 +46,9 @@ try {
 	print_r($e->code . "<br>");
 	print_r($e->error . "<br>");
 	print_r($e->errorDescription . "<br>");
+	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
+		print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+	}
 } catch (Exception $e) {
 	print_r($e->getMessage());
 }
