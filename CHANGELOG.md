@@ -1,6 +1,15 @@
 Changelog
 =========
 
+[Release 1.9.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.0) (2024-07-19)
+-------------------------- 
+* Added new endpoints and examples:
+    - Payment API webhook
+    - Pix API MED
+    - Pix API QR Code payment
+    - Card payment refund
+* Added feature to obtain response header of requests
+
 [Release 1.8.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.8.0) (2024-02-22)
 -------------------------- 
 * Added a new endpoint and example to update subscriptions
