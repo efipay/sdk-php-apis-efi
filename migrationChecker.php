@@ -389,7 +389,7 @@ $checker = new MigrationChecker();
 			var body = document.querySelector('body');
 
 			body.classList.remove("loading");
-			html.classList.remove("hiddenOverflow");
+			body.classList.remove("hiddenOverflow");
 		};
 	</script>
 </head>
