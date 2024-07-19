@@ -10,9 +10,10 @@
 ---
 
 [![Latest Stable Version](http://poser.pugx.org/efipay/sdk-php-apis-efi/v)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
-[![License](http://poser.pugx.org/efipay/sdk-php-apis-efi/license)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Total Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Daily Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/d/daily)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
+[![License](http://poser.pugx.org/efipay/sdk-php-apis-efi/license)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 
 SDK in PHP for integration with Efí APIs for Pix issuance, boletos (banking payment slips), payment slips, credit card, subscription, payment links, marketplace, Pix via Open Finance, payment of boletos, among other functionalities. For more [technical information](https://dev.efipay.com.br/) and [pricing](http://sejaefi.com.br/tarifas), please refer to our website.
 
@@ -87,6 +88,7 @@ $options = [
     "sandbox" => false, // Optional | Default = false | Defines the development environment as Production or Homologation
     "debug" => false, // Optional | Default = false | Enable/disable Guzzle request logs
     "timeout" => 30, // Optional | Default = 30 | Defines the maximum response time for requests
+    "responseHeaders" => false, //  Optional | Default = false
 ];
 ```
 
@@ -160,7 +162,7 @@ The example response below represents Success (201), showing the registered Pix 
 
 
 ## **Running examples**
-You can run it using any web server like Apache or nginx and open any example in your browser or command line.
+You can run it using any web server like Apache or nginx and open any example in your browser or command line. [See all examples here](https://github.com/efipay/sdk-php-apis-efi/tree/main/examples).
 
 ⚠️ Some examples may require you to modify certain parameters to work, such as `/examples/charges/billet/createOneStepBillet.php` or `/examples/pix/cob/pixCreateCharge.php`.
 

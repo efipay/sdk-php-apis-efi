@@ -10,9 +10,10 @@
 ---
 
 [![Última versão estável](http://poser.pugx.org/efipay/sdk-php-apis-efi/v)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
-[![Licença](http://poser.pugx.org/efipay/sdk-php-apis-efi/license)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Total de downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Downloads diários](http://poser.pugx.org/efipay/sdk-php-apis-efi/d/daily)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
+[![Licença](http://poser.pugx.org/efipay/sdk-php-apis-efi/license)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 
 SDK em PHP para integração com as APIs Efí para emissão de Pix, boletos, carnês, cartão de crédito, assinatura, link de pagamento, marketplance, Pix via Open Finance, pagamento de boletos, dentre outras funcionalidades.
 Para mais [informações técnicas](https://dev.efipay.com.br/) e [valores/tarifas](http://sejaefi.com.br/tarifas), consulte nosso site.
@@ -85,6 +86,7 @@ $options = [
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
 	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
+	"responseHeaders" => false, //  Optional | Default = false
 ];
 ```
 
@@ -158,7 +160,7 @@ A resposta de exemplo abaixo representa Sucesso (201), apresentando a chave Pix 
 ```
 
 ## **Executar exemplos**
-Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir qualquer exemplo em seu navegador ou linha de comando.
+Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir qualquer exemplo em seu navegador ou linha de comando. Veja [todos os exemplo aqui](https://github.com/efipay/sdk-php-apis-efi/tree/main/examples).
 
 ⚠️ Alguns exemplos requerem que você altere alguns parâmetros para funcionar, como `/examples/charges/billet/createOneStepBillet.php` ou `/examples/pix/cob/pixCreateCharge.php`.
 
