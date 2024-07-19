@@ -60,6 +60,11 @@ return [
             "method" => "post",
             "scope" => "charge"
         ],
+        "refundCard" => [
+            "route" => "/v1/charge/card/:id/refund",
+            "method" => "post",
+            "scope" => "charge"
+        ],
         "createCarnet" => [
             "route" => "/v1/carnet",
             "method" => "post",

@@ -29,6 +29,21 @@ return [
             "route" => "/v1/resumo",
             "method" => "get",
             "scope" => "gn.barcode.read"
+        ],
+        "payConfigWebhook" => [
+            "route" => "/v1/webhook",
+            "method" => "put",
+            "scope" => "payment.webhook.write"
+        ],
+        "payDeleteWebhook" => [
+            "route" => "/v1/webhook",
+            "method" => "delete",
+            "scope" => "payment.webhook.write"
+        ],
+        "payListWebhook" => [
+            "route" => "/v1/webhook",
+            "method" => "get",
+            "scope" => "payment.webhook.read"
         ]
     ]
 ];

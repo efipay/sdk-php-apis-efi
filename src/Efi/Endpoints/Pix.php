@@ -226,24 +226,44 @@ return [
             "scope" => "gn.reports.read"
         ],
         "pixCreateDueChargeBatch" => [
-            "route" => "v2/lotecobv/:id",
+            "route" => "/v2/lotecobv/:id",
             "method" => "put",
             "scope" => "lotecobv.write"
         ],
         "pixUpdateDueChargeBatch" => [
-            "route" => "v2/lotecobv/:id",
+            "route" => "/v2/lotecobv/:id",
             "method" => "patch",
             "scope" => "lotecobv.write"
         ],
         "pixDetailDueChargeBatch" => [
-            "route" => "v2/lotecobv/:id",
+            "route" => "/v2/lotecobv/:id",
             "method" => "get",
             "scope" => "lotecobv.read"
         ],
         "pixListDueChargeBatch" => [
-            "route" => "v2/lotecobv",
+            "route" => "/v2/lotecobv",
             "method" => "get",
             "scope" => "lotecobv.read"
+        ],
+        "pixQrCodeDetail" => [
+            "route" => "/v2/gn/qrcodes/detalhar",
+            "method" => "post",
+            "scope" => "gn.qrcodes.read"
+        ],
+        "pixQrCodePay" => [
+            "route" => "/v2/gn/pix/:idEnvio/qrcode",
+            "method" => "put",
+            "scope" => "gn.qrcodes.pay"
+        ],
+        "medList" => [
+            "route" => "/v2/gn/infracoes",
+            "method" => "get",
+            "scope" => "gn.infractions.read"
+        ],
+        "medDefense" => [
+            "route" => "/v2/gn/infracoes/:idInfracao/defesa",
+            "method" => "post",
+            "scope" => "gn.infractions.write"
         ]
     ]
 ];
