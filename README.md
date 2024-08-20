@@ -48,7 +48,7 @@ Ir para:
 
 ## **Testado com**
 ```
-PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
+PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3
 ```
 
 ## **Instalação**
@@ -86,7 +86,7 @@ $options = [
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
 	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
-	"responseHeaders" => false, //  Optional | Default = false
+	"responseHeaders" => false, //  Optional | Default = false || Ativa/desativa o retorno do header das requisições
 ];
 ```
 

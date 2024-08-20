@@ -46,7 +46,7 @@ Jump To:
 
 ## **Tested with**
 ```
-PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2
+PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3
 ```
 
 ## **Installation**
@@ -88,7 +88,7 @@ $options = [
     "sandbox" => false, // Optional | Default = false | Defines the development environment as Production or Homologation
     "debug" => false, // Optional | Default = false | Enable/disable Guzzle request logs
     "timeout" => 30, // Optional | Default = 30 | Defines the maximum response time for requests
-    "responseHeaders" => false, //  Optional | Default = false
+    "responseHeaders" => false, //  Optional | Default = false | Enables/disable returning the header requests
 ];
 ```
 
