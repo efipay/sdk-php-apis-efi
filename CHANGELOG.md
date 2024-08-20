@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.9.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.1) (2024-08-20)
+-------------------------- 
+* Fixed: header parameter type 'x-skip-mtls-checking' always string
+* Fixed: Access token not found in cache
+
 [Release 1.9.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.0) (2024-07-19)
 -------------------------- 
 * Added new endpoints and examples:
