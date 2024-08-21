@@ -30,6 +30,11 @@ return [
             "method" => "get",
             "scope" => "charge"
         ],
+        "listCharges" => [
+            "route" => "/v1/charges",
+            "method" => "get",
+            "scope" => "charge"
+        ],
         "updateChargeMetadata" => [
             "route" => "/v1/charge/:id/metadata",
             "method" => "put",
