@@ -214,7 +214,11 @@ class Request extends BaseModel
     {
         foreach ($defaultHeaders as $key => $value) {
             if (!isset($requestOptions['headers'][$key])) {
-                $requestOptions['headers'][$key] = $key === 'x-skip-mtls-checking' ? $value ? 'true' : 'false' : $value;
+                if ($key === 'x-skip-mtls-checking' && is_bool($value)) {
+                    $requestOptions['headers'][$key] = $value ? 'true' : 'false';
+                } else {
+                    $requestOptions['headers'][$key] = $value;
+                }
             }
         }
         return $requestOptions['headers'];
