@@ -231,7 +231,13 @@ class Request extends BaseModel
     {
         $headersResponse = $this->config['responseHeaders'] ? $response->getHeaders() : $response->getHeader('Content-Type');
 
-        $contentType = isset($headersResponse['Content-Type'][0]) ? $headersResponse['Content-Type'][0] : $headersResponse[0];
+        $contentType = null;
+
+        if(!empty($headersResponse['Content-Type'][0])){
+            $contentType = $headersResponse['Content-Type'][0];
+        }elseif(!empty($headersResponse[0])){
+            $contentType = $headersResponse[0];
+        }
 
         if (stristr($contentType, 'application/json')) {
             $bodyResponse = json_decode($response->getBody(), true);
