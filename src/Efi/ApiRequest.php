@@ -35,7 +35,7 @@ class ApiRequest extends BaseModel
      * @param string $method The HTTP method.
      * @param string $route The URL route.
      * @param array $body The request body.
-     * @return The response data.
+     * @return #The response data.
      * @throws EfiException If there is an EFI specific error.
      */
     public function send(string $method, string $route, string $scope, array $body)
@@ -46,7 +46,7 @@ class ApiRequest extends BaseModel
             $this->auth->authorize();
         } else {
             if (in_array($scope, $this->cacheScopes) && $this->cacheAccessToken) {
-                $this->auth->accessToken = $this->cacheAccessToken;
+                $this->auth->setAccessToken($this->cacheAccessToken);
             } else {
                 $this->auth->authorize();
             }
@@ -57,7 +57,7 @@ class ApiRequest extends BaseModel
 
         try {
             return $this->request->send($method, $route, [
-                'json' => $body,
+                'json' => empty($body) ? null : $body,
                 'timeout' => $requestTimeout,
                 'headers' => $requestHeaders
             ]);
@@ -105,7 +105,7 @@ class ApiRequest extends BaseModel
     {
         $composerData = Utils::getComposerData();
         $requestHeaders = [
-            'Authorization' => 'Bearer ' . $this->auth->accessToken,
+            'Authorization' => 'Bearer ' . $this->auth->getAccessToken(),
             'api-sdk' => 'efi-php-' . $composerData['version']
         ];
 

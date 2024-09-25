@@ -57,11 +57,13 @@ class Auth extends BaseModel
     {
         $this->endpoints = Config::get($this->options['api']);
         $requestTimeout = $this->options['timeout'];
+        $composerData = Utils::getComposerData();
 
         $this->requestOptions = [
             'auth' => [$this->clientId, $this->clientSecret],
             'json' => ['grant_type' => 'client_credentials'],
             'timeout' => $requestTimeout,
+            'api-sdk' => 'efi-php-' . $composerData['version']
         ];
     }
 
@@ -150,5 +152,26 @@ class Auth extends BaseModel
         if ($hasCache) {
             $this->cache->clear();
         }
+    }
+
+    /**
+     * Gets the access token.
+     *
+     * @return string The current access token.
+     */
+    public function getAccessToken(): string
+    {
+        return $this->accessToken;
+    }
+
+    /**
+     * Sets the access token.
+     *
+     * @param string $token The access token to set.
+     * @return void
+     */
+    public function setAccessToken(string $token): void
+    {
+        $this->accessToken = $token;
     }
 }
