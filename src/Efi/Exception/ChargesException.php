@@ -24,7 +24,10 @@ class ChargesException extends Exception
 
     private static function getErrorTitle(array $error, int $code): string
     {
-        return $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error');
+        if (isset($error['error']) && is_string($error['error'])) {
+            return $error['error'];
+        }
+        return $code === 401 ? 'unauthorized' : 'request_error';
     }
 
     private function getErrorDescription(array $error, int $code): string
@@ -40,6 +43,8 @@ class ChargesException extends Exception
             }
         } elseif (isset($error['error']) && isset($error['error_description'])) {
             $description = $error['error_description'];
+        } elseif (isset($error['sprintfParams']) && is_string($error['sprintfParams'])) {
+            $description = $error['sprintfParams'];
         } else {
             $description = 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
         }
