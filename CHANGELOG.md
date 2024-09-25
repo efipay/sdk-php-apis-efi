@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.9.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.2) (2024-09-25)
+-------------------------- 
+* Added a new endpoints and examples to list charges
+* Fixed: Header parameter type 'x-skip-mtls-checking' always string
+
 [Release 1.9.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.1) (2024-08-20)
 -------------------------- 
 * Fixed: header parameter type 'x-skip-mtls-checking' always string
