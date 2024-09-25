@@ -1,6 +1,14 @@
 Changelog
 =========
 
+[Release 1.9.3](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.3) (2024-09-25)
+-------------------------- 
+* Fixed: 'Content-Type' check and add header validation
+* New exceptions validation about Charges API
+* Refactored: Authentication and access token handling
+* Refactored: Query params generation function
+* Refactored: Return type declarations for methods.
+
 [Release 1.9.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.2) (2024-09-25)
 -------------------------- 
 * Added a new endpoints and examples to list charges
