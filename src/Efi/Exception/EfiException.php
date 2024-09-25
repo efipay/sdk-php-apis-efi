@@ -14,9 +14,10 @@ use Efi\Exception\OpeningAccountsException;
  */
 class EfiException extends Exception
 {
-    private $headers;
-    private $error;
-    private $errorDescription;
+    public $headers;
+    public $code;
+    public $error;
+    public $errorDescription;
 
     /**
      * Initializes a new instance of the EfiException class.
@@ -94,7 +95,7 @@ class EfiException extends Exception
      *
      * @return string The string representation of the exception.
      */
-    public function __toString()
+    public function __toString(): string
     {
         return 'Error ' . $this->code . ': ' . $this->message . "\n";
     }
