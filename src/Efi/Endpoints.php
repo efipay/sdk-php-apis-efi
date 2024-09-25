@@ -158,7 +158,15 @@ class Endpoints
         foreach ($params as $key => $value) {
             $query .= ($query === '') ? '?' : '&';
             $query .= $key . '=';
-            $query .= is_bool($value) ? ($value ? 'true' : 'false') : $value;
+
+            if (is_bool($value)) {
+                $query .= $value ? 'true' : 'false';
+            } elseif (is_array($value)) {
+                // Converte arrays para uma query string, por exemplo: key[]=val1&key[]=val2
+                $query .= http_build_query([$key => $value]);
+            } else {
+                $query .= $value;
+            }
         }
 
         return $query;
