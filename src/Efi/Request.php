@@ -173,9 +173,11 @@ class Request extends BaseModel
 
     public function send(string $method, string $route, array $requestOptions)
     {
+        if (!empty($this->config['debug']) && $this->config['debug'] === true) {
+            echo '<br>[SDK] version: "' . ($requestOptions['api-sdk'] ?? $requestOptions['headers']['api-sdk']) . '" [REQUEST] method: "' . $method . '" url: "' . $this->config['baseUri'] . '" route: "' . $route . '"<br>';
+        }
         try {
             $this->applyCertificateAndHeaders($requestOptions);
-
             $response = $this->client->request($method, $route, $requestOptions);
             return $this->processResponse($response);
         } catch (ClientException $e) {
@@ -235,9 +237,9 @@ class Request extends BaseModel
     {
         $headersResponse = $this->config['responseHeaders'] ? $response->getHeaders() : $response->getHeader('Content-Type');
 
-        $contentType = isset($headersResponse['Content-Type'][0]) ? $headersResponse['Content-Type'][0] : $headersResponse[0];
+        $contentType = !empty($headersResponse['Content-Type'][0]) ? $headersResponse['Content-Type'][0] : (!empty($headersResponse[0]) ? $headersResponse[0] : null);
 
-        if (stristr($contentType, 'application/json')) {
+        if (!empty($contentType) && stristr($contentType, 'application/json')) {
             $bodyResponse = json_decode($response->getBody(), true);
         } else {
             $bodyResponse = $response->getBody()->getContents();
