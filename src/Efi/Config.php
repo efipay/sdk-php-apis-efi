@@ -35,10 +35,10 @@ class Config
         }
 
         $config = include self::$endpointsConfigFile;
-        
+
         if (!is_array($config) || !isset($config['APIs'])) {
             throw new Exception('Erro ao carregar o arquivo de endpoints');
-        }        
+        }
 
         return $config[$property] ?? $config['APIs'][$property];
     }
@@ -51,29 +51,30 @@ class Config
      */
     public static function options(array $options): array
     {
-        $conf['sandbox'] = (bool) isset($options['sandbox']) ? filter_var($options['sandbox'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['debug'] = (bool) isset($options['debug']) ? filter_var($options['debug'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['cache'] = (bool) isset($options['cache']) ? filter_var($options['cache'], FILTER_VALIDATE_BOOLEAN) : true;
-        $conf['responseHeaders'] = (bool) isset($options['responseHeaders']) ? filter_var($options['responseHeaders'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['timeout'] = (float) isset($options['timeout']) ? $options['timeout'] : 30.0;
-        $conf['clientId'] = (string) isset($options['client_id']) || isset($options['clientId']) ? $options['client_id'] ?? $options['clientId'] : null;
-        $conf['clientSecret'] = (string) isset($options['client_secret']) || isset($options['clientSecret']) ? $options['client_secret'] ?? $options['clientSecret'] : null;
-        $conf['partnerToken'] = (string) isset($options['partner_token']) || isset($options['partner-token']) || isset($options['partnerToken']) ? $options['partner_token'] ?? $options['partner-token'] ?? $options['partnerToken'] : null;
+        $conf['sandbox'] = isset($options['sandbox']) ? (bool)filter_var($options['sandbox'], FILTER_VALIDATE_BOOLEAN) : false;
+        $conf['debug'] = isset($options['debug']) ? (bool)filter_var($options['debug'], FILTER_VALIDATE_BOOLEAN) : false;
+        $conf['cache'] = isset($options['cache']) ? (bool)filter_var($options['cache'], FILTER_VALIDATE_BOOLEAN) : true;
+        $conf['responseHeaders'] = isset($options['responseHeaders']) ? (bool)filter_var($options['responseHeaders'], FILTER_VALIDATE_BOOLEAN) : false;
+        $conf['timeout'] = isset($options['timeout']) ? (float)$options['timeout'] : 30.0;
+        $conf['clientId'] = (isset($options['client_id']) || isset($options['clientId'])) ? (string)($options['client_id'] ?? $options['clientId']) : null;
+        $conf['clientSecret'] = (isset($options['client_secret']) || isset($options['clientSecret'])) ? (string)($options['client_secret'] ?? $options['clientSecret']) : null;
+        $conf['partnerToken'] = (isset($options['partner_token']) || isset($options['partner-token']) || isset($options['partnerToken']))
+            ? (string)($options['partner_token'] ?? $options['partner-token'] ?? $options['partnerToken'])
+            : null;
         $conf['headers'] = $options['headers'] ?? null;
         $conf['baseUri'] = $options['url'] ?? null;
         $conf['api'] = $options['api'] ?? null;
-
         if ($conf['api'] !== 'CHARGES') {
-            $conf['certificate'] = (string) isset($options['certificate']) || isset($options['pix_cert']) ? $options['certificate'] ?? $options['pix_cert'] : null;
-            $conf['pwdCertificate'] = (string) isset($options['pwdCertificate']) ? $options['pwdCertificate'] : '';
+            $conf['certificate'] = (isset($options['certificate']) || isset($options['pix_cert']))
+                ? (string)($options['certificate'] ?? $options['pix_cert'])
+                : null;
+            $conf['pwdCertificate'] = isset($options['pwdCertificate']) ? (string)$options['pwdCertificate'] : '';
         }
-
         if ($conf['debug']) {
             ini_set('display_errors', '1');
             ini_set('display_startup_errors', '1');
             error_reporting(E_ALL);
         }
-
         return $conf;
     }
 }
