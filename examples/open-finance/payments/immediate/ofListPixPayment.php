@@ -2,54 +2,36 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-open-finance/pagamentos#solicitar-iniciação-de-pix-via-open-finance
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-imediatos#listar-pagamentos-por-um-determinado-período
  */
 
-$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-	die("Autoload file not found or on path <code>$autoload</code>.");
+    die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$optionsFile = __DIR__ . "/../../credentials/options.php";
+$optionsFile = __DIR__ . "/../../../credentials/options.php";
 if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
 $options = include $optionsFile;
 
-$options["headers"] = [
-	"x-idempotency-key" => "00000000000000000000000000000000" // Random identifier
-];
-
-$body = [
-	"pagador" => [
-		"idParticipante" => "00000000-0000-0000-0000-000000000000",
-		"cpf" => "12345678909",
-	],
-	"favorecido" => [
-		"contaBanco" => [
-			"codigoBanco" => "364",
-			"agencia" => "0001",
-			"documento" => "11122233344",
-			"nome" => "Gorbadoc Oldbuck",
-			"conta" => "000000",
-			"tipoConta" => "CACC"
-		]
-	],
-	"detalhes" => [
-		"valor" => "0.01",
-		"infoPagador" => "Order 00001",
-		"idProprio" => "Client00001Order00001",
-		"dataAgendamento" => "2024-12-20"
-	]
+$params = [
+	"inicio" => "2023-01-22",
+	"fim" => "2024-12-31",
+	// "quantidade" => 10,
+	// "página" => 2,
+	// "status" => "aceito" // "pendente", "rejeitado", "expirado", "aceito", "cancelado"
+	//"identificador" => "urn:participant:00000000-0000-0000-0000-000000000000"
 ];
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->ofStartPixPayment($params = [], $body);
+	$response = $api->ofListPixPayment($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

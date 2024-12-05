@@ -20,14 +20,13 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
-// $params = [ // optional
-// 	"nome" => "Name of participant"
-//	"organizacao" => false
-// ];
+$params = [ // optional
+	"nome" => "Efi"
+];
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->ofListParticipants($params);
+	$response = $api->ofListParticipants();
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

@@ -2,36 +2,35 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-open-finance/pagamentos#listar-pagamentos-por-um-determinado-período
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-imediatos#efetuar-uma-devolução-de-um-pagamento
  */
 
-$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$optionsFile = __DIR__ . "/../../credentials/options.php";
+$optionsFile = __DIR__ . "/../../../credentials/options.php";
 if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
 $options = include $optionsFile;
 
 $params = [
-	"inicio" => "2023-01-22",
-	"fim" => "2024-12-31",
-	// "quantidade" => 10,
-	// "página" => 2,
-	// "status" => "aceito" // "pendente", "agendado", "rejeitado", "aceito"
-	//"identificador" => "urn:participant:00000000-0000-0000-0000-000000000000"
+	"identificadorPagamento" => "urn:participant:00000000-0000-0000-0000-000000000000",
+];
+
+$body = [
+	"valor" => "0.01"
 ];
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->ofListPixPayment($params);
+	$response = $api->ofDevolutionPix($params, $body);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
