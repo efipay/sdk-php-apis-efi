@@ -10,6 +10,7 @@
 ---
 
 [![Última versão estável](http://poser.pugx.org/efipay/sdk-php-apis-efi/v)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Versão PHP necessária](http://poser.pugx.org/efipay/sdk-php-apis-efi/require/php)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Total de downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Downloads diários](http://poser.pugx.org/efipay/sdk-php-apis-efi/d/daily)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
@@ -74,14 +75,14 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Começando**
 
-Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Se você usa a API Pix, API Open Finance e API Pagamento de Contas, informe no atributo `certificate` o diretório **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`.
+Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Com exceção da API Cobranças (Boleto/Carnê/Cartão de crédito), é obrigatório informar no atributo `certificate` o caminho **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`.
 
 Veja um exemplo de configuração:
 ```php
 $options = [
 	"clientId" => "Client_Id...",
 	"clientSecret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Caminho absoluto para o certificado no formato .p12 ou .pem
+	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Obrigatório, com exceção da API Cobranças  | Caminho absoluto para o certificado no formato .p12 ou .pem
 	"pwdCertificate" => "", // Opcional | Padrão = "" | Senha de criptografia do certificado
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
@@ -179,7 +180,7 @@ Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir 
 | CodeIgniter   | 4.x e superior           | PHP >= 7.2.5 (Guzzle e Symfony/Cache, se usado)|
 | Symfony       | 5.0 e superior           | PHP >= 7.2.5, Guzzle 7.0, Symfony/Cache >= 5.0 |
 
-A SDK é pode ser integrada também com outros frameworks PHP. Certifique-se de atender aos [**requisitos mínimos**](#requisitos).
+A SDK pode ser integrada também com outros frameworks PHP. Certifique-se de atender aos [**requisitos mínimos**](#requisitos).
 
 ## **Documentação Adicional**
 

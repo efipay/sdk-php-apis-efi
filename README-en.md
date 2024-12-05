@@ -10,6 +10,7 @@
 ---
 
 [![Latest Stable Version](http://poser.pugx.org/efipay/sdk-php-apis-efi/v)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Versão PHP necessária](http://poser.pugx.org/efipay/sdk-php-apis-efi/require/php)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Total Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Daily Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/d/daily)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
@@ -75,7 +76,7 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Getting started**
 
-To start, you should configure the credentials in the file `/examples/credentials/options.php`. Instantiate the `clientId` and `clientSecret` for authentication, and set `sandbox` to *true* if your environment is for testing (Homologação), or *false* if it's for production (Produção). If you're using the Pix API, Open Finance API, and Bill Payment API, provide the **absolute** directory for the `certificate` attribute with the filename in `.p12` or `.pem` format.
+To start, you should configure the credentials in the file `/examples/credentials/options.php`. Instantiate the `clientId` and `clientSecret` for authentication, and set `sandbox` to *true* if your environment is for testing (Homologação), or *false* if it's for production (Produção). With the exception of the Cobranças API (Boleto/Credit card), it is mandatory to inform in the `certificate` attribute the **absolute** path with the file name in `.p12` or `.pem` format.
 
 Here's an example of the configuration in PHP:
 
@@ -83,7 +84,7 @@ Here's an example of the configuration in PHP:
 $options = [
     "clientId" => "Client_Id...",
     "clientSecret" => "Client_Secret...",
-    "certificate" => realpath(__DIR__ . "/certificateFile.p12"), // Absolute path to the certificate in .p12 or .pem format
+    "certificate" => realpath(__DIR__ . "/certificateFile.p12"), // Mandatory, with the exception of the Billing API | Absolute path to the certificate in .p12 or .pem format
     "pwdCertificate" => "", // Optional | Default = "" | Certificate encryption password
     "sandbox" => false, // Optional | Default = false | Defines the development environment as Production or Homologation
     "debug" => false, // Optional | Default = false | Enable/disable Guzzle request logs
