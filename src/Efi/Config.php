@@ -35,10 +35,10 @@ class Config
         }
 
         $config = include self::$endpointsConfigFile;
-        
+
         if (!is_array($config) || !isset($config['APIs'])) {
             throw new Exception('Erro ao carregar o arquivo de endpoints');
-        }        
+        }
 
         return $config[$property] ?? $config['APIs'][$property];
     }
@@ -51,21 +51,40 @@ class Config
      */
     public static function options(array $options): array
     {
-        $conf['sandbox'] = (bool) isset($options['sandbox']) ? filter_var($options['sandbox'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['debug'] = (bool) isset($options['debug']) ? filter_var($options['debug'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['cache'] = (bool) isset($options['cache']) ? filter_var($options['cache'], FILTER_VALIDATE_BOOLEAN) : true;
-        $conf['responseHeaders'] = (bool) isset($options['responseHeaders']) ? filter_var($options['responseHeaders'], FILTER_VALIDATE_BOOLEAN) : false;
-        $conf['timeout'] = (float) isset($options['timeout']) ? $options['timeout'] : 30.0;
-        $conf['clientId'] = (string) isset($options['client_id']) || isset($options['clientId']) ? $options['client_id'] ?? $options['clientId'] : null;
-        $conf['clientSecret'] = (string) isset($options['client_secret']) || isset($options['clientSecret']) ? $options['client_secret'] ?? $options['clientSecret'] : null;
-        $conf['partnerToken'] = (string) isset($options['partner_token']) || isset($options['partner-token']) || isset($options['partnerToken']) ? $options['partner_token'] ?? $options['partner-token'] ?? $options['partnerToken'] : null;
-        $conf['headers'] = $options['headers'] ?? null;
-        $conf['baseUri'] = $options['url'] ?? null;
-        $conf['api'] = $options['api'] ?? null;
+        $getBoolean = function ($key, $default = false) use ($options) {
+            return isset($options[$key]) ? filter_var($options[$key], FILTER_VALIDATE_BOOLEAN) : $default;
+        };
+
+        $getFloat = function ($key, $default = 0.0) use ($options) {
+            return isset($options[$key]) ? (float) $options[$key] : $default;
+        };
+
+        $getString = function ($keys, $default = null) use ($options) {
+            foreach ((array) $keys as $key) {
+                if (isset($options[$key])) {
+                    return (string) $options[$key];
+                }
+            }
+            return $default;
+        };
+
+        $conf = [
+            'sandbox' => $getBoolean('sandbox'),
+            'debug' => $getBoolean('debug'),
+            'cache' => $getBoolean('cache', true),
+            'responseHeaders' => $getBoolean('responseHeaders'),
+            'timeout' => $getFloat('timeout', 30.0),
+            'clientId' => $getString(['client_id', 'clientId']),
+            'clientSecret' => $getString(['client_secret', 'clientSecret']),
+            'partnerToken' => $getString(['partner_token', 'partner-token', 'partnerToken']),
+            'headers' => $options['headers'] ?? null,
+            'baseUri' => $options['url'] ?? null,
+            'api' => $options['api'] ?? null,
+        ];
 
         if ($conf['api'] !== 'CHARGES') {
-            $conf['certificate'] = (string) isset($options['certificate']) || isset($options['pix_cert']) ? $options['certificate'] ?? $options['pix_cert'] : null;
-            $conf['pwdCertificate'] = (string) isset($options['pwdCertificate']) ? $options['pwdCertificate'] : '';
+            $conf['certificate'] = $getString(['certificate', 'pix_cert']);
+            $conf['pwdCertificate'] = isset($options['pwdCertificate']) ? (string) $options['pwdCertificate'] : '';
         }
 
         if ($conf['debug']) {
@@ -76,4 +95,5 @@ class Config
 
         return $conf;
     }
+
 }
