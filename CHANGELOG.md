@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.10.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.10.0) (2024-12-05)
+-------------------------- 
+* Added new endpoints and examples for Pix via Open Finance
+* Refactored: Options method to simplify and optimize.
+
 [Release 1.9.3](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.9.3) (2024-09-25)
 -------------------------- 
 * Fixed: 'Content-Type' check and add header validation
