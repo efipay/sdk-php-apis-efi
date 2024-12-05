@@ -25,6 +25,7 @@ $params = [
 ];
 
 $body = [
+    "payment_token" => "insert_here_the_payment_token_referring_to_card_data", // change the credit card for a subscription
     "plan_id" => 3,
     "customer" => [
         "email" => "gorbadoc.oldbuck@gmail.com",
