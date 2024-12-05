@@ -36,7 +36,13 @@ try {
 	} else {
 		$output = fopen("php://output", "w,ccs=UTF-8");
 		fputs($output, "\xEF\xBB\xBF");
-		fputs($output, mb_convert_encoding($response->body, 'UTF-8'));
+		
+		if (extension_loaded('mbstring')) {
+			fputs($output, mb_convert_encoding($response, 'UTF-8'));
+		} else {
+			// Caso a extensão não esteja habilitada, você pode fazer algo como:
+			throw new Exception("A extensão 'mbstring' não está habilitada. Por favor, habilite-a no PHP para continuar.");
+		}
 
 		// Tell the browser it's going to be a csv file and download it
 		header("Content-Type: text/csv; charset=utf-8");
