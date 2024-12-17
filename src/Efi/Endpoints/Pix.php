@@ -66,7 +66,7 @@ return [
             "scope" => "pix.read"
         ],
         "pixSend" => [
-            "route" => "/v2/gn/pix/:idEnvio",
+            "route" => "/v3/gn/pix/:idEnvio",
             "method" => "put",
             "scope" => "pix.send"
         ],
