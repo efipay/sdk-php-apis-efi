@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.11.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.0) (2025-01-15)
+-------------------------- 
+* Added Statements API endpoints and examples
+* Added endpoint and example to resend Pix webhook
+
 [Release 1.10.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.10.1) (2024-12-17)
 -------------------------- 
 * Pix sending route updated to v3
