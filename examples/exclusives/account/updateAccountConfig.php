@@ -7,7 +7,7 @@
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -22,17 +22,28 @@ $options = include $optionsFile;
 
 $body = [
 	"pix" => [
-		"receberSemChave" => true,
+		"receberSemChave" => false,
 		"chaves" => [
 			"00000000-0000-0000-0000-000000000000" => [
 				"recebimento" => [
-					"txidObrigatorio" => false,
+					"txidObrigatorio" => true,
+					"recusarTipoPessoa" => "PJ",
+					"documentoPagadorIgualDevedor" => true,
 					"qrCodeEstatico" => [
-						"recusarTodos" => false
+						"recusarTodos" => true
 					],
 					"webhook" => [
 						"notificacao" => [
-							"tarifa" => true
+							"tarifa" => true,
+							"pagador" => true
+						]
+					]
+				],
+				"envio" => [
+					"webhook" => [
+						"notificacao" => [
+							"tarifa" => true,
+							"favorecido" => true
 						]
 					]
 				]
