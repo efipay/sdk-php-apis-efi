@@ -59,6 +59,7 @@ namespace Efi;
  * @method object pixDetailWebhook(array $params)
  * @method object pixListWebhook(array $params)
  * @method object pixDeleteWebhook(array $params)
+ * @method object pixResendWebhook(array $params = [], array $body)
  * @method object pixCreateCharge(array $params, array $body)
  * @method object pixCreateImmediateCharge(array $params = [], array $body)
  * @method object pixDetailCharge(array $params)

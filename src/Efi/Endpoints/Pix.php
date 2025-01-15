@@ -30,6 +30,11 @@ return [
             "method" => "delete",
             "scope" => "webhook.write"
         ],
+        "pixResendWebhook" => [
+            "route" => "/v2/gn/webhook/reenviar",
+            "method" => "post",
+            "scope" => "webhook.write"
+        ],
         "pixCreateCharge" => [
             "route" => "/v2/cob/:txid",
             "method" => "put",
