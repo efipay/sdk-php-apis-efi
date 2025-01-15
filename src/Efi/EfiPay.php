@@ -141,6 +141,14 @@ namespace Efi;
  * @method object accountDeleteWebhook(array $params)
  * @method object accountDetailWebhook(array $params)
  * @method object accountListWebhook(array $params)
+ * 
+ * API EXTRATOS
+ * @method object listStatementFiles()
+ * @method object getStatementFile(array $params)
+ * @method object listStatementRecurrences()
+ * @method object createStatementRecurrency(array $params = [], array $body)
+ * @method object updateStatementRecurrency(array $params, array $body)
+ * @method object createSftpKey()
  */
 
 class EfiPay extends Endpoints

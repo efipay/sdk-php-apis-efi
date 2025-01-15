@@ -49,6 +49,9 @@ class EfiException extends Exception
             case 'OPENING-ACCOUNTS':
                 $exceptionClass = OpeningAccountsException::class;
                 break;
+            case 'STATEMENTS':
+                    $exceptionClass = StatementsException::class;
+                    break;
             default:
                 $exceptionClass = self::class;
                 break;
