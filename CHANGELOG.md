@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.11.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.1) (2025-01-31)
+-------------------------- 
+* Fixed: variable names in the Pix example with due date.
+
 [Release 1.11.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.0) (2025-01-15)
 -------------------------- 
 * Added Statements API endpoints and examples
