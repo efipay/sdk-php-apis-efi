@@ -87,13 +87,13 @@ try {
 
 	$responseBodyPix = (isset($options["responseHeaders"]) && $options["responseHeaders"]) ? $responsePix->body : $responsePix;
 
-	if ($rresponseBodyPix["txid"]) {
+	if ($responseBodyPix["txid"]) {
 		$params = [
 			"id" => $responseBodyPix["loc"]["id"]
 		];
 
 		try {
-			$responseQrcode->body = $api->pixGenerateQRCode($params);
+			$responseQrcode = $api->pixGenerateQRCode($params);
 
 			$responseBodyQrcode = (isset($options["responseHeaders"]) && $options["responseHeaders"]) ? $responseQrcode->body : $responseQrcode;
 
