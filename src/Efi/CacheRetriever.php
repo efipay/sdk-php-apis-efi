@@ -32,7 +32,7 @@ class CacheRetriever
 			return $cacheItem->get();
 		}
 
-		return null;
+		return [];
 	}
 
 	/**
