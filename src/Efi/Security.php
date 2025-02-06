@@ -40,7 +40,7 @@ class Security
      */
     public function decrypt($data)
     {
-        if ($data === null) {
+        if ($data === null || $data === []) {
             return false;
         }
         $data = base64_decode($data);
