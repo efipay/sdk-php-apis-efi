@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.11.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.2) (2025-02-06)
+-------------------------- 
+* Fixed: Ensure the cache is always an array
+
 [Release 1.11.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.1) (2025-01-31)
 -------------------------- 
 * Fixed: variable names in the Pix example with due date.
