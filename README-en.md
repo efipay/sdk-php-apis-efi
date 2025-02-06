@@ -9,12 +9,12 @@
 
 ---
 
-[![Latest Stable Version](http://poser.pugx.org/efipay/sdk-php-apis-efi/v)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
-[![Versão PHP necessária](http://poser.pugx.org/efipay/sdk-php-apis-efi/require/php)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
-[![Total Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/downloads)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
-[![Daily Downloads](http://poser.pugx.org/efipay/sdk-php-apis-efi/d/daily)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Latest Stable Version](https://img.shields.io/packagist/v/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Versão PHP necessária](https://img.shields.io/packagist/php-v/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Total Downloads](https://img.shields.io/packagist/dt/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![Daily Downloads](https://img.shields.io/packagist/dd/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
-[![License](http://poser.pugx.org/efipay/sdk-php-apis-efi/license)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
+[![License](https://img.shields.io/packagist/l/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 
 SDK in PHP for integration with Efí APIs for Pix issuance, boletos (banking payment slips), payment slips, credit card, subscription, payment links, marketplace, Pix via Open Finance, payment of boletos, among other functionalities. For more [technical information](https://dev.efipay.com.br/) and [pricing](http://sejaefi.com.br/tarifas), please refer to our website.
 
