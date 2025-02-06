@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.11.3](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.3) (2025-02-06)
+-------------------------- 
+* Fixed: Validation in decrypt function
+
 [Release 1.11.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.2) (2025-02-06)
 -------------------------- 
 * Fixed: Ensure the cache is always an array
