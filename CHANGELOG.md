@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.12.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.12.0) (2025-02-14)
+-------------------------- 
+* Build: "symfony/cache" dependency removed
+* Added class to write and retrieve authentication in cache
+
 [Release 1.11.3](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.11.3) (2025-02-06)
 -------------------------- 
 * Fixed: Validation in decrypt function
