@@ -3,7 +3,7 @@
 namespace Efi;
 
 use Exception;
-use Efi\CacheRetriever;
+use Efi\FileCacheRetriever;
 use Efi\Config;
 use Efi\Request;
 use Efi\Security;
@@ -34,7 +34,7 @@ class Auth extends BaseModel
         }
 
         $this->request = new Request($options);
-        $this->cache = new CacheRetriever();
+        $this->cache = new FileCacheRetriever();
 
         $this->clientId = $this->config['clientId'];
         $this->clientSecret = $this->config['clientSecret'];

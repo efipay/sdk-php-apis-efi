@@ -26,7 +26,7 @@ class ApiRequest extends BaseModel
         $this->options = Config::options($options);
         $this->auth = new Auth($options);
         $this->request = new Request($options);
-        $this->cache = new CacheRetriever();
+        $this->cache = new FileCacheRetriever();
     }
 
     /**
