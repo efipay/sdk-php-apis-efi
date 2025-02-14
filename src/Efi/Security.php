@@ -61,7 +61,18 @@ class Security
      */
     public static function getHash(string $prefix, string $api, string $credencial): string
     {
-        $ip = Utils::getIPAddress();
-        return hash('sha512', 'Efí-' . $prefix . "-" . $api . $ip . substr($credencial, -6));
+        $serverId = getenv('SERVER_ID');
+
+        if (empty($serverId)) {
+            $serverId = gethostname();
+
+            if (empty($serverId)) {
+                $serverId = uniqid('server_', true);
+            }
+        }
+
+        $salt = getenv('HASH_SALT') ?: 'default-secure-salt';
+
+        return hash('sha512', 'Efí-' . $prefix . "-" . $api . $serverId . substr($credencial, -6) . $salt);
     }
 }
