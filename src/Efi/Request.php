@@ -19,11 +19,11 @@ class Request extends BaseModel
      * 
      * @param array|null $options The options to configure the Request.
      */
-    public function __construct(array $options = null)
+    public function __construct(?array $options = null)
     {
         $this->config = Config::options($options);
 
-        $clientData = $this->getClientData($options);
+        $clientData = $this->getClientData($options ?? []);
         $this->client = new Client($clientData);
     }
 
@@ -33,7 +33,7 @@ class Request extends BaseModel
      * @param array $options The options to configure the client.
      * @return array The configured data for the Guzzle HTTP Client.
      */
-    private function getClientData(array $options): array
+    private function getClientData(array $options = []): array
     {
         $composerData = Utils::getComposerData();
 
