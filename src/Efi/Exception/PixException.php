@@ -24,7 +24,11 @@ class PixException extends Exception
 
     private static function getErrorTitle(array $error, int $code): string
     {
-        return $error['nome'] ?? ($error['title'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error'));
+        $title = $error['nome'] ?? ($error['title'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error'));
+        if (is_array($title)) {
+            return $title['message'] ?? 'request_error';
+        }
+        return $title;
     }
 
     private function getErrorDescription(array $error, int $code): string
