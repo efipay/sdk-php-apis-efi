@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.12.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.12.2) (2025-02-19)
+-------------------------- 
+* Fixed: getErrorTitle function to always return string in PixException
+
 [Release 1.12.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.12.1) (2025-02-18)
 -------------------------- 
 * Fixed: Deprecation warning when setting array|null with PHP version >= 8.1
