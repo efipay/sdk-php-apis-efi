@@ -18,7 +18,7 @@ class FileCacheRetriever
         $this->cacheDir = sys_get_temp_dir() . '/efi_cache';
 
         if (!is_dir($this->cacheDir) && !@mkdir($this->cacheDir, 0755, true)) {
-            throw new Exception('Failed to create cache directory.');
+            throw new Exception('Falha ao criar diretório de cache.');
         }
 
         $this->cleanExpiredCache();
