@@ -13,8 +13,7 @@ use RecursiveIteratorIterator;
 class MigrationChecker
 {
 	private const REQUIRED_PACKAGES = [
-		'guzzlehttp/guzzle' => '^7.4',
-		'symfony/cache' => '^5.0 || ^6.0'
+		'guzzlehttp/guzzle' => '^7.0'
 	];
 
 	private const CORRECTIONS = [
