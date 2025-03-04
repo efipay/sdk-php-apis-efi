@@ -1,6 +1,6 @@
-<h1 align="center">SDK PHP para APIs Efí Pay</h1>
+<h1 align="center">SDK PHP para APIs Efí Bank</h1>
 
-![Banner APIs Efí Pay](https://gnetbr.com/BJgSIUhlYs)
+![Banner APIs Efí Bank](https://gnetbr.com/BJgSIUhlYs)
 
 <p align="center">
   <span><b>Português</b></span> |
@@ -22,16 +22,16 @@ Para mais [informações técnicas](https://dev.efipay.com.br/) e [valores/tarif
 Ir para:
 - [**Requisitos**](#requisitos)
 - [**Testado com**](#testado-com)
+- [**Guia de versão**](#guia-de-versão)
 - [**Instalação**](#instalação)
 - [**Começando**](#começando)
+- [**Executar exemplos**](#executar-exemplos)
 - [**Como obter as credenciais Client-Id e Client-Secret**](#como-obter-as-credenciais-client-id-e-client-secret)
 	- [**Crie uma nova aplicação para usar as APIs Efí Pay:**](#crie-uma-nova-aplicação-para-usar-as-apis-efí-pay)
 - [**Como gerar um certificado Pix**](#como-gerar-um-certificado-pix)
 - [**Como cadastrar as chaves Pix**](#como-cadastrar-as-chaves-pix)
 	- [**Cadastrar chave Pix pela conta digital web:**](#cadastrar-chave-pix-pela-conta-digital-web)
 	- [**Cadastrar chave Pix através da API:**](#cadastrar-chave-pix-através-da-api)
-- [**Executar exemplos**](#executar-exemplos)
-- [**Guia de versão**](#guia-de-versão)
 - [**Frameworks compatíveis**](#frameworks-compatíveis)
 - [**Documentação Adicional**](#documentação-adicional)
 - [**Comunidade no Discord**](#comunidade-no-discord)
@@ -44,12 +44,18 @@ Ir para:
 ## **Requisitos**
 * PHP >= 7.2.5
 * Guzzle >= 7.0
-* Extensão [openssl](https://www.php.net/manual/en/book.openssl.php) habilitada
+* Extensão [openssl](https://www.php.net/manual/en/book.openssl.php) habilitada no PHP
 
 ## **Testado com**
 ```
 PHP 7.2, 7.3, 7.4, 8.0, 8.1, 8.2, 8.3, 8.4
 ```
+
+## **Guia de versão**
+
+| Versão | Status | Packagist | Repo | Versão PHP |
+| --- | --- | --- | --- | --- |
+| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2.5 |
 
 ## **Instalação**
 Clone este repositório e execute o comando para instalar as dependências
@@ -74,9 +80,9 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Começando**
 
-Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Com exceção da API Cobranças (Boleto/Carnê/Cartão de crédito), é obrigatório informar no atributo `certificate` o caminho **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`.
+Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Com exceção da API Cobranças (Boleto/Carnê/Cartão de crédito), é obrigatório informar no atributo `certificate` o caminho **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`. Na sessão abaixo, você pode acompanhar [como obter as credenciais e certificado](#como-obter-as-credenciais-client-id-e-client-secret).
 
-Veja um exemplo de configuração:
+Veja um exemplo de configuração das credenciais na SDK:
 ```php
 $options = [
 	"clientId" => "Client_Id...",
@@ -98,7 +104,7 @@ use Efi\Exception\EfiException;
 use Efi\EfiPay;
 ```
 
-Embora as respostas dos serviços da web estejam no formato json, a SDK converterá a resposta da API em array. O código deve estar dentro de um try-catch, e podem ser tratadas da seguinte forma:
+Embora as respostas dos serviços das APIs estejam no formato JSON, a SDK converterá a resposta da API em array. O código deve estar dentro de um try-catch, e deve ser tratado da seguinte forma:
 
 ```php
 try {
@@ -115,61 +121,62 @@ try {
 }
 ```
 
-## **Como obter as credenciais Client-Id e Client-Secret**
-
-### **Crie uma nova aplicação para usar as APIs Efí Pay:**
-1. Acesse o painel da conta digital Efí no menu **API**.
-2. No menu lateral, clique em **Aplicações** depois em **Criar aplicação**.
-3. Insira um nome para a aplicação, e selecione qual API quer ativar: **API de emissões** (boletos e carnês) e/ou **API Pix** e/ou Pagamentos. Neste caso, API Pix;que estes podem ser alterados posteriormente).
-4. selecione os Escopos de Produção e Escopos de Homologação (Desenvolvimento) que deseja liberar;
-5. Clique em **Criar aplicação**.
-6. Informe a sua Assinatura Eletrônica para confirmar as alterações e atualizar a aplicação.
-
-## **Como gerar um certificado Pix**
-
-Todas as requisições do Pix devem conter um certificado de segurança que será fornecido pela Efí dentro da sua conta, no formato PFX(.p12). Essa exigência está descrita na íntegra no [manual de segurança do PIX](https://www.bcb.gov.br/estabilidadefinanceira/comunicacaodados).
-
-**Para gerar seu certificado:** 
-1. Acesse o painel da conta digital Efí no menu **API**.
-2. No menu lateral, clique em **Meus Certificados** e escolha o ambiente em que deseja o certificado: **Produção** ou **Homologação**.
-3. Clique em **Criar Certificado**.
-4. Insira sua Assinatura Eletrônica para confirmar a alteração.
-
-## **Como cadastrar as chaves Pix**
-O cadastro das chaves Pix pode ser feito através do aplicativo mobille da Efí, conta digital web ou por um endpoint da API. A seguir você encontra os passos de como registrá-las.
-
-### **Cadastrar chave Pix pela conta digital web:**
-
-1. Acesse sua [conta digital](https://app.sejaefi.com.br/).
-2. No menu lateral, clique em **Pix**.
-3. Clique em **Minhas Chaves** e, depois clique no botão **Cadastrar Chave**.
-4. Você deve escolher pelo menos 1 das 4 opções de chaves disponíveis (CPF/CNPJ, E-mail, Celular ou Chave aleatória).
-5. Após cadastrar as chaves do Pix desejadas, clique em **Continuar**.
-6. Insira sua Assinatura Eletrônica para confirmar o cadastro.
-
-### **Cadastrar chave Pix através da API:**
-O endpoint utilizado para criar uma chave Pix aleatória (evp), é o `POST /v2/gn/evp` ([Criar chave evp](https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#criar-chave-evp)). Um detalhe é que, através deste endpoint é realizado o registro somente de chaves Pix do tipo aleatória.
-
-Para consumí-lo, basta executar o exemplo  `/examples/exclusive/key/pixCreateEvp.php` da nossa SDK. A requisição enviada para esse endpoint não precisa de um body. 
-
-A resposta de exemplo abaixo representa Sucesso (201), apresentando a chave Pix registrada.
-```json
-{
-  "chave": "345e4568-e89b-12d3-a456-006655440001"
-}
-```
-
 ## **Executar exemplos**
 Você pode executar usando qualquer servidor web, como Apache ou nginx, e abrir qualquer exemplo em seu navegador ou linha de comando. Veja [todos os exemplo aqui](https://github.com/efipay/sdk-php-apis-efi/tree/main/examples).
 
 ⚠️ Alguns exemplos requerem que você altere alguns parâmetros para funcionar, como `/examples/charges/billet/createOneStepBillet.php` ou `/examples/pix/cob/pixCreateCharge.php`.
 
+## **Como obter as credenciais Client-Id e Client-Secret**
 
-## **Guia de versão**
+### **Crie uma nova aplicação para usar as APIs do Efí Bank:**
+1. Acesse o painel da conta digital do Efí no menu **API**.
+2. No menu lateral, clique em **Aplicações** e depois em **Criar aplicação**.
+3. Insira um nome para a aplicação e selecione quais APIs deseja ativar:  
+   - **API  Cobranças** (boletos, carnês, cartão de crédito, link de pagamento, assinaturas);  
+   - **API Pix**;  
+   - **API Pix via Open Finance**;  
+   - **API Pagamento de contas**;  
+   - **API Extratos**.  
+4. Selecione os escopos de Produção e Homologação que deseja liberar.
+5. Clique em **Criar aplicação**.
+6. Insira sua Assinatura Eletrônica para confirmar a criação da aplicação.
 
-| Versão | Status | Packagist | Repo | Versão PHP |
-| --- | --- | --- | --- | --- |
-| 1.x | Mantido | [/efipay/sdk-php-apis-efi](https://packagist.org/packages/efipay/sdk-php-apis-efi) | [v1](https://github.com/efipay/sdk-php-apis-efi) | \>= 7.2.5 |
+## **Como gerar um certificado de autenticação das APIs**
+
+Todas as requisições às APIs, com **exceção da API Cobranças**, devem conter um certificado de segurança fornecido pelo Efí dentro da sua conta, no formato PFX (.p12).
+
+### **Para gerar seu certificado:**  
+1. Acesse o painel da conta digital do Efí no menu **API**.
+2. No menu lateral, clique em **Meus Certificados** e escolha o ambiente desejado: **Produção** ou **Homologação**.
+3. Clique em **Criar Certificado**.
+4. Insira sua Assinatura Eletrônica ou autentique com o QR Code para confirmar a criação.
+
+## **Como cadastrar as chaves Pix**
+O cadastro das chaves Pix pode ser feito pelo aplicativo mobile do Efí, pela conta digital web ou por um endpoint da API. A seguir, veja os passos para registrá-las.
+
+### **Cadastrar chave Pix pela conta digital web:**
+1. Acesse sua [conta digital](https://app.sejaefi.com.br/).
+2. No menu lateral, clique em **Pix**.
+3. Selecione **Minhas Chaves** e depois clique no botão **Cadastrar Chave**.
+4. Escolha pelo menos uma das 4 opções de chave disponíveis:  
+   - CPF/CNPJ  
+   - E-mail  
+   - Celular  
+   - Chave aleatória  
+5. Após cadastrar as chaves Pix desejadas, clique em **Continuar**.
+6. Insira sua Assinatura Eletrônica para confirmar o cadastro.
+
+### **Cadastrar chave Pix através da API:**
+O endpoint utilizado para criar uma chave Pix aleatória (EVP) é o `POST /v2/gn/evp` ([Criar chave EVP](https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#criar-chave-evp)). Vale lembrar que, por meio deste endpoint, é possível registrar apenas chaves Pix do tipo aleatória.
+
+Para consumi-lo, basta executar o exemplo `/examples/exclusive/key/pixCreateEvp.php` da nossa SDK. A requisição enviada para esse endpoint não precisa de um corpo (body).
+
+A resposta abaixo representa um exemplo de sucesso (201), com a chave Pix registrada:
+```json
+{
+  "chave": "345e4568-e89b-12d3-a456-006655440001"
+}
+```
 
 ## **Frameworks compatíveis**
 
