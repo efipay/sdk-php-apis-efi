@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.13.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.13.0) (2025-04-25)
+-------------------------- 
+* Added endpoint and example to get receipts of Pix transactions
+* Refactored: Fallback to temp dir if cache dir creation fails
+
 [Release 1.12.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.12.2) (2025-02-19)
 -------------------------- 
 * Fixed: getErrorTitle function to always return string in PixException
