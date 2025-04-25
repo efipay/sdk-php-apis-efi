@@ -37,8 +37,7 @@ try {
     } else if (is_array($response)) {
         print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
     } else {
-        // Pegar o nome do arquivo do cabeçalho Content-Disposition
-        $filename = 'comprovante.pdf'; // valor padrão
+        $filename = 'comprovante.pdf';
         if (isset($response->headers['Content-Disposition'])) {
             preg_match('/filename="([^"]+)"/', $response->headers['Content-Disposition'][0], $matches);
             if (isset($matches[1])) {
