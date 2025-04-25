@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#solicitar-download-extrato-conciliação
+ * https://dev.efipay.com.br/docs/api-pix/endpoints-exclusivos-efi#obter-comprovantes
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
@@ -47,12 +47,10 @@ try {
 
         $pdf = ($response->body) ? $response->body : $response;
 
-        // Enviar cabeçalhos para o navegador
         header('Content-Type: application/pdf');
         header('Content-Disposition: inline; filename="' . $filename . '"');
         header('Content-Length: ' . strlen($pdf));
 
-        // Enviar o conteúdo do PDF
         echo $pdf;
         exit;
     }
