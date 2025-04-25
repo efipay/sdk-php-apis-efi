@@ -15,10 +15,17 @@ class FileCacheRetriever
      */
     public function __construct()
     {
-        $this->cacheDir = sys_get_temp_dir() . '/efi_cache';
+        $baseCacheDir = sys_get_temp_dir();
+        $customCacheDir = $baseCacheDir . '/efi_cache';
 
-        if (!is_dir($this->cacheDir) && !@mkdir($this->cacheDir, 0755, true)) {
-            throw new Exception('Falha ao criar diretório de cache.');
+        if (!is_dir($customCacheDir)) {
+            if (!@mkdir($customCacheDir, 0755, true)) {
+                $this->cacheDir = $baseCacheDir;
+            } else {
+                $this->cacheDir = $customCacheDir;
+            }
+        } else {
+            $this->cacheDir = $customCacheDir;
         }
 
         $this->cleanExpiredCache();
