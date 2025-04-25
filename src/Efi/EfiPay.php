@@ -87,6 +87,7 @@ namespace Efi;
  * @method object listAccountConfig()
  * @method object medList(array $params)
  * @method object medDefense(array $params, array $body)
+ * @method object pixGetReceipt(array $params)
  * @method object pixCreateDueCharge(array $params, array $body)
  * @method object pixUpdateDueCharge(array $params, array $body)
  * @method object pixDetailDueCharge(array $params)

@@ -269,6 +269,11 @@ return [
             "route" => "/v2/gn/infracoes/:idInfracao/defesa",
             "method" => "post",
             "scope" => "gn.infractions.write"
+        ],
+        "pixGetReceipt" => [
+            "route" => "/v2/gn/pix/comprovantes",
+            "method" => "get",
+            "scope" => "gn.receipts.read"
         ]
     ]
 ];
