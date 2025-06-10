@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.13.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.13.1) (2025-06-10)
+-------------------------- 
+* Fixed: Adjust access token expiration time to resolve expired token issues.
+
 [Release 1.13.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.13.0) (2025-04-25)
 -------------------------- 
 * Added endpoint and example to get receipts of Pix transactions
