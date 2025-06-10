@@ -107,7 +107,7 @@ class Auth extends BaseModel
             $this->expires = time() + $response['expires_in'];
             $this->scopes = ($this->options['api'] === 'CHARGES') ? ['charge'] : explode(' ', $response['scope']);
 
-            $session_expire = ($this->options['api'] === 'CHARGES') ? 600 : 3600;
+            $session_expire = ($this->options['api'] === 'CHARGES') ? 570 : 3570;
             $accessTokenEncrypted = $this->encryptAccessToken();
 
             $this->cache->set($hashAccessToken, $accessTokenEncrypted, $session_expire);
