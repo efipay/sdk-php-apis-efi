@@ -32,10 +32,10 @@ $body = [
 	],
 	"favorecido" => [
 		"contaBanco" => [
-			"codigoBanco" => "364",
-			"agencia" => "0001",
-			"documento" => "11122233344",
 			"nome" => "Gorbadoc Oldbuck",
+			"documento" => "11122233344",
+			"codigoBanco" => "09089356",
+			"agencia" => "0001",
 			"conta" => "000000",
 			"tipoConta" => "CACC"
 		]

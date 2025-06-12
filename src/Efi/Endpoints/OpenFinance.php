@@ -84,6 +84,26 @@ return [
             "route" => "/v1/pagamentos-recorrentes/pix/:identificadorPagamento/substituir/:endToEndId",
             "method" => "patch",
             "scope" => "gn.opb.payment.pix.send"
+        ],
+        "ofCreateBiometricEnrollment" => [
+            "route" => "/v1/jsr/vinculos",
+            "method" => "post",
+            "scope" => "gn.opb.jwr.enrollment.write"
+        ],
+        "ofListBiometricEnrollment" => [
+            "route" => "/v1/jsr/vinculos",
+            "method" => "get",
+            "scope" => "gn.opb.jwr.enrollment.read"
+        ],
+        "ofCreateBiometricPixPayment" => [
+            "route" => "/v1/jsr/pagamentos/pix",
+            "method" => "post",
+            "scope" => "gn.opb.jwr.payment.write"
+        ],
+        "ofListBiometricPixPayment" => [
+            "route" => "/v1/jsr/pagamentos/pix",
+            "method" => "get",
+            "scope" => "gn.opb.jwr.payment.read"
         ]
     ]
 ];

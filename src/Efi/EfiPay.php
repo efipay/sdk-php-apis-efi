@@ -125,6 +125,10 @@ namespace Efi;
  * @method object ofListRecurrencyPixPayment(array $params)
  * @method object ofCancelRecurrencyPix(array $params, array $body)
  * @method object ofDevolutionRecurrencyPix(array $params, array $body)
+ * @method object ofCreateBiometricEnrollment(array $params = [], array $body)
+ * @method object ofListBiometricEnrollment(array $params)
+ * @method object ofCreateBiometricPixPayment(array $params = [], array $body)
+ * @method object ofListBiometricPixPayment(array $params)
  * 
  * API PAYMENTS
  * @method object payDetailBarCode(array $params)
