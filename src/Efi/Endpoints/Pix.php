@@ -274,6 +274,36 @@ return [
             "route" => "/v2/gn/pix/comprovantes",
             "method" => "get",
             "scope" => "gn.receipts.read"
+        ],
+        "pixConfigWebhookRecurrenceAutomatic" => [
+            "route" => "/v2/webhookrec",
+            "method" => "put",
+            "scope" => "webhookrec.write"
+        ],
+        "pixListWebhookRecurrenceAutomatic" => [
+            "route" => "/v2/webhookrec",
+            "method" => "get",
+            "scope" => "webhookrec.read"
+        ],
+        "pixDeleteWebhookRecurrenceAutomatic" => [
+            "route" => "/v2/webhookrec",
+            "method" => "delete",
+            "scope" => "webhookrec.write"
+        ],
+        "pixConfigWebhookAutomaticCharge" => [
+            "route" => "/v2/webhookcobr",
+            "method" => "put",
+            "scope" => "webhookcobr.write"
+        ],
+        "pixListWebhookAutomaticCharge" => [
+            "route" => "/v2/webhookcobr",
+            "method" => "get",
+            "scope" => "webhookcobr.read"
+        ],
+        "pixDeleteWebhookAutomaticCharge" => [
+            "route" => "/v2/webhookcobr",
+            "method" => "delete",
+            "scope" => "webhookcobr.write"
         ]
     ]
 ];

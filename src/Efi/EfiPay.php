@@ -109,6 +109,12 @@ namespace Efi;
  * @method object pixListDueChargeBatch(array $params)
  * @method object pixQrCodeDetail(array $params = [], array $body)
  * @method object pixQrCodePay(array $params, array $body)
+ * @method object pixConfigWebhookRecurrenceAutomatic(array $params = [], array $body)
+ * @method object pixListWebhookRecurrenceAutomatic()
+ * @method object pixDeleteWebhookRecurrenceAutomatic()
+ * @method object pixConfigWebhookAutomaticCharge(array $params = [], array $body)
+ * @method object pixListWebhookAutomaticCharge()
+ * @method object pixDeleteWebhookAutomaticCharge()
  * 
  * API OPEN FINANCE
  * @method object ofConfigUpdate(array $params = [], array $body)
