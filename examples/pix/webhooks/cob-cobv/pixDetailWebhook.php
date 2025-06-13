@@ -2,10 +2,10 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/webhooks#configurar-o-webhook-pix
+ * https://dev.efipay.com.br/docs/api-pix/webhooks#exibir-informações-do-webhook-pix
  */
 
-$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
@@ -14,27 +14,19 @@ require_once $autoload;
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$optionsFile = __DIR__ . "/../../credentials/options.php";
+$optionsFile = __DIR__ . "/../../../credentials/options.php";
 if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
 $options = include $optionsFile;
 
-$options["headers"] = [
-	"x-skip-mtls-checking" => false
-];
-
 $params = [
 	"chave" => "00000000-0000-0000-0000-000000000000"
 ];
 
-$body = [
-	"webhookUrl" => "https://seudominio.com.br/webhook/"
-];
-
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixConfigWebhook($params, $body);
+	$response = $api->pixDetailWebhook($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
