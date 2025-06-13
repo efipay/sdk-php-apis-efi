@@ -359,6 +359,36 @@ return [
             "route" => "/v2/solicrec/:idSolicRec",
             "method" => "patch",
             "scope" => "solicrec.write"
+        ],
+        "pixCreateAutomaticChargeTxid" => [
+            "route" => "/v2/cobr/:txid",
+            "method" => "put",
+            "scope" => "cobr.write"
+        ],
+        "pixUpdateAutomaticCharge" => [
+            "route" => "/v2/cobr/:txid",
+            "method" => "patch",
+            "scope" => "cobr.write"
+        ],
+        "pixDetailAutomaticCharge" => [
+            "route" => "/v2/cobr/:txid",
+            "method" => "get",
+            "scope" => "cobr.read"
+        ],
+        "pixCreateAutomaticCharge" => [
+            "route" => "/v2/cobr",
+            "method" => "post",
+            "scope" => "cobr.write"
+        ],
+        "pixListAutomaticCharge" => [
+            "route" => "/v2/cobr",
+            "method" => "get",
+            "scope" => "cobr.read"
+        ],
+        "pixRetryRequestAutomatic" => [
+            "route" => "/v2/cobr/:txid/retentativa/:data",
+            "method" => "post",
+            "scope" => "cobr.write"
         ]
     ]
 ];
