@@ -115,6 +115,14 @@ namespace Efi;
  * @method object pixConfigWebhookAutomaticCharge(array $params = [], array $body)
  * @method object pixListWebhookAutomaticCharge()
  * @method object pixDeleteWebhookAutomaticCharge()
+ * @method object pixCreateLocationRecurrenceAutomatic()
+ * @method object pixListLocationRecurrenceAutomatic($params)
+ * @method object pixDetailLocationRecurrenceAutomatic($params)
+ * @method object pixUnlinkLocationRecurrenceAutomatic($params)
+ * @method object pixDetailRecurrenceAutomatic($params)
+ * @method object pixUpdateRecurrenceAutomatic($params, $body)
+ * @method object pixListRecurrenceAutomatic($params, $body)
+ * @method object pixCreateRecurrenceAutomatic($params = [], $body)
  * 
  * API OPEN FINANCE
  * @method object ofConfigUpdate(array $params = [], array $body)

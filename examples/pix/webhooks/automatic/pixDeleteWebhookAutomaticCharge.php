@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/webhooks#cancelar-o-webhook-de-recorrência-de-pix-automático
+ * https://dev.efipay.com.br/docs/api-pix/webhooks#cancelar-o-webhook-de-cobrança-de-pix-automático
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");

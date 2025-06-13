@@ -2,12 +2,12 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/webhooks#exibir-informações-do-webhook-de-cobrança-de-pix-automático
+ * https://dev.efipay.com.br/docs/api-pix/pix-automatico#criar-recorrência-de-pix-automático
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -20,9 +20,37 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
+$body = [
+	"vinculo" => [
+		"contrato" => "63100862",
+		"devedor" => [
+			"cpf" => "11122233344",
+			// "cnpj" => "11122233344444",
+			"nome" => "Gorbadoc Oldbuck"
+		],
+		"objeto" => "Streamming"
+	],
+	"calendario" => [
+		"dataInicial" => "2026-01-01",
+		"dataFinal" => "2027-12-31", 
+		"periodicidade" => "MENSAL" // SEMANAL/MENSAL/TRIMESTRAL/SEMESTRAL/ANUAL
+	],
+	"valor" => [
+		"valorRec" => "35.00",
+		// "valorMinimoRecebedor" => "30.00"
+	],
+	"politicaRetentativa" => "NAO_PERMITE", // PERMITE_3R_7D
+	"loc" => 0,
+	"ativacao" => [
+		"dadosJornada" => [
+			"txid" => "33beb661beda44a8928fef47dbeb2dc5"
+		]
+	]
+];
+
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixListWebhookAutomaticCharge();
+	$response = $api->pixCreateRecurrenceAutomatic($params = [], $body);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

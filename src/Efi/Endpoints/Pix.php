@@ -304,6 +304,46 @@ return [
             "route" => "/v2/webhookcobr",
             "method" => "delete",
             "scope" => "webhookcobr.write"
+        ],
+        "pixCreateLocationRecurrenceAutomatic" => [
+            "route" => "/v2/locrec",
+            "method" => "post",
+            "scope" => "payloadlocationrec.write"
+        ],
+        "pixListLocationRecurrenceAutomatic" => [
+            "route" => "/v2/locrec",
+            "method" => "get",
+            "scope" => "payloadlocationrec.read"
+        ],
+        "pixDetailLocationRecurrenceAutomatic" => [
+            "route" => "/v2/locrec/:id",
+            "method" => "get",
+            "scope" => "payloadlocationrec.read"
+        ],
+        "pixUnlinkLocationRecurrenceAutomatic" => [
+            "route" => "/v2/locrec/:id",
+            "method" => "delete",
+            "scope" => "payloadlocationrec.write"
+        ],
+        "pixDetailRecurrenceAutomatic" => [
+            "route" => "/v2/rec/:idRec",
+            "method" => "get",
+            "scope" => "rec.read"
+        ],
+        "pixUpdateRecurrenceAutomatic" => [
+            "route" => "/v2/rec/:idRec",
+            "method" => "patch",
+            "scope" => "rec.write"
+        ],
+        "pixListRecurrenceAutomatic" => [
+            "route" => "/v2/rec",
+            "method" => "get",
+            "scope" => "rec.read"
+        ],
+        "pixCreateRecurrenceAutomatic" => [
+            "route" => "/v2/rec",
+            "method" => "post",
+            "scope" => "rec.write"
         ]
     ]
 ];

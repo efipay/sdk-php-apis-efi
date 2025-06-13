@@ -2,12 +2,12 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/webhooks#exibir-informações-do-webhook-de-cobrança-de-pix-automático
+ * https://dev.efipay.com.br/docs/api-pix/pix-automatico#consultar-lista-de-recorrências-de-pix-automático
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
-    die("Autoload file not found or on path <code>$autoload</code>.");
+	die("Autoload file not found or on path <code>$autoload</code>.");
 }
 require_once $autoload;
 
@@ -20,9 +20,21 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
+$params = [
+	"inicio" => "2025-01-01T00:00:00Z",
+	"fim" => "2025-12-31T23:59:59Z",
+	// "cpf" => '11122233344',
+	// "cnpj" => '11122233344444',
+	// "locationPresente" => true,
+	// "status" => 'CRIADA', // CRIADA/ATIVA/CONCLUIDA/EXPIRADA/REJEITADA/CANCELADA
+	// "convenio" => '0000000000000001',
+	// "paginacao.paginaAtual" => 1,
+	// "paginacao.itensPorPagina" => 10
+];
+
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixListWebhookAutomaticCharge();
+	$response = $api->pixListRecurrenceAutomatic($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

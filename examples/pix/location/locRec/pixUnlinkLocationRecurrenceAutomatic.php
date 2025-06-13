@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/webhooks#exibir-informações-do-webhook-de-cobrança-de-pix-automático
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#desvincular-uma-recorrência-de-pix-automático-de-um-location
  */
 
 $autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
@@ -20,9 +20,13 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
+$params = [
+	"id" => 1
+];
+
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixListWebhookAutomaticCharge();
+	$response = $api->pixUnlinkLocationRecurrenceAutomatic($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
