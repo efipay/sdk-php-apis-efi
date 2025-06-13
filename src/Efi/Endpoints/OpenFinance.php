@@ -104,6 +104,36 @@ return [
             "route" => "/v1/jsr/pagamentos/pix",
             "method" => "get",
             "scope" => "gn.opb.jwr.payment.read"
+        ],
+        "ofCreateAutomaticEnrollment" => [
+            "route" => "/v1/pagamentos-automaticos/adesao",
+            "method" => "post",
+            "scope" => "gn.opb.automatic.consent.write"
+        ],
+        "ofListAutomaticEnrollment" => [
+            "route" => "/v1/pagamentos-automaticos/adesao",
+            "method" => "get",
+            "scope" => "gn.opb.automatic.consent.read"
+        ],
+        "ofUpdateAutomaticEnrollment" => [
+            "route" => "/v1/pagamentos-automaticos/adesao",
+            "method" => "patch",
+            "scope" => "gn.opb.automatic.consent.write"
+        ],
+        "ofCreateAutomaticPixPayment" => [
+            "route" => "/v1/pagamentos-automaticos/pix",
+            "method" => "post",
+            "scope" => "gn.opb.automatic.payment.write"
+        ],
+        "ofListAutomaticPixPayment" => [
+            "route" => "/v1/pagamentos-automaticos/pix",
+            "method" => "get",
+            "scope" => "gn.opb.automatic.payment.read"
+        ],
+        "ofCancelAutomaticPixPayment" => [
+            "route" => "/v1/pagamentos-automaticos/pix",
+            "method" => "patch",
+            "scope" => "gn.opb.automatic.payment.write"
         ]
     ]
 ];
