@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-imediatos#solicitar-iniciação-de-pix-via-open-finance
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-por-biometria/#criar-pagamento-via-jornada-sem-redirecionamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

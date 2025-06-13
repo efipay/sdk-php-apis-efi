@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-imediatos#listar-pagamentos-por-um-determinado-período
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-por-biometria/#consultar-pagamentos-feitos-via-jornada-sem-redirecionamento
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");

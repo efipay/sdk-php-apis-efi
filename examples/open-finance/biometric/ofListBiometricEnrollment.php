@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-imediatos#listar-pagamentos-por-um-determinado-período
+ * https://dev.efipay.com.br/docs/api-open-finance/pagamentos-por-biometria/#consultar-vínculos-de-um-usuário
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
@@ -21,7 +21,7 @@ if (!file_exists($optionsFile)) {
 $options = include $optionsFile;
 
 $params = [
-    "cpf" => "45204392050",
+    "cpf" => "11789337682",
     // "cnpj" => "90293071000112"
 ];
 
