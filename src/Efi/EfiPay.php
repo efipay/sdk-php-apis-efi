@@ -123,6 +123,9 @@ namespace Efi;
  * @method object pixUpdateRecurrenceAutomatic($params, $body)
  * @method object pixListRecurrenceAutomatic($params, $body)
  * @method object pixCreateRecurrenceAutomatic($params = [], $body)
+ * @method object pixCreateRequestRecurrenceAutomatic($params, $body)
+ * @method object pixDetailRequestRecurrenceAutomatic($params)
+ * @method object pixUpdateRequestRecurrenceAutomatic($params, $body)
  * 
  * API OPEN FINANCE
  * @method object ofConfigUpdate(array $params = [], array $body)

@@ -344,6 +344,21 @@ return [
             "route" => "/v2/rec",
             "method" => "post",
             "scope" => "rec.write"
+        ],
+        "pixCreateRequestRecurrenceAutomatic" => [
+            "route" => "/v2/solicrec",
+            "method" => "post",
+            "scope" => "solicrec.write"
+        ],
+        "pixDetailRequestRecurrenceAutomatic" => [
+            "route" => "/v2/solicrec/:idSolicRec",
+            "method" => "get",
+            "scope" => "solicrec.read"
+        ],
+        "pixUpdateRequestRecurrenceAutomatic" => [
+            "route" => "/v2/solicrec/:idSolicRec",
+            "method" => "patch",
+            "scope" => "solicrec.write"
         ]
     ]
 ];
