@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.14.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.14.0) (2025-06-13)
+-------------------------- 
+* Added new endpoints and examples for Pix by biometric
+* Added new endpoints and examples for Pix Automatic
+
 [Release 1.13.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.13.1) (2025-06-10)
 -------------------------- 
 * Fixed: Adjust access token expiration time to resolve expired token issues.
