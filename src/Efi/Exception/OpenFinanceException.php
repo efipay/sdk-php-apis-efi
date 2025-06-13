@@ -24,6 +24,9 @@ class OpenFinanceException extends Exception
 
     private static function getErrorTitle(array $error, int $code): string
     {
+        if (isset($error['error']) && is_array($error['error']) && isset($error['error']['message'])) {
+            return $error['error']['message'];
+        }
         return $error['nome'] ?? $error['error'] ?? ($code === 401 ? 'unauthorized' : 'request_error');
     }
 
