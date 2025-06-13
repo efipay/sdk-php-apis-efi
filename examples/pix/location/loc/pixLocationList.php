@@ -2,10 +2,10 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/payload-locations#recuperar-location-do-payload
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#consultar-locations-cadastradas
  */
 
-$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
@@ -14,19 +14,20 @@ require_once $autoload;
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$optionsFile = __DIR__ . "/../../credentials/options.php";
+$optionsFile = __DIR__ . "/../../../credentials/options.php";
 if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
 $options = include $optionsFile;
 
 $params = [
-	"id" => 0
+	"inicio" => "2025-01-22T00:00:00Z",
+	"fim" => "2025-12-31T23:59:59Z"
 ];
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixDetailLocation($params);
+	$response = $api->pixLocationList($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");

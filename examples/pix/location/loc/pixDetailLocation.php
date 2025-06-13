@@ -2,10 +2,10 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-pix/payload-locations#desvincular-um-txid-de-um-location
+ * https://dev.efipay.com.br/docs/api-pix/payload-locations#recuperar-location-do-payload
  */
 
-$autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
+$autoload = realpath(__DIR__ . "/../../../../vendor/autoload.php");
 if (!file_exists($autoload)) {
     die("Autoload file not found or on path <code>$autoload</code>.");
 }
@@ -14,7 +14,7 @@ require_once $autoload;
 use Efi\Exception\EfiException;
 use Efi\EfiPay;
 
-$optionsFile = __DIR__ . "/../../credentials/options.php";
+$optionsFile = __DIR__ . "/../../../credentials/options.php";
 if (!file_exists($optionsFile)) {
 	die("Options file not found or on path <code>$options</code>.");
 }
@@ -26,7 +26,7 @@ $params = [
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixUnlinkTxidLocation($params);
+	$response = $api->pixDetailLocation($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
