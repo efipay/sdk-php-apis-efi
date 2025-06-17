@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.14.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.14.1) (2025-06-17)
+-------------------------- 
+* Added new examples of Automatic Pix journeys
+
 [Release 1.14.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.14.0) (2025-06-13)
 -------------------------- 
 * Added new endpoints and examples for Pix by biometric
