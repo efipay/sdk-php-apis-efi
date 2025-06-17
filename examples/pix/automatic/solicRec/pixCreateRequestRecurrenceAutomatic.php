@@ -20,10 +20,6 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
-$params = [
-	"idRec" => "R00000000000000000000001",
-];
-
 $body = [
 	"idRec" => "R00000000000000000000001",
 	"calendario" => [
@@ -40,7 +36,7 @@ $body = [
 
 try {
 	$api = new EfiPay($options);
-	$response = $api->pixCreateRequestRecurrenceAutomatic($params, $body);
+	$response = $api->pixCreateRequestRecurrenceAutomatic($params = [], $body);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
 		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
