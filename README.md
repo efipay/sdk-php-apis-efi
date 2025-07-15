@@ -16,7 +16,8 @@
 [![Code Climate](https://codeclimate.com/github/efipay/sdk-php-apis-efi/badges/gpa.svg)](https://codeclimate.com/github/efipay/sdk-php-apis-efi)
 [![Licença](https://img.shields.io/packagist/l/efipay/sdk-php-apis-efi.svg)](https://packagist.org/packages/efipay/sdk-php-apis-efi)
 
-SDK em PHP para integração com as APIs Efí para emissão de Pix, boletos, carnês, cartão de crédito, assinatura, link de pagamento, marketplance, Pix via Open Finance, pagamento de boletos, dentre outras funcionalidades.
+SDK em PHP para integrar com as APIs da Efí e emitir **Pix com QR Code, Pix Copia e Cola**, além de **Pix automático para assinaturas recorrentes**. Também é possível criar cobranças **Pix via Open Finance**, com opções de pagamento **imediato, agendado, recorrente**, e até o pagamento imediato **Pix por Biometria**. Com essa SDK, você ainda consegue gerar **boletos, carnês, cobranças no cartão de crédito, assinaturas (cartão e boleto), links de pagamento, marketplace** e muito mais.
+
 Para mais [informações técnicas](https://dev.efipay.com.br/) e [valores/tarifas](http://sejaefi.com.br/tarifas), consulte nosso site.
 
 Ir para:
