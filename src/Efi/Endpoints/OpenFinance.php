@@ -86,24 +86,24 @@ return [
             "scope" => "gn.opb.payment.pix.send"
         ],
         "ofCreateBiometricEnrollment" => [
-            "route" => "/v1/jsr/vinculos",
+            "route" => "/v1/pagamentos-biometria/vinculos",
             "method" => "post",
             "scope" => "gn.opb.jwr.enrollment.write"
         ],
         "ofListBiometricEnrollment" => [
-            "route" => "/v1/jsr/vinculos",
+            "route" => "/v1/pagamentos-biometria/vinculos",
             "method" => "get",
             "scope" => "gn.opb.jwr.enrollment.read"
         ],
         "ofCreateBiometricPixPayment" => [
-            "route" => "/v1/jsr/pagamentos/pix",
+            "route" => "/v1/pagamentos-biometria/pix",
             "method" => "post",
             "scope" => "gn.opb.jwr.payment.write"
         ],
         "ofListBiometricPixPayment" => [
-            "route" => "/v1/jsr/pagamentos/pix",
+            "route" => "/v1/pagamentos-biometria/pix",
             "method" => "get",
-            "scope" => "gn.opb.jwr.payment.read"
+            "scope" => "gn.opb.jwr.payment.write"
         ],
         "ofCreateAutomaticEnrollment" => [
             "route" => "/v1/pagamentos-automaticos/adesao",
