@@ -152,6 +152,7 @@ namespace Efi;
  * @method object ofListBiometricEnrollment(array $params)
  * @method object ofCreateBiometricPixPayment(array $params = [], array $body)
  * @method object ofListBiometricPixPayment(array $params)
+ * @method object ofRevokeBiometricEnrollment(array $params = [], array $body)
  * @method object ofCreateAutomaticEnrollment(array $params = [], array $body)
  * @method object ofListAutomaticEnrollment(array $params)
  * @method object ofUpdateAutomaticEnrollment(array $params = [], array $body)

@@ -95,6 +95,11 @@ return [
             "method" => "get",
             "scope" => "gn.opb.jwr.enrollment.read"
         ],
+        "ofRevokeBiometricEnrollment" => [
+            "route" => "/v1/pagamentos-biometria/vinculos",
+            "method" => "patch",
+            "scope" => "gn.opb.jwr.payment.write"
+        ],
         "ofCreateBiometricPixPayment" => [
             "route" => "/v1/pagamentos-biometria/pix",
             "method" => "post",
