@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.15.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.1) (2025-07-15)
+-------------------------- 
+* Fixed: Correction of the return type of methods. The method's return type may be an array or an object, depending on the "responseHeaders" setting used when instantiating the class.
+
 [Release 1.15.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.0) (2025-07-15)
 -------------------------- 
 * Refactored: updated biometric payment endpoint routes
