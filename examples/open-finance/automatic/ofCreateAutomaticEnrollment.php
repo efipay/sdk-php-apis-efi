@@ -20,6 +20,10 @@ if (!file_exists($optionsFile)) {
 }
 $options = include $optionsFile;
 
+$options["headers"] = [
+    "x-idempotency-key" => "00000000000000000000000000000000" // Random identifier | minLength: 36 maxLength: 72
+];
+
 $body = [
     "pagador" => [
         "nome" => "Gorbadoc Oldbuck",
