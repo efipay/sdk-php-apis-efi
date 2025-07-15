@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.15.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.0) (2025-07-15)
+-------------------------- 
+* Refactored: updated biometric payment endpoint routes
+* Added new example of revoke payment Pix by biometrics
+
 [Release 1.14.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.14.1) (2025-06-17)
 -------------------------- 
 * Added new examples of Automatic Pix journeys
