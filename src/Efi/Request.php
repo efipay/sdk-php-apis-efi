@@ -42,7 +42,8 @@ class Request extends BaseModel
             'base_uri' => $this->config['baseUri'],
             'headers' => [
                 'Content-Type' => 'application/json',
-                'api-sdk' => 'efi-php-' . $composerData['version']
+                'api-sdk' => 'efi-php-' . $composerData['version'],
+                'Connection' => 'Keep-Alive'
             ]
         ];
 

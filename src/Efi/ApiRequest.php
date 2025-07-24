@@ -106,7 +106,8 @@ class ApiRequest extends BaseModel
         $composerData = Utils::getComposerData();
         $requestHeaders = [
             'Authorization' => 'Bearer ' . $this->auth->getAccessToken(),
-            'api-sdk' => 'efi-php-' . $composerData['version']
+            'api-sdk' => 'efi-php-' . $composerData['version'],
+            'Connection' => 'Keep-Alive'
         ];
 
         if (isset($this->options['partnerToken'])) {
