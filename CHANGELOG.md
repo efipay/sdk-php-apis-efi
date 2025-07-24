@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.15.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.1) (2025-07-15)
+-------------------------- 
+* Performance: Adds the `Connection: Keep-Alive` header to improve performance by reusing TCP connections across multiple requests.
+
 [Release 1.15.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.1) (2025-07-15)
 -------------------------- 
 * Fixed: Correction of the return type of methods. The method's return type may be an array or an object, depending on the "responseHeaders" setting used when instantiating the class.
