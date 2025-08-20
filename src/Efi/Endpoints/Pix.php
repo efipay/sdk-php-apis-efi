@@ -75,6 +75,11 @@ return [
             "method" => "put",
             "scope" => "pix.send"
         ],
+        "pixSendSameOwnership" => [
+            "route" => "/v2/gn/pix/:idEnvio/mesma-titularidade",
+            "method" => "put",
+            "scope" => "gn.pix.sameownership.send"
+        ],
         "pixSendDetail" => [
             "route" => "/v2/gn/pix/enviados/:e2eId",
             "method" => "get",

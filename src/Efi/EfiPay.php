@@ -69,6 +69,7 @@ namespace Efi;
  * @method mixed pixDevolution(array $params, array $body)
  * @method mixed pixDetailDevolution(array $params)
  * @method mixed pixSend(array $params, array $body)
+ * @method mixed pixSendSameOwnership(array $params, array $body)
  * @method mixed pixSendDetail(array $params)
  * @method mixed pixSendDetailId(array $params)
  * @method mixed pixSendList(array $params)
