@@ -280,6 +280,11 @@ return [
             "method" => "get",
             "scope" => "gn.receipts.read"
         ],
+        "pixKeysBucket" => [
+            "route" => "/v2/gn/chaves/balde",
+            "method" => "get",
+            "scope" => "gn.keys.bucket.read"
+        ],
         "pixConfigWebhookRecurrenceAutomatic" => [
             "route" => "/v2/webhookrec",
             "method" => "put",

@@ -89,6 +89,7 @@ namespace Efi;
  * @method mixed medList(array $params)
  * @method mixed medDefense(array $params, array $body)
  * @method mixed pixGetReceipt(array $params)
+ * @method mixed pixKeysBucket()
  * @method mixed pixCreateDueCharge(array $params, array $body)
  * @method mixed pixUpdateDueCharge(array $params, array $body)
  * @method mixed pixDetailDueCharge(array $params)
