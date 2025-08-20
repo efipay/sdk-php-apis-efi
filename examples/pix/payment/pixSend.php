@@ -21,18 +21,18 @@ if (!file_exists($optionsFile)) {
 $options = include $optionsFile;
 
 $params = [
-	"idEnvio" => "10000000000000000000000000000000000"
+	"idEnvio" => "00000000000000000000000000000000000"
 ];
 
 $body = [
 	"valor" => "0.01",
 	"pagador" => [
-		"chave" => "guilherme.cota@gerencianet.com.br", // Pix key registered in the authenticated Efí account
+		"chave" => "00000000-0000-0000-0000-000000000000", // Pix key registered in the authenticated Efí account
 		"infoPagador" => "Order payment"
 	],
 	"favorecido" => [
-		"cpf" => "12901974660",
-		"chave" => "guilherme.cota@gerencianet.com.br" // Type key: random, email, phone, cpf or cnpj
+		"cpf" => "00000000000",
+		"chave" => "00000000-0000-0000-0000-000000000001" // Type key: random, email, phone, cpf or cnpj
 	]
 ];
 
