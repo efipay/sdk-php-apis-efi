@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.16.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.16.0) (2025-08-20)
+-------------------------- 
+* Added new example of send Pix to same ownership
+* Added new example of get Pix bucket
+
 [Release 1.15.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.15.1) (2025-07-15)
 -------------------------- 
 * Performance: Adds the `Connection: Keep-Alive` header to improve performance by reusing TCP connections across multiple requests.
