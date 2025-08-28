@@ -10,14 +10,14 @@ $sandbox = false; // false = Production | true = Homologation
  */
 $clientIdProd = "Client_Id_Prod";
 $clientSecretProd = "Client_Secret_Prod";
-$pathCertificateProd = realpath(__DIR__ . "/productionCertificate.p12"); // Absolute path to the certificate in .pem or .p12 format
+$certificateProd = realpath(__DIR__ . "/productionCertificate.p12"); // Absolute path to the certificate in .pem or .p12 format or or base64 certificate
 
 /**
  * Credentials of Homologation
  */
 $clientIdHomolog = "Client_Id_Homolog";
 $clientSecretHomolog = "Client_Secret_Homolog";
-$pathCertificateHomolog = realpath(__DIR__ . "/developmentCertificate.p12"); // Absolute path to the certificate in .pem or .p12 format
+$certificateHomolog = realpath(__DIR__ . "/developmentCertificate.p12"); // Absolute path to the certificate in .pem or .p12 format or or base64 certificate
 
 /**
  * Array with credentials and other settings
@@ -25,10 +25,11 @@ $pathCertificateHomolog = realpath(__DIR__ . "/developmentCertificate.p12"); // 
 return [
 	"clientId" => ($sandbox) ? $clientIdHomolog : $clientIdProd,
 	"clientSecret" => ($sandbox) ? $clientSecretHomolog : $clientSecretProd,
-	"certificate" => ($sandbox) ? $pathCertificateHomolog : $pathCertificateProd,
+	"certificate" => ($sandbox) ? $certificateHomolog : $certificateProd,
 	"pwdCertificate" => "", // Optional | Default = ""
 	"sandbox" => $sandbox, // Optional | Default = false
 	"debug" => false, // Optional | Default = false
+	"cache" => true, // Optional | Default = true
 	"timeout" => 30, // Optional | Default = 30
 	"responseHeaders" => true, //  Optional | Default = false
 ];

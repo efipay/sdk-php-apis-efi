@@ -12,7 +12,7 @@ class Request extends BaseModel
 {
     private $client;
     private $config;
-    private $certifiedPath;
+    private $cache;
 
     /**
      * Initializes a new instance of the Request class.
@@ -22,7 +22,7 @@ class Request extends BaseModel
     public function __construct(?array $options = null)
     {
         $this->config = Config::options($options);
-
+        $this->cache = new FileCacheRetriever();
         $clientData = $this->getClientData($options ?? []);
         $this->client = new Client($clientData);
     }
@@ -57,22 +57,52 @@ class Request extends BaseModel
     /**
      * Verifies the certificate and returns the certificate path.
      *
-     * @param string $certificate The certificate path.
+     * @param string $certificate The certificate path or base64 content.
      * @return string The path of the certificate.
      * @throws EfiException If the certificate is invalid or expired.
      */
     private function verifyCertificate(string $certificate): string
     {
+        // Check if the certificate is a file path with a valid extension.
         if (file_exists($certificate)) {
             $certPath = realpath($certificate);
-            $fileContents = $this->readCertificateFile($certPath);
+            $extension = pathinfo($certPath, PATHINFO_EXTENSION);
 
-            $this->validateCertificate($fileContents, $certPath);
-
-            return $certPath;
-        } else {
-            $this->throwEfiException('Certificado não encontrado', 403, ['headers' => []]);
+            if (in_array($extension, ['p12', 'pem'])) {
+                $fileContents = $this->readCertificateFile($certPath);
+                $this->validateCertificate($fileContents, $certPath);
+                return $certPath;
+            }
         }
+
+        // If not a file path, treat as base64 and manage with cache.
+        if ($this->config['cache']) {
+            $cacheKey = 'cert_path_' . hash('sha256', $certificate);
+            $certPath = $this->cache->get($cacheKey);
+
+            if ($certPath && file_exists($certPath)) {
+                return $certPath; // Return cached certificate path.
+            }
+        }
+
+        $fileContents = base64_decode($certificate, true);
+        if ($fileContents === false) {
+            $this->throwEfiException('Certificado fornecido não é um caminho de arquivo válido (.p12 ou .pem) nem uma string base64 válida.', 403, ['headers' => []]);
+        }
+
+        $certPath = tempnam(sys_get_temp_dir(), 'efi_cert_');
+        if ($certPath === false || file_put_contents($certPath, $fileContents) === false) {
+            $this->throwEfiException('Não foi possível criar o arquivo de certificado temporário do base64 em ' . $certPath, 500, ['headers' => []]);
+        }
+
+        chmod($certPath, 0640);
+        $this->validateCertificate($fileContents, $certPath);
+
+        if ($this->config['cache']) {
+            $this->cache->set($cacheKey, $certPath, 3600); // Cache the new certificate path for 1 hour.
+        }
+
+        return $certPath;
     }
 
     /**
@@ -102,14 +132,56 @@ class Request extends BaseModel
 
     private function validateCertificate(string $fileContents, string $certPath): void
     {
-        if (pathinfo($certPath, PATHINFO_EXTENSION) === 'p12') {
-            $certData = $this->readP12Certificate($fileContents);
-            $fileContents = $certData['cert'];
+        $certData = [];
+        $pemContents = $fileContents;
+        $isTempFile = strpos($certPath, sys_get_temp_dir()) === 0;
+        $publicKey = null;
+
+        // Check if the content is likely a PEM file.
+        if (strpos($fileContents, 'BEGIN CERTIFICATE') !== false) {
+            $publicKey = openssl_x509_parse($pemContents);
+
+            $privateKeyEncrypted = strpos($fileContents, 'ENCRYPTED PRIVATE KEY') !== false;
+            $passwordProvided = !empty($this->config['pwdCertificate']);
+            $sourceType = $isTempFile ? "base64" : "PEM";
+
+            if ($privateKeyEncrypted && !$passwordProvided) {
+                if ($isTempFile)
+                    unlink($certPath);
+                $this->throwEfiException("A chave privada do certificado " . $sourceType . " está criptografada, mas nenhuma senha foi fornecida.", 403, ['headers' => []]);
+            }
+
+            if (!$privateKeyEncrypted && $passwordProvided) {
+                if ($isTempFile)
+                    unlink($certPath);
+                $this->throwEfiException("Foi fornecida uma senha para uma chave privada de certificado " . $sourceType . " que não está criptografada.", 403, ['headers' => []]);
+            }
+
+            $privateKey = openssl_pkey_get_private($fileContents, $this->config['pwdCertificate']);
+            if ($privateKey === false && $privateKeyEncrypted) {
+                if ($isTempFile)
+                    unlink($certPath);
+                $this->throwEfiException("Não foi possível ler a chave privada do certificado " . $sourceType . ". A senha pode estar incorreta.", 403, ['headers' => []]);
+            }
+        } else {
+            // Assume it's a P12, either from a file or base64.
+            if (openssl_pkcs12_read($fileContents, $certData, $this->config['pwdCertificate'])) {
+                $pemContents = $certData['cert'];
+                $publicKey = openssl_x509_parse($pemContents);
+            } else {
+                // If reading the P12 fails, it's a password or format error.
+                if ($isTempFile)
+                    unlink($certPath);
+                $sourceType = $isTempFile ? "base64" : "p12";
+                $this->throwEfiException("Não foi possível ler o certificado. Se for um arquivo " . $sourceType . ", verifique a senha.", 403, ['headers' => []]);
+            }
         }
 
-        $publicKey = openssl_x509_parse($fileContents);
         if (!$publicKey) {
-            $this->throwEfiException('Certificado inválido ou inativo', 403, ['headers' => []]);
+            if ($isTempFile && !$this->config['cache']) { // Only unlink if it's a non-cached temp file.
+                unlink($certPath);
+            }
+            $this->throwEfiException('Certificado inválido ou inativo. Verifique se o formato e o conteúdo do arquivo estão corretos.', 403, ['headers' => []]);
         }
 
         $this->checkCertificateEnviroment($publicKey['issuer']['CN']);
@@ -117,26 +189,10 @@ class Request extends BaseModel
     }
 
     /**
-     * Reads the contents of a P12 certificate file.
-     *
-     * @param string $fileContents The contents of the P12 certificate.
-     * @return array The certificate data extracted from the P12 file.
-     * @throws EfiException If unable to read the P12 certificate.
-     */
-
-    private function readP12Certificate(string $fileContents): array
-    {
-        if (!openssl_pkcs12_read($fileContents, $certData, $this->config['pwdCertificate'])) {
-            $this->throwEfiException('Não foi possível ler o arquivo de certificado p12', 403, ['headers' => []]);
-        }
-        return $certData;
-    }
-
-    /**
-     * Checks if the certificate is valid to environment chosen.
+     * Checks if the certificate is valid for the chosen environment.
      *
      * @param string $issuerCn The certificate issuer.
-     * @throws EfiException If the certificate is not valid to environment chosed.
+     * @throws EfiException If the certificate is not valid for the chosen environment.
      */
     private function checkCertificateEnviroment(string $issuerCn): void
     {
@@ -150,14 +206,13 @@ class Request extends BaseModel
     /**
      * Checks if the certificate has expired.
      *
-     * @param string $validToTime Certificate validity data.
+     * @param int $validToTime Certificate validity data.
      * @throws EfiException If the certificate has expired.
      */
-    private function checkCertificateExpiration(string $validToTime): void
+    private function checkCertificateExpiration(int $validToTime): void
     {
-        $today = date("Y-m-d H:i:s");
-        $validTo = date('Y-m-d H:i:s', $validToTime);
-        if ($validTo <= $today) {
+        if ($validToTime <= time()) {
+            $validTo = date('Y-m-d H:i:s', $validToTime);
             $this->throwEfiException('O certificado de autenticação expirou em ' . $validTo, 403, ['headers' => []]);
         }
     }
@@ -168,7 +223,7 @@ class Request extends BaseModel
      * @param string $method The HTTP method.
      * @param string $route The URL route.
      * @param array $requestOptions The request options.
-     * @return object The response data.
+     * @return mixed The response data.
      * @throws EfiException If there is an EFI Pay specific error.
      */
 
@@ -201,36 +256,35 @@ class Request extends BaseModel
         }
 
         if (isset($this->config['headers'])) {
-            $requestOptions['headers'] = $this->mergeHeaders($requestOptions, $this->config['headers']);
+            $requestOptions['headers'] = $this->mergeHeaders($requestOptions['headers'] ?? [], $this->config['headers']);
         }
     }
 
     /**
      * Merges default headers with request-specific headers.
      *
-     * @param array $requestOptions The request options containing headers.
+     * @param array $requestHeaders The request headers.
      * @param array $defaultHeaders The default headers to be merged.
      * @return array The merged headers.
      */
-
-    private function mergeHeaders(array $requestOptions, array $defaultHeaders): array
+    private function mergeHeaders(array $requestHeaders, array $defaultHeaders): array
     {
         foreach ($defaultHeaders as $key => $value) {
-            if (!isset($requestOptions['headers'][$key])) {
+            if (!isset($requestHeaders[$key])) {
                 if ($key === 'x-skip-mtls-checking' && is_bool($value)) {
-                    $requestOptions['headers'][$key] = $value ? 'true' : 'false';
+                    $requestHeaders[$key] = $value ? 'true' : 'false';
                 } else {
-                    $requestOptions['headers'][$key] = $value;
+                    $requestHeaders[$key] = $value;
                 }
             }
         }
-        return $requestOptions['headers'];
+        return $requestHeaders;
     }
 
     /**
      * Processes the HTTP response and returns the appropriate data.
      *
-     * @param mixed $response The HTTP response object.
+     * @param \Psr\Http\Message\ResponseInterface $response The HTTP response object.
      * @return mixed The processed response data.
      */
 
@@ -284,6 +338,7 @@ class Request extends BaseModel
      *
      * @param string $message Error message.
      * @param int $statusCode HTTP status code.
+     * @param array $headers Response headers.
      * @throws EfiException The EfiException.
      */
     private function throwEfiException(string $message, int $statusCode, array $headers): void
