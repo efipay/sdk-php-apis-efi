@@ -29,32 +29,33 @@ try {
 	$response = $api->detailReport($params);
 
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"] && is_array($response->body)) {
-		print_r("<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
-		print_r("<pre>" . json_encode($response->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+		echo "<pre>" . json_encode($response->body, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
+		echo "<pre>" . json_encode($response->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 	} else if (is_array($response)) {
-		print_r("<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+		echo "<pre>" . json_encode($response, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 	} else {
-		$output = fopen("php://output", "w,ccs=UTF-8");
+		// CSV output - Disable debug mode to download the file
+		header("Content-Type: text/csv; charset=utf-8");
+		header("Content-Disposition: attachment; filename=Report_" . $params['id'] . ".csv");
+
+		$output = fopen("php://output", "w");
 		fputs($output, "\xEF\xBB\xBF");
-		
+
 		if (extension_loaded('mbstring')) {
-			fputs($output, mb_convert_encoding($response, 'UTF-8'));
+			$responseData = isset($response->body) ? $response->body : $response;
+			fputs($output, mb_convert_encoding($responseData, 'UTF-8'));
 		} else {
-			// Caso a extensão não esteja habilitada, você pode fazer algo como:
 			throw new Exception("A extensão 'mbstring' não está habilitada. Por favor, habilite-a no PHP para continuar.");
 		}
-
-		// Tell the browser it's going to be a csv file and download it
-		header("Content-Type: text/csv; charset=utf-8");
-		header("Content-Disposition: attachment; filename=report_" . $params['id'] . ".csv");
+		fclose($output);
 	}
 } catch (EfiException $e) {
-	print_r($e->code . "<br>");
-	print_r($e->error . "<br>");
-	print_r($e->errorDescription . "<br>");
+	echo $e->code . "<br>";
+	echo $e->error . "<br>";
+	echo $e->errorDescription . "<br>";
 	if (isset($options["responseHeaders"]) && $options["responseHeaders"]) {
-		print_r("<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>");
+		echo "<pre>" . json_encode($e->headers, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . "</pre>";
 	}
 } catch (Exception $e) {
-	print_r($e->getMessage());
+	echo $e->getMessage();
 }
