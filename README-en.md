@@ -81,17 +81,18 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Getting Started**
 
-To get started, you must configure the credentials in the `/examples/credentials/options.php` file. Instantiate the `clientId`, `clientSecret` for authentication, and `sandbox` as *true* if your environment is Sandbox, or *false* if it's Production. Except for the Charges API (Boleto/Carnê/Credit Card), it is mandatory to provide the `certificate` attribute with the **absolute** path to the file in `.p12` or `.pem` format. In the section below, you can follow [how to obtain the credentials and certificate](#how-to-get-client-id-and-client-secret-credentials).
+To get started, you must configure the credentials in the `/examples/credentials/options.php` file. Instantiate the `clientId`, `clientSecret` for authentication, and `sandbox` as *true* if your environment is Sandbox, or *false* if it's Production. Except for the Charges API (Boleto/Carnê/Credit Card), it is mandatory to provide the `certificate` attribute with the **absolute** path to the file in `.p12` or `.pem` format, or use the PEM certificate converted to base64 (To do this conversion, use the converter available in [/examples/credentials/cert/certificate_converter.php](https://github.com/efipay/sdk-php-apis-efi/tree/main/examples/credentials/certificate_converter.php)). In the next section, you can follow [how to obtain the credentials and certificate](#how-to-get-client-id-and-client-secret-credentials).
 
 See an example of credential configuration in the SDK:
 ```php
 $options = [
 	"clientId" => "Client_Id...",
 	"clientSecret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/certificateFile.p12"), // Mandatory, except for the Charges API | Absolute path to the certificate in .p12 or .pem format
+	"certificate" => realpath(__DIR__ . "/certificateFile.p12"), // Mandatory, except for the Charges API | Absolute path to the certificate in .p12 or .pem format, or the certificate in PEM converted to base64.
 	"pwdCertificate" => "", // Optional | Default = "" | Certificate encryption password
 	"sandbox" => false, // Optional | Default = false | Sets the development environment between Production and Sandbox
 	"debug" => false, // Optional | Default = false | Enables/disables Guzzle request logs
+	"cache" => true, // Optional | Default = true | Enables/disables authentication caching, optimizing and reducing the number of requests
 	"timeout" => 30, // Optional | Default = 30 | Sets the maximum response time for requests
 	"responseHeaders" => false, //  Optional | Default = false || Enables/disables the return of request headers
 ];

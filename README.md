@@ -81,17 +81,20 @@ composer require efipay/sdk-php-apis-efi
 
 ## **Começando**
 
-Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Com exceção da API Cobranças (Boleto/Carnê/Cartão de crédito), é obrigatório informar no atributo `certificate` o caminho **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`. Na sessão abaixo, você pode acompanhar [como obter as credenciais e certificado](#como-obter-as-credenciais-client-id-e-client-secret).
+Para começar, você deve configurar as credenciais no arquivo `/examples/credentials/options.php`. Instancie as informações `clientId`, `clientSecret` para autenticação e `sandbox` igual a *true*, se seu ambiente for Homologação, ou *false*, se for Produção. Com exceção da API Cobranças (Boleto/Carnê/Cartão de crédito), é obrigatório informar no atributo `certificate` o caminho **absoluto** com o nome do arquivo no formato `.p12` ou `.pem`, ou utilizar o certificado PEM convertido em base64 (Para fazer esta conversão, você pode utilizar o conversor disponibilizado em [/examples/credentials/certificate_converter.php](https://github.com/efipay/sdk-php-apis-efi/tree/main/examples/credentials/certificate_converter.php)). 
+
+Na próxima sessão, você pode acompanhar [como obter as credenciais e certificado](#como-obter-as-credenciais-client-id-e-client-secret).
 
 Veja um exemplo de configuração das credenciais na SDK:
 ```php
 $options = [
 	"clientId" => "Client_Id...",
 	"clientSecret" => "Client_Secret...",
-	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Obrigatório, com exceção da API Cobranças  | Caminho absoluto para o certificado no formato .p12 ou .pem
+	"certificate" => realpath(__DIR__ . "/arquivoCertificado.p12"), // Obrigatório, com exceção da API Cobranças  | Caminho absoluto para o certificado no formato .p12 ou .pem, ou o certificado PEM convertido em base64
 	"pwdCertificate" => "", // Opcional | Padrão = "" | Senha de criptografia do certificado
 	"sandbox" => false, // Opcional | Padrão = false | Define o ambiente de desenvolvimento entre Produção e Homologação
 	"debug" => false, // Opcional | Padrão = false | Ativa/desativa os logs de requisições do Guzzle
+	"cache" => true, // Opcional | Padrão = true | Ativa/desativa o cache da autenticação e de certificados base64, otimizando e reduzindo o número de requisições
 	"timeout" => 30, // Opcional | Padrão = 30 | Define o tempo máximo de resposta das requisições
 	"responseHeaders" => false, //  Optional | Default = false || Ativa/desativa o retorno do header das requisições
 ];
