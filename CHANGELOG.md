@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.17.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.0) (2025-09-23)
+-------------------------- 
+* Adds support for base64 certificates
+
 [Release 1.16.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.16.0) (2025-08-20)
 -------------------------- 
 * Added new example of send Pix to same ownership
