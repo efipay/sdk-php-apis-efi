@@ -32,7 +32,7 @@ class Endpoints
      * @return Endpoints A new instance of the class.
      * @throws Exception When the credentials are not defined.
      */
-    public static function getInstance(array $options = null, ?object $requester = null): Endpoints
+    public static function getInstance(?array $options = null, ?object $requester = null): Endpoints
     {
         if (!isset($options)) {
             throw new Exception('Credenciais Client_Id e Client_Secret não foram definidas corretamente');
