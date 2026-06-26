@@ -105,6 +105,7 @@ namespace Efi;
  * @method mixed pixSplitConfig(array $params = [], array $body)
  * @method mixed pixSplitConfigId(array $params, array $body)
  * @method mixed pixSplitDetailConfig(array $params)
+ * @method mixed pixSplitDevolution(array $params, array $body)
  * @method mixed pixCreateDueChargeBatch(array $params, array $body)
  * @method mixed pixUpdateDueChargeBatch(array $params, array $body)
  * @method mixed pixDetailDueChargeBatch(array $params)

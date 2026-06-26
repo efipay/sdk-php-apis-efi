@@ -190,6 +190,11 @@ return [
             "method" => "GET",
             "scope" => "gn.split.read"
         ],
+        "pixSplitDevolution" => [
+            "route" => "/v2/gn/split/pix/:e2eid/devolucao/:id",
+            "method" => "PUT",
+            "scope" => "gn.pix.write"
+        ],
         "getAccountBalance" => [
             "route" => "/v2/gn/saldo",
             "method" => "GET",
