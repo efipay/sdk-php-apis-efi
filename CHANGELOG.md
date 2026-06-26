@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.18.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.18.0) (2026-06-26)
+-------------------------- 
+* Added new method and example of Pix refund with split
+* Added new method and example for static Pix QR Code generator
+
 [Release 1.17.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.2) (2026-06-26)
 -------------------------- 
 * Fixed: Normalize HTTP method names to uppercase in Request.php
