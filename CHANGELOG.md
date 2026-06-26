@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.17.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.1) (2026-06-26)
+-------------------------- 
+* Fixed: use explicit nullable type for $options in Endpoints::getInstance()
+
 [Release 1.17.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.0) (2025-09-23)
 -------------------------- 
 * Adds support for base64 certificates
