@@ -1,6 +1,11 @@
 Changelog
 =========
 
+[Release 1.17.2](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.2) (2026-06-26)
+-------------------------- 
+* Fixed: Normalize HTTP method names to uppercase in Request.php
+* Fixed: Improve error handling in cleanExpiredCache
+
 [Release 1.17.1](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.17.1) (2026-06-26)
 -------------------------- 
 * Fixed: use explicit nullable type for $options in Endpoints::getInstance()
