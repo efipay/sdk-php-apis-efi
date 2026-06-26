@@ -8,41 +8,41 @@ return [
     "ENDPOINTS" => [
         "authorize" => [
             "route" => "/v1/oauth/token",
-            "method" => "post"
+            "method" => "POST"
         ],
         "payDetailBarCode" => [
             "route" => "/v1/codBarras/:codBarras",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.barcode.read"
         ],
         "payRequestBarCode" => [
             "route" => "/v1/codBarras/:codBarras",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.barcode.pay.write"
         ],
         "payDetailPayment" => [
             "route" => "/v1/:idPagamento",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.barcode.read"
         ],
         "payListPayments" => [
             "route" => "/v1/resumo",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.barcode.read"
         ],
         "payConfigWebhook" => [
             "route" => "/v1/webhook",
-            "method" => "put",
+            "method" => "PUT",
             "scope" => "payment.webhook.write"
         ],
         "payDeleteWebhook" => [
             "route" => "/v1/webhook",
-            "method" => "delete",
+            "method" => "DELETE",
             "scope" => "payment.webhook.write"
         ],
         "payListWebhook" => [
             "route" => "/v1/webhook",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "payment.webhook.read"
         ]
     ]

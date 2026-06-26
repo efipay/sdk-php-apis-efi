@@ -8,136 +8,136 @@ return [
     "ENDPOINTS" => [
         "authorize" => [
             "route" => "/v1/oauth/token",
-            "method" => "post"
+            "method" => "POST"
         ],
         "ofConfigUpdate" => [
             "route" => "/v1/config",
-            "method" => "put",
+            "method" => "PUT",
             "scope" => "gn.opb.config.write"
         ],
         "ofConfigDetail" => [
             "route" => "/v1/config",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.config.read"
         ],
         "ofListParticipants" => [
             "route" => "/v1/participantes",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.participants.read"
         ],
         "ofStartPixPayment" => [
             "route" => "/v1/pagamentos/pix",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.send"
         ],
         "ofListPixPayment" => [
             "route" => "/v1/pagamentos/pix",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.payment.pix.read"
         ],
         "ofDevolutionPix" => [
             "route" => "/v1/pagamentos/pix/:identificadorPagamento/devolver",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.refund"
         ],
         "ofCancelSchedulePix" => [
             "route" => "/v1/pagamentos-agendados/pix/:identificadorPagamento/cancelar",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.payment.pix.cancel"
         ],
         "ofListSchedulePixPayment" => [
             "route" => "/v1/pagamentos-agendados/pix",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.payment.pix.read"
         ],
         "ofStartSchedulePixPayment" => [
             "route" => "/v1/pagamentos-agendados/pix",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.send"
         ],
         "ofDevolutionSchedulePix" => [
             "route" => "/v1/pagamentos-agendados/pix/:identificadorPagamento/devolver",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.refund"
         ],
         "ofStartRecurrencyPixPayment" => [
             "route" => "/v1/pagamentos-recorrentes/pix",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.send"
         ],
         "ofListRecurrencyPixPayment" => [
             "route" => "/v1/pagamentos-recorrentes/pix",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.payment.pix.read"
         ],
         "ofCancelRecurrencyPix" => [
             "route" => "/v1/pagamentos-recorrentes/pix/:identificadorPagamento/cancelar",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.payment.pix.cancel"
         ],
         "ofDevolutionRecurrencyPix" => [
             "route" => "/v1/pagamentos-recorrentes/pix/:identificadorPagamento/devolver",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.payment.pix.refund"
         ],
         "ofReplaceRecurrencyPixParcel" => [
             "route" => "/v1/pagamentos-recorrentes/pix/:identificadorPagamento/substituir/:endToEndId",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.payment.pix.send"
         ],
         "ofCreateBiometricEnrollment" => [
             "route" => "/v1/pagamentos-biometria/vinculos",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.jwr.enrollment.write"
         ],
         "ofListBiometricEnrollment" => [
             "route" => "/v1/pagamentos-biometria/vinculos",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.jwr.enrollment.read"
         ],
         "ofRevokeBiometricEnrollment" => [
             "route" => "/v1/pagamentos-biometria/vinculos",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.jwr.payment.write"
         ],
         "ofCreateBiometricPixPayment" => [
             "route" => "/v1/pagamentos-biometria/pix",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.jwr.payment.write"
         ],
         "ofListBiometricPixPayment" => [
             "route" => "/v1/pagamentos-biometria/pix",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.jwr.payment.write"
         ],
         "ofCreateAutomaticEnrollment" => [
             "route" => "/v1/pagamentos-automaticos/adesao",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.automatic.consent.write"
         ],
         "ofListAutomaticEnrollment" => [
             "route" => "/v1/pagamentos-automaticos/adesao",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.automatic.consent.read"
         ],
         "ofUpdateAutomaticEnrollment" => [
             "route" => "/v1/pagamentos-automaticos/adesao",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.automatic.consent.write"
         ],
         "ofCreateAutomaticPixPayment" => [
             "route" => "/v1/pagamentos-automaticos/pix",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.opb.automatic.payment.write"
         ],
         "ofListAutomaticPixPayment" => [
             "route" => "/v1/pagamentos-automaticos/pix",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.opb.automatic.payment.read"
         ],
         "ofCancelAutomaticPixPayment" => [
             "route" => "/v1/pagamentos-automaticos/pix",
-            "method" => "patch",
+            "method" => "PATCH",
             "scope" => "gn.opb.automatic.payment.write"
         ]
     ]

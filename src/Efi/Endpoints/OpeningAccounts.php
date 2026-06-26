@@ -8,41 +8,41 @@ return [
     "ENDPOINTS" => [
         "authorize" => [
             "route" => "/v1/oauth/token",
-            "method" => "post"
+            "method" => "POST"
         ],
         "createAccount" => [
             "route" => "/v1/conta-simplificada",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.registration.write"
         ],
         "getAccountCredentials" => [
             "route" => "/v1/conta-simplificada/:idContaSimplificada/credenciais",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.registration.read"
         ],
         "createAccountCertificate" => [
             "route" => "/v1/conta-simplificada/:idContaSimplificada/certificado",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.registration.read"
         ],
         "accountConfigWebhook" => [
             "route" => "/v1/webhook",
-            "method" => "post",
+            "method" => "POST",
             "scope" => "gn.registration.webhook.write"
         ],
         "accountListWebhook" => [
             "route" => "/v1/webhooks",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.registration.webhook.read"
         ],
         "accountDetailWebhook" => [
             "route" => "/v1/webhook/:identificadorWebhook",
-            "method" => "get",
+            "method" => "GET",
             "scope" => "gn.registration.webhook.read"
         ],
         "accountDeleteWebhook" => [
             "route" => "/v1/webhook/:identificadorWebhook",
-            "method" => "delete",
+            "method" => "DELETE",
             "scope" => "gn.registration.webhook.write"
         ]
     ]

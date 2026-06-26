@@ -234,7 +234,7 @@ class Request extends BaseModel
         }
         try {
             $this->applyCertificateAndHeaders($requestOptions);
-            $response = $this->client->request($method, $route, $requestOptions);
+            $response = $this->client->request(strtoupper($method), $route, $requestOptions);
             return $this->processResponse($response);
         } catch (ClientException $e) {
             throw $this->handleClientException($e);
