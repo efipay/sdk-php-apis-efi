@@ -1,6 +1,10 @@
 Changelog
 =========
 
+[Release 1.19.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.19.0) (2026-06-26)
+-------------------------- 
+* Added new method and example of credit card charge with 3DS validation
+
 [Release 1.18.0](https://github.com/efipay/sdk-php-apis-efi/releases/tag/1.18.0) (2026-06-26)
 -------------------------- 
 * Added new method and example of Pix refund with split
