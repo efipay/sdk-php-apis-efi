@@ -140,10 +140,18 @@ class FileCacheRetriever
     private function cleanExpiredCache(): void
     {
         foreach (glob($this->cacheDir . '/*') as $file) {
-            $data = json_decode(file_get_contents($file), true);
+            $content = @file_get_contents($file);
 
-            if ($data === null || ($data['expires'] && $data['expires'] < time())) {
-                unlink($file);
+            if ($content === false) {
+                continue;
+            }
+
+            $data = json_decode($content, true);
+
+            if ($data === null || ($data['expires'] && $data['expires'] < time())) {            
+                if (is_file($file)) {
+                    @unlink($file);
+                }
             }
         }
     }
