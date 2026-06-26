@@ -134,6 +134,7 @@ namespace Efi;
  * @method mixed pixCreateAutomaticCharge($params = [], $body)
  * @method mixed pixListAutomaticCharge($params)
  * @method mixed pixRetryRequestAutomatic($params)
+ * @method mixed createStaticPix(array $params = [])
  * 
  * API OPEN FINANCE
  * @method mixed ofConfigUpdate(array $params = [], array $body)
@@ -211,5 +212,10 @@ class EfiPay extends Endpoints
         } else {
             parent::__construct($options, $requester);
         }
+    }
+    public function createStaticPix(array $params): string
+    {
+        $staticPix = new StaticPix();
+        return $staticPix->create($params);
     }
 }
