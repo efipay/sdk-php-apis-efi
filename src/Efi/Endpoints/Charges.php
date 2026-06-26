@@ -15,6 +15,11 @@ return [
             "method" => "POST",
             "scope" => "charge"
         ],
+        "createChargeCard" => [
+            "route" => "/v2/charge/card",
+            "method" => "POST",
+            "scope" => "charge"
+        ],
         "createOneStepCharge" => [
             "route" => "/v1/charge/one-step",
             "method" => "POST",

@@ -17,6 +17,7 @@ namespace Efi;
  * @method mixed definePayMethod(array $params, array $body)
  * @method mixed definePayMethodPartner(array $params, array $body)
  * @method mixed cancelCharge(array $params)
+ * @method mixed createChargeCard(array $params = [], array $body)
  * @method mixed cardPaymentRetry(array $params, array $body)
  * @method mixed refundCard(array $params, array $body)
  * @method mixed createCarnet(array $params = [], array $body)

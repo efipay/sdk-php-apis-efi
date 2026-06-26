@@ -15,7 +15,7 @@ class ChargesException extends Exception
 
     public function __construct(array $error, int $code)
     {
-        $this->code = $error['code'] ?? $code;
+        $this->code = $error['status'] ?? $error['code'] ?? $code;
         $this->error = self::getErrorTitle($error, $this->code);
         $this->errorDescription = self::getErrorDescription($error, $this->code);
 
@@ -24,20 +24,60 @@ class ChargesException extends Exception
 
     private static function getErrorTitle(array $error, int $code): string
     {
+        if (isset($error['title']) && is_string($error['title'])) {
+            return $error['title'];
+        }
+        
         if (isset($error['error']) && is_string($error['error'])) {
             return $error['error'];
         }
+        
         return $code === 401 ? 'unauthorized' : 'request_error';
     }
 
-    private function getErrorDescription(array $error, int $code): string
+    private static function getErrorDescription(array $error, int $code): string
     {
         $description = '';
+
+        if (isset($error['detail'])) {
+            $description = $error['detail'];
+
+            if (isset($error['extras']) && is_array($error['extras'])) {
+                $extrasDescriptions = [];
+                
+                foreach ($error['extras'] as $extra) {
+                    $path = isset($extra['path']) && is_array($extra['path']) 
+                        ? implode('.', $extra['path']) 
+                        : 'unknown';
+                        
+                    $message = $extra['message'] ?? 'Erro de validação';
+                    $extraCode = $extra['code'] ?? 'unknown_error';
+                    
+                    $itemDesc = "Propriedade '{$path}': {$message} [Código: {$extraCode}]";
+                    
+                    if (array_key_exists('expected', $extra) || array_key_exists('received', $extra)) {
+                        $expected = $extra['expected'] ?? 'N/A';
+                        $received = $extra['received'] ?? 'N/A';
+                        $itemDesc .= " (Esperava: {$expected}, Recebeu: {$received})";
+                    }
+
+                    $extrasDescriptions[] = $itemDesc;
+                }
+
+                if (!empty($extrasDescriptions)) {
+                    $description .= ' - Detalhes: ' . implode(' | ', $extrasDescriptions);
+                }
+            }
+            
+            return $description;
+        }
+
         if (isset($error['error_description'])) {
             if (is_array($error['error_description'])) {
+                $property = $error['error_description']['property'] ?? 'unknown';
                 $description = isset($error['error_description']['message'])
-                    ? 'Propriedade: "' . $error['error_description']['property'] . '". ' . $error['error_description']['message']
-                    : $error['error_description'];
+                    ? 'Propriedade: "' . $property . '". ' . $error['error_description']['message']
+                    : json_encode($error['error_description']);
             } else {
                 $description = ($code === 401) ? 'Credenciais inválidas ou inativas' : $error['error_description'];
             }
@@ -48,6 +88,7 @@ class ChargesException extends Exception
         } else {
             $description = 'Ocorreu um erro. Entre em contato com o suporte Efí para mais detalhes.';
         }
+
         return $description;
     }
 }
