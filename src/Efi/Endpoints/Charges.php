@@ -16,7 +16,7 @@ return [
             "scope" => "charge"
         ],
         "createChargeCard" => [
-            "route" => "/v2/charge/card",
+            "route" => "/v1/charge/card",
             "method" => "POST",
             "scope" => "charge"
         ],

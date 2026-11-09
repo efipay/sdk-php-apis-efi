@@ -2,7 +2,7 @@
 
 /**
  * Detailed endpoint documentation
- * https://dev.efipay.com.br/docs/api-cobrancas/cartao
+ * https://dev.efipay.com.br/docs/api-cobrancas/cartao#criação-de-cobrança-por-cartão-de-crédito-com-autenticação-3ds
  */
 
 $autoload = realpath(__DIR__ . "/../../../vendor/autoload.php");
